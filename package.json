@@ -1,0 +1,21 @@
+{
+  "name": "bangteti",
+  "version": "1.0.0",
+  "description": "Simple LINE chatbot server for news chatbot high fidelity prototype",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "news",
+    "bot",
+    "line",
+    "chatbot",
+    "newsbot"
+  ],
+  "author": "Informatika ITB",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
