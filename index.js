@@ -70,17 +70,32 @@ function handleFollow(replyToken) {
 
 function handleCommand(command, replyToken) {
     console.log("\tProcessing command " + command + " with token " + replyToken);
-    const echo = { type: 'text', text: command };
-    client.replyMessage(replyToken, echo)
-    .then(() => console.log("\tSending reply " + replyToken))
-    .catch((err) => {
-        console.log("\tTerjadi kesalahan " + err)
-    });;
+
+    switch (command) {
+        case 'abc' : 
+            var reply = { type: 'text', text: "ABC adalah sebuah keyword yang valid" };
+            client.replyMessage(replyToken, reply)
+            .then(() => console.log("\tSending reply " + replyToken))
+            .catch((err) => {
+                console.log("\tTerjadi kesalahan " + err)
+            });;
+            break;
+        default :
+            var reply = { type: 'text', text: "Bang Teti bingung nih, "+command+" maksudnya apa ya?" };
+            client.replyMessage(replyToken, reply)
+            .then(() => console.log("\tSending reply " + replyToken))
+            .catch((err) => {
+                console.log("\tTerjadi kesalahan " + err)
+            });;
+    }
+
 }
 
 function handleError(replyToken) {
     console.log("\tBang Teti bingung!");
-    client.replyMessage(replyToken, "Bang Teti Bingung!")
+
+    const reply = { type: 'text', text: "Bang Teto bingung!" };
+    client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
