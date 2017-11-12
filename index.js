@@ -87,12 +87,13 @@ function handleCommand(command, replyToken) {
             });;
             break;
 		case 'cari' :
-			var reply = { type: 'text', text: JSON.stringify(crawler.searchNews("all",keyword)) };
-			client.replyMessage(replyToken, reply)
-			.then(() => console.log("\tSending reply " + replyToken))
-			.catch((err) => {
-				   console.log("\tTerjadi kesalahan " + err)
-				   });;
+			//var reply = { type: 'text', text: JSON.stringify(crawler.searchNews("all",keyword)) };
+			//client.replyMessage(replyToken, reply)
+			//.then(() => console.log("\tSending reply " + replyToken))
+			//.catch((err) => {
+				   //console.log("\tTerjadi kesalahan " + err)
+				   //});;
+			handleSearch(replyToken);
 			break;
         case 'image' :
             var reply = { type: 'image', originalContentUrl: "https://img.okezone.com/content/2017/10/03/33/1787616/pasrah-jeremy-teti-mengaku-kesulitan-mencari-jodoh-C1LQd3TusT.jpg" , previewImageUrl : "https://ruclip.com/chimg/e4/UCvYygswZM7vKjdMA90d0YIg.jpg"};
