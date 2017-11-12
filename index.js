@@ -68,11 +68,10 @@ function handleFollow(replyToken) {
         });
 }
 
-const pattern = new RegExp("^cari");
-
 function handleCommand(command, replyToken) {
     console.log("\tProcessing command " + command + " with token " + replyToken);
 
+    const pattern = new RegExp("^cari");
     if (pattern.test(command.toLowerCase)) {
         handleSearch(replyToken);
         return;
@@ -80,7 +79,6 @@ function handleCommand(command, replyToken) {
 
     switch (command.toLowerCase()) {
         case 'abc' : 
-
             var reply = { type: 'text', text: "ABC adalah sebuah keyword yang valid" };
             client.replyMessage(replyToken, reply)
             .then(() => console.log("\tSending reply " + replyToken))
