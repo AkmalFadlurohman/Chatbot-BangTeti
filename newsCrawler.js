@@ -49,7 +49,7 @@ function crawlNews(url,keyword) {
 			  news.push({"title" : title,"link" : link,"img" : src});
 			}
 		}
-		console.log(JSON.stringify(news,null,1));
+		return news;
 	});
 }
 var all = "http://rss.viva.co.id/get/all";
@@ -59,15 +59,15 @@ var sport = "http://rss.viva.co.id/get/sport";
 var economy = "http://rss.viva.co.id/get/bisnis"
 function searchNews(topic,keyword) {
 	if (topic === "all") {
-		crawlNews(all,keyword);
+		return crawlNews(all,keyword);
 	} else if (topic === "olahraga") {
-		crawlNews(sport,keyword);
+		return crawlNews(sport,keyword);
 	} else if (topic === "politik") {
-		crawlNews(politic,keword);
+		return crawlNews(politic,keyword);
 	} else if (topic === "teknologi") {
-		crawlNews(technology,keword);
+		return crawlNews(technology,keyword);
 	} else if (topic === "ekonomi") {
-		crawlNews(economy,keword);
+		return crawlNews(economy,keyword);
 	}
 }
 module.exports.searchNews = searchNews;
