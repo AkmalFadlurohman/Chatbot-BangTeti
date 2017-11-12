@@ -71,7 +71,7 @@ function handleFollow(replyToken) {
 function handleCommand(command, replyToken) {
     console.log("\tProcessing command " + command + " with token " + replyToken);
 
-    switch (command) {
+    switch (command.toLowerCase()) {
         case 'abc' : 
             var reply = { type: 'text', text: "ABC adalah sebuah keyword yang valid" };
             client.replyMessage(replyToken, reply)
@@ -88,8 +88,20 @@ function handleCommand(command, replyToken) {
                 console.log("\tTerjadi kesalahan " + err)
             });;
             break;
+        case 'bang':
+            handleHelp(replyToken);
+            break;
+        case 'abang':
+            handleHelp(replyToken);
+            break;
+        case 'help':
+            handleHelp(replyToken);
+            break;
+        case 'bantuan':
+            handleHelp(replyToken);
+            break;
         default :
-            var reply = { type: 'text', text: "Bang Teti bingung nih, "+command+" maksudnya apa ya?" };
+            var reply = { type: 'text', text: "Bang Teti bingung nih, '"+command+"' maksudnya apa ya?" };
             client.replyMessage(replyToken, reply)
             .then(() => console.log("\tSending reply " + replyToken))
             .catch((err) => {
@@ -97,6 +109,17 @@ function handleCommand(command, replyToken) {
             });;
     }
 
+}
+
+function handleHelp(replyToken) {
+    var reply = { 
+        type: 'text', 
+        text: "Hai gan, kamu perlu bantuan? \n\n Tenang aja, apapun kesulitannya Bang Joni bakal bantu kok. \n\n Kalo kamu mau nyari berita ketik aja 'Cari <apapun>', ntar Bang Teti bakal nyariin berita buat kamu. \n\n Nah kalo kamu mau nyari berita yang lagi viral kamu bisa ketik 'top10' \n\n Gampang kan! Kalo masih bingung panggil Abang lagi aja, ntar bakal dibantu kok (smile)" };
+    client.replyMessage(replyToken, reply)
+    .then(() => console.log("\tSending reply " + replyToken))
+    .catch((err) => {
+        console.log("\tTerjadi kesalahan " + err)
+    });;
 }
 
 function handleError(replyToken) {
