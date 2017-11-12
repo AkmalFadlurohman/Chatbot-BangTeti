@@ -80,6 +80,14 @@ function handleCommand(command, replyToken) {
                 console.log("\tTerjadi kesalahan " + err)
             });;
             break;
+        case 'image' :
+            var reply = { type: 'image', originalContentUrl: "https://img.okezone.com/content/2017/10/03/33/1787616/pasrah-jeremy-teti-mengaku-kesulitan-mencari-jodoh-C1LQd3TusT.jpg" , previewImageUrl : "https://ruclip.com/chimg/e4/UCvYygswZM7vKjdMA90d0YIg.jpg"};
+            client.replyMessage(replyToken, reply)
+            .then(() => console.log("\tSending reply " + replyToken))
+            .catch((err) => {
+                console.log("\tTerjadi kesalahan " + err)
+            });;
+            break;
         default :
             var reply = { type: 'text', text: "Bang Teti bingung nih, "+command+" maksudnya apa ya?" };
             client.replyMessage(replyToken, reply)
