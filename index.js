@@ -10,13 +10,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', (process.env.PORT || 5000));
 
-const config = {
-	channelAccessToken: '5T0Ter+WeMhWyPhCkh9DULTAkq1MyKNLaSZscQBQ2tRJSUfj9+JHlI+M2BmyNvWBSGHB6qTAbeMMkuPzf2T2x7bE+ROvxr6prGZu5awO6dB5a1V/BM7J20GG9pLX92kwGuiRDTWM2wwTTHYkzGtZvgdB04t89/1O/w1cDnyilFU=',
+const client = new line.Client({
+    channelAccessToken: '5T0Ter+WeMhWyPhCkh9DULTAkq1MyKNLaSZscQBQ2tRJSUfj9+JHlI+M2BmyNvWBSGHB6qTAbeMMkuPzf2T2x7bE+ROvxr6prGZu5awO6dB5a1V/BM7J20GG9pLX92kwGuiRDTWM2wwTTHYkzGtZvgdB04t89/1O/w1cDnyilFU=',
 	channelSecret: '3d4009bee32c80a68b725e3cbb45d13c',
-};
-/*const client = new line.Client({
-    channelAccessToken: '141436e98c9e53b21b7e2281ec03047d',
-	channelSecret: 'de5479f9ec30f746f48f19a5866aa24a',
 });
 
 // Main handler
@@ -89,48 +85,7 @@ function handleError(replyToken) {
 
 // Start server
 app.listen(app.get('port'), function() {
-  console.log('Bang Teti is listening on port', app.get('port'));
-});
-var topic = "all";
-var keyword = "anies";
-crawler.searchNews(topic,keyword);*/
-// create Express app
-// about Express itself: https://expressjs.com/
-
-
-// register a webhook handler with middleware
-// about the middleware, please refer to doc
-// create LINE SDK client
-const client = new line.Client(config);
-
-// register a webhook handler with middleware
-// about the middleware, please refer to doc
-app.post('/webhook', line.middleware(config), (req, res) => {
-		 Promise
-		 .all(req.body.events.map(handleEvent))
-		 .then((result) => res.json(result));
-		 });
-
-// event handler
-function handleEvent(event) {
-	if (event.type !== 'message' || event.message.type !== 'text') {
-		// ignore non-text-message event
-		return Promise.resolve(null);
-	}
-	
-	// create a echoing text message
-	const echo = { type: 'text', text: event.message.text };
-	
-	// use reply API
-	return client.replyMessage(event.replyToken, echo);
-}
-
-
-
-// listen on port
-const port = 1234;
-app.listen(port, () => {
-	console.log(`listening on ${port}`);
+    console.log('Bang Teti is listening on port', app.get('port'));
 });
 
 
