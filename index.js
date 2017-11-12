@@ -4,13 +4,15 @@ const bodyParser = require('body-parser');
 const https = require('https');
 const line = require('@line/bot-sdk');
 const app = express();
+var crawler = require('./newsCrawler');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', (process.env.PORT || 5000));
 
 const client = new line.Client({
-    channelAccessToken: '141436e98c9e53b21b7e2281ec03047d'
+    channelAccessToken: '141436e98c9e53b21b7e2281ec03047d',
+	channelSecret: 'de5479f9ec30f746f48f19a5866aa24a',
 });  
 
 // Main handler
@@ -76,3 +78,6 @@ function handleError(replyToken) {
 app.listen(app.get('port'), function() {
   console.log('Bang Teti is listening on port', app.get('port'));
 });
+var url = "http://rss.viva.co.id/get/all";
+var keyword = "anies";
+crawler.crawlNews(url,keyword);
