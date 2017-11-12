@@ -65,11 +65,20 @@ function handleFollow(replyToken) {
 
 function handleCommand(command, replyToken) {
     console.log("\tProcessing command " + command + " with token " + replyToken);
-
+    client.replyMessage(replyToken, command)
+    .then(() => console.log("\tSending reply " + replyToken))
+    .catch((err) => {
+        console.log("\tTerjadi kesalahan " + err)
+    });;
 }
 
 function handleError(replyToken) {
     console.log("\tBang Teti bingung!");
+    client.replyMessage(replyToken, "Bang Teti Bingung!")
+    .then(() => console.log("\tSending reply " + replyToken))
+    .catch((err) => {
+        console.log("\tTerjadi kesalahan " + err)
+    });;
 }
 
 // Start server
