@@ -5,7 +5,7 @@ const https = require('https');
 const line = require('@line/bot-sdk');
 const middleware = require('@line/bot-sdk').middleware;
 const app = express();
-var crawler = require('./newsCrawler');
+// var crawler = require('./newsCrawler');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -72,7 +72,7 @@ function handleCommand(command, replyToken) {
     console.log("\tProcessing command " + command + " with token " + replyToken);
 
     const pattern = new RegExp("^cari");
-    if (pattern.test(command.toLowerCase)) {
+    if (pattern.test(command.toLowerCase())) {
         handleSearch(replyToken);
         return;
     }
