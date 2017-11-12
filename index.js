@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const https = require('https');
 const line = require('@line/bot-sdk');
 const app = express();
-var crawler = require('./newsCrawler');
+//var crawler = require('./newsCrawler');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -108,6 +108,35 @@ function handleEvent(event) {
 		// ignore non-text-message event
 		return Promise.resolve(null);
 	}
+    switch (event.message.type) {
+        case 'text':
+            switch (event.message.text) {
+                case 'Me':
+                    event.source.profile().then(function(profile) {
+                        return event.reply('Hello ' + profile.displayName + ' ' + profile.userId);
+                    });
+                    break;
+                case 'Picture':
+                    event.reply({
+                        type: 'image',
+                        originalContentUrl: 'https://d.line-scdn.net/stf/line-lp/family/en-US/190X190_line_me.png',
+                        previewImageUrl: 'https://d.line-scdn.net/stf/line-lp/family/en-US/190X190_line_me.png'
+                    });
+                    break;
+            }
+            break;
+        case 'image':
+            event.message.content().then(function (data) {
+                    const s = data.toString('base64').substring(0, 30);
+                    return event.reply('Nice picture! ' + s);
+                }).catch(function (err) {
+                    return event.reply(err.toString());
+                });
+                break;
+        default:
+            event.reply('Unknow message: ' + JSON.stringify(event));
+            break;
+    }
 	
 	// create a echoing text message
 	const echo = { type: 'text', text: event.message.text };
@@ -115,6 +144,10 @@ function handleEvent(event) {
 	// use reply API
 	return client.replyMessage(event.replyToken, echo);
 }
+
+
+
+
 
 // listen on port
 const port = 1234;
