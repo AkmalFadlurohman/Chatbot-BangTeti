@@ -75,7 +75,7 @@ function handleCommand(command, replyToken) {
 
     const pattern = new RegExp("^cari");
     if (pattern.test(command.toLowerCase())) {
-        handleSearch(replyToken);
+        handleSearch(command, replyToken);
         return;
     }
 
@@ -95,7 +95,7 @@ function handleCommand(command, replyToken) {
 			//.catch((err) => {
 				   //console.log("\tTerjadi kesalahan " + err)
 				   //});;
-			handleSearch(replyToken);
+			handleSearch(command, replyToken);
 			break;
         case 'image' :
             var reply = { type: 'image', originalContentUrl: "https://img.okezone.com/content/2017/10/03/33/1787616/pasrah-jeremy-teti-mengaku-kesulitan-mencari-jodoh-C1LQd3TusT.jpg" , previewImageUrl : "https://ruclip.com/chimg/e4/UCvYygswZM7vKjdMA90d0YIg.jpg"};
@@ -150,7 +150,7 @@ function handleTop10(replyToken) {
     });;
 }
 
-function handleSearch(replyToken) {
+function handleSearch(command, replyToken) {
     var keyword = command.substring(4).trim();
 
     var reply = { 
