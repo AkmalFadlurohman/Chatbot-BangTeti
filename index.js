@@ -37,9 +37,7 @@ app.post('/', function(request, response) {
                 var message = event.message;
                 if (message.type == "text") {
                     console.log(message.text + " from " + message.id);
-				   	var command = str.substr(0,str.indexOf(' '));
-				   	var keyword = str.substr(0,str.indexOf(' ')+1);
-                    handleCommand(message.text, keyword, replyToken)
+                    handleCommand(message.text, replyToken)
                 } else {
                     handleError(replyToken);
                 }
