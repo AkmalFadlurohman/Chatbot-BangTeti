@@ -78,6 +78,6 @@ function handleError(replyToken) {
 app.listen(app.get('port'), function() {
   console.log('Bang Teti is listening on port', app.get('port'));
 });
-var url = "http://rss.viva.co.id/get/all";
+var topic = "all";
 var keyword = "anies";
-crawler.crawlNews(url,keyword);
+crawler.searchNews(topic,keyword);
