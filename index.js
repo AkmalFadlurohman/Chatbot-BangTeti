@@ -71,6 +71,8 @@ function handleFollow(replyToken) {
 function handleCommand(command, replyToken) {
     console.log("\tProcessing command " + command + " with token " + replyToken);
 
+    command = command.trim();
+
     const pattern = new RegExp("^cari");
     if (pattern.test(command.toLowerCase())) {
         handleSearch(replyToken);
@@ -149,9 +151,11 @@ function handleTop10(replyToken) {
 }
 
 function handleSearch(replyToken) {
+    var keyword = command.substring(4).trim();
+
     var reply = { 
         type: 'text', 
-        text: 'Hasil pencarian :' };
+        text: 'Hasil pencarian :' + keyword};
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
