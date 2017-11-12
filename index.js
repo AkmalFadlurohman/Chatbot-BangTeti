@@ -5,7 +5,7 @@ const https = require('https');
 const line = require('@line/bot-sdk');
 const middleware = require('@line/bot-sdk').middleware;
 const app = express();
-//var crawler = require('./newsCrawler');
+var crawler = require('./newsCrawler');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -37,7 +37,9 @@ app.post('/', function(request, response) {
                 var message = event.message;
                 if (message.type == "text") {
                     console.log(message.text + " from " + message.id);
-                    handleCommand(message.text, replyToken)
+				   	var command = str.substr(0,str.indexOf(' '));
+				   	var keyword = str.substr(0,str.indexOf(' ')+1);
+                    handleCommand(message.text, keyword, replyToken)
                 } else {
                     handleError(replyToken);
                 }
@@ -80,6 +82,7 @@ function handleCommand(command, replyToken) {
 
     switch (command.toLowerCase()) {
         case 'abc' : 
+
             var reply = { type: 'text', text: "ABC adalah sebuah keyword yang valid" };
             client.replyMessage(replyToken, reply)
             .then(() => console.log("\tSending reply " + replyToken))
@@ -87,6 +90,14 @@ function handleCommand(command, replyToken) {
                 console.log("\tTerjadi kesalahan " + err)
             });;
             break;
+		case 'cari' :
+			var reply = { type: 'text', text: JSON.stringify(crawler.searchNews("all",keyword)) };
+			client.replyMessage(replyToken, reply)
+			.then(() => console.log("\tSending reply " + replyToken))
+			.catch((err) => {
+				   console.log("\tTerjadi kesalahan " + err)
+				   });;
+			break;
         case 'image' :
             var reply = { type: 'image', originalContentUrl: "https://img.okezone.com/content/2017/10/03/33/1787616/pasrah-jeremy-teti-mengaku-kesulitan-mencari-jodoh-C1LQd3TusT.jpg" , previewImageUrl : "https://ruclip.com/chimg/e4/UCvYygswZM7vKjdMA90d0YIg.jpg"};
             client.replyMessage(replyToken, reply)
