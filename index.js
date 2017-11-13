@@ -208,9 +208,9 @@ function handleSearch(command, replyToken) {
 	//console.log(JSON.stringify(news,null,1));
     var reply = {
         type: 'text', 
-        text: 'Hasil pencarian :' + keyword + JSON.stringify(news)};
+        text: 'Hasil pencarian :' + keyword + JSON.stringify(news,null,2)};
     client.replyMessage(replyToken, reply)
-    .then(() => console.log("\tSending reply " + JSON.stringify(news)))//replyToken))
+    .then(() => console.log("\tSending reply " + JSON.stringify(news,null,2)))//replyToken))
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
