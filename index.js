@@ -1,5 +1,6 @@
 // Creating App instance
 var xml2js = require('xml2js'),parser = new xml2js.Parser({explicitArray : false}),http = require('http'),jsdom = require('jsdom'),kmp = require('kmp');
+const { JSDOM } = jsdom;
 const express = require('express');
 const bodyParser = require('body-parser');
 const https = require('https');
