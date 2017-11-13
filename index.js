@@ -180,6 +180,7 @@ function handleSearch(command, replyToken) {
     var keyword = command.substring(4).trim();
 	//var result = crawler.searchNews("all",keyword);
 	//crawler.searchNews("all",keyword);
+	var url = "http://rss.viva.co.id/get/all";
 	var news = [];
 	xmlToJson(url, function(err, result) {
 		if (err) {
