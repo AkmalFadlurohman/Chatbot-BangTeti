@@ -152,12 +152,12 @@ function handleTop10(replyToken) {
 
 function handleSearch(command, replyToken) {
     var keyword = command.substring(4).trim();
-	var result = crawler.searchNews("all",keyword);
+	//var result = crawler.searchNews("all",keyword);
     var reply = { 
         type: 'text', 
         text: 'Hasil pencarian :' + keyword};
     client.replyMessage(replyToken, reply)
-    .then(() => console.log("\tResult " + JSON.stringify(result)))
+    .then(() => console.log("\tResult " + JSON.stringify(crawler.searchNews("all",keyword))))
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
