@@ -49,8 +49,8 @@ function crawlNews(url,keyword) {
 			  news.push({"title" : title,"link" : link,"img" : src});
 			}
 		}
-		return news;
 	});
+	console.log(JSON.stringify(news,null,1));
 }
 var all = "http://rss.viva.co.id/get/all";
 var politic = "http://rss.viva.co.id/get/politik";

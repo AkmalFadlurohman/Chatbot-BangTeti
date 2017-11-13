@@ -157,7 +157,7 @@ function handleSearch(command, replyToken) {
         type: 'text', 
         text: 'Hasil pencarian :' + keyword};
     client.replyMessage(replyToken, reply)
-    .then(() => console.log("\tResult " + JSON.stringify(crawler.searchNews("all",keyword))))
+    .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
