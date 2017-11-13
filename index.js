@@ -210,7 +210,7 @@ function handleSearch(command, replyToken) {
         type: 'text', 
         text: 'Hasil pencarian :' + keyword + JSON.stringify(news)};
     client.replyMessage(replyToken, reply)
-    .then(() => console.log("\tSending reply " + replyToken))
+    .then(() => console.log("\tSending reply " + JSON.stringify(news)))//replyToken))
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
