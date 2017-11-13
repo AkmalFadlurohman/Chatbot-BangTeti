@@ -59,15 +59,16 @@ var sport = "http://rss.viva.co.id/get/sport";
 var economy = "http://rss.viva.co.id/get/bisnis"
 function searchNews(topic,keyword) {
 	if (topic === "all") {
-		return crawlNews(all,keyword);
+		crawlNews(all,keyword);
 	} else if (topic === "olahraga") {
-		return crawlNews(sport,keyword);
+		crawlNews(sport,keyword);
 	} else if (topic === "politik") {
-		return crawlNews(politic,keyword);
+		crawlNews(politic,keyword);
 	} else if (topic === "teknologi") {
-		return crawlNews(technology,keyword);
+		crawlNews(technology,keyword);
 	} else if (topic === "ekonomi") {
-		return crawlNews(economy,keyword);
+		crawlNews(economy,keyword);
 	}
 }
 module.exports.searchNews = searchNews;
+
