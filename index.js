@@ -182,7 +182,7 @@ function handleSearch(command, replyToken) {
 	//var result = crawler.searchNews("all",keyword);
 	//crawler.searchNews("all",keyword);
 	var url = "http://rss.viva.co.id/get/all";
-	var news = [];
+	var news = new Array();
 	xmlToJson(url, function(err, result) {
 		if (err) {
 			console.log(err)
@@ -203,9 +203,6 @@ function handleSearch(command, replyToken) {
 			}
 		}
 	});
-	//callback(news);
-	//return news;
-	//console.log(JSON.stringify(news,null,1));
     var reply = {
         type: 'text', 
         text: 'Hasil pencarian :' + keyword + JSON.stringify(news,null,2)};
