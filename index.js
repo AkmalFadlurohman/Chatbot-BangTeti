@@ -1,11 +1,12 @@
 // Creating App instance
+var xml2js = require('xml2js'),parser = new xml2js.Parser({explicitArray : false}),http = require('http'),jsdom = require('jsdom'),kmp = require('kmp');
 const express = require('express');
 const bodyParser = require('body-parser');
 const https = require('https');
 const line = require('@line/bot-sdk');
 const middleware = require('@line/bot-sdk').middleware;
 const app = express();
-var crawler = require('./newsCrawler');
+//var crawler = require('./newsCrawler');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -55,6 +56,31 @@ app.post('/', function(request, response) {
 });
 
 // Helper function
+
+function xmlToJson(url, callback) {
+	var request = http.get(url, function(response) {
+		var xml = '';
+						   
+		response.on('data', function(chunk) {
+			xml += chunk;
+		});
+						   
+		response.on('error', function(e) {
+			callback(e, null);
+		});
+						   
+		response.on('timeout', function(e) {
+			callback(e, null);
+		});
+						   
+		response.on('end', function() {
+			parser.parseString(xml, function(err, result) {
+				callback(null, result);
+			});
+		});
+	});
+}
+
 function handleFollow(replyToken) {
     console.log("\tGive introduction with token " + replyToken);
     var message = {
@@ -153,10 +179,34 @@ function handleTop10(replyToken) {
 function handleSearch(command, replyToken) {
     var keyword = command.substring(4).trim();
 	//var result = crawler.searchNews("all",keyword);
-	crawler.searchNews("all",keyword);
-    var reply = { 
+	//crawler.searchNews("all",keyword);
+	var news = [];
+	xmlToJson(url, function(err, result) {
+		if (err) {
+			console.log(err)
+		}
+		for(var i = 0; i < result.rss.channel.item.length; i++) {
+			var title = result.rss.channel.item[i].title;
+			var link = result.rss.channel.item[i].link;
+			var dom = new JSDOM(result.rss.channel.item[i].description,{ includeNodeLocations: true });
+			var img = dom.window.document.querySelector("img");
+			var src;
+			if (img == null) {
+				src = "none";
+			} else {
+				src = img.getAttribute('src');
+			}
+			if (kmp(toLowerCase(title),keyword) != -1) {
+				  news.push({"title" : title,"link" : link,"img" : src});
+			}
+		}
+	});
+	//callback(news);
+	//return news;
+	//console.log(JSON.stringify(news,null,1));
+    var reply = {
         type: 'text', 
-        text: 'Hasil pencarian :' + keyword};
+        text: 'Hasil pencarian :' + keyword + JSON.stringify(news)};
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
