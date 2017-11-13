@@ -198,7 +198,7 @@ function handleSearch(command, replyToken) {
 			} else {
 				src = img.getAttribute('src');
 			}
-			if (kmp(toLowerCase(title),keyword) != -1) {
+			if (kmp(title.toLowerCase(),keyword) != -1) {
 				  news.push({"title" : title,"link" : link,"img" : src});
 			}
 		}
