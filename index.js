@@ -179,11 +179,35 @@ function handleHelp(replyToken) {
 
 function handleTop10(replyToken) {
     var reply = {
-        type: 'location',
-        title: 'LINE Plus Corporation',
-        address: '1 Empire tower, Sathorn, Bangkok 10120, Thailand',
-        latitude: 13.7202068,
-        longitude: 100.5298698
+          type: "imagemap",
+          baseUrl: "https://ruclip.com/chimg/e4/UCvYygswZM7vKjdMA90d0YIg.jpg",
+          altText: "this is an imagemap",
+          baseSize: {
+              "height": 1040,
+              "width": 1040
+          },
+          actions: [
+              {
+                  "type": "uri",
+                  "linkUri": "https://example.com/",
+                  "area": {
+                      "x": 0,
+                      "y": 0,
+                      "width": 520,
+                      "height": 1040
+                  }
+              },
+              {
+                  "type": "message",
+                  "text": "hello",
+                  "area": {
+                      "x": 520,
+                      "y": 0,
+                      "width": 520,
+                      "height": 1040
+                  }
+              }
+          ]
     }
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
