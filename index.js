@@ -178,14 +178,22 @@ function handleHelp(replyToken) {
 }*/
 
 function handleTop10(replyToken) {
-    var column1 = new LINEBot.CarouselColumnTemplateBuilder();
-    column1.setTitle('this is item 1')
-    column1.setMessage('description')
-    column1.setThumbnail('https://www.google.co.id/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwi_qtvJsMLXAhXLnpQKHUheCqoQjRwIBw&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F672162313105711753%2F&psig=AOvVaw3H6Ni4sf5YBiXKIZmPt8e6&ust=1510897129763854')
-    column1.addAction('Buy', 'action=buy&itemid=111', LINEBot.Action.POSTBACK)
-    column1.addAction('Add to cart', 'action=buy&itemid=111', LINEBot.Action.POSTBACK)
-    var reply = new LINEBot.CarouselTemplateBuilder([column1]);
-
+    var reply = {
+        type: 'template',
+        altText: 'this is a carousel template',
+        template: {
+            type: 'carousel',
+            columns: [{
+                thumbnailImageUrl: 'https://ruclip.com/chimg/e4/UCvYygswZM7vKjdMA90d0YIg.jpg',
+                title: 'this is menu',
+                text: 'description'
+            }, {
+                thumbnailImageUrl: 'https://ruclip.com/chimg/e4/UCvYygswZM7vKjdMA90d0YIg.jpg',
+                title: 'this is menu',
+                text: 'description'
+            }]
+        }
+    }
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
