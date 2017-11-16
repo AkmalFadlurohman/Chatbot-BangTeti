@@ -180,17 +180,17 @@ function handleHelp(replyToken) {
 function handleTop10(replyToken) {
     var reply = {
         type: 'template',
-        altText: 'this is a carousel template',
         template: {
-            type: 'carousel',
-            columns: [{
-                thumbnailImageUrl: 'https://ruclip.com/chimg/e4/UCvYygswZM7vKjdMA90d0YIg.jpg',
-                title: 'this is menu',
-                text: 'description'
+            type: 'confirm',
+            text: 'Are you sure?',
+            actions: [{
+                type: 'message',
+                label: 'Yes',
+                text: 'yes'
             }, {
-                thumbnailImageUrl: 'https://ruclip.com/chimg/e4/UCvYygswZM7vKjdMA90d0YIg.jpg',
-                title: 'this is menu',
-                text: 'description'
+                type: 'message',
+                label: 'No',
+                text: 'no'
             }]
         }
     }
