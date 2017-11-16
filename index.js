@@ -179,25 +179,47 @@ function handleHelp(replyToken) {
 
 function handleTop10(replyToken) {
     var reply = {
-          type: "imagemap",
-          baseUrl: "https://img.okezone.com/content/2017/10/03/33/1787616/pasrah-jeremy-teti-mengaku-kesulitan-mencari-jodoh-C1LQd3TusT.jpg/520",
-          altText: "Bang Teti ngirim Top-10 nih",
-          baseSize: {
-              "height": 520,
-              "width": 520
-          },
-          actions: [
-              {
-                  "type": "uri",
-                  "linkUri": "https://img.okezone.com/content/2017/10/03/33/1787616/pasrah-jeremy-teti-mengaku-kesulitan-mencari-jodoh-C1LQd3TusT.jpg",
-                  "area": {
-                      "x": 0,
-                      "y": 0,
-                      "width": 520,
-                      "height": 1040
+          type: "imagemap", 
+          [{
+              baseUrl: "https://img.okezone.com/content/2017/10/03/33/1787616/pasrah-jeremy-teti-mengaku-kesulitan-mencari-jodoh-C1LQd3TusT.jpg/520",
+              altText: "Bang Teti ngirim Top-10 nih",
+              baseSize: {
+                  "height": 260,
+                  "width": 260
+              },
+              actions: [
+                  {
+                      "type": "uri",
+                      "linkUri": "https://img.okezone.com/content/2017/10/03/33/1787616/pasrah-jeremy-teti-mengaku-kesulitan-mencari-jodoh-C1LQd3TusT.jpg",
+                      "area": {
+                          "x": 0,
+                          "y": 0,
+                          "width": 520,
+                          "height": 1040
+                      }
                   }
-              }
-          ]
+              ]
+        },
+        {
+              baseUrl: "https://img.okezone.com/content/2017/10/03/33/1787616/pasrah-jeremy-teti-mengaku-kesulitan-mencari-jodoh-C1LQd3TusT.jpg/520",
+              altText: "Bang Teti ngirim Top-10 nih",
+              baseSize: {
+                  "height": 260,
+                  "width": 260
+              },
+              actions: [
+                  {
+                      "type": "uri",
+                      "linkUri": "https://img.okezone.com/content/2017/10/03/33/1787616/pasrah-jeremy-teti-mengaku-kesulitan-mencari-jodoh-C1LQd3TusT.jpg",
+                      "area": {
+                          "x": 0,
+                          "y": 0,
+                          "width": 520,
+                          "height": 1040
+                      }
+                  }
+              ]
+        }]
     }
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
