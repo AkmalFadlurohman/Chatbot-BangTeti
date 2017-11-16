@@ -180,28 +180,18 @@ function handleHelp(replyToken) {
 function handleTop10(replyToken) {
     var reply = {
           type: "imagemap",
-          baseUrl: "https://ruclip.com/chimg/e4/UCvYygswZM7vKjdMA90d0YIg.jpg",
+          baseUrl: "https://www.google.co.id/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjNi-vvvMLXAhWBrJQKHYxwCPEQjRwIBw&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FAlpaca&psig=AOvVaw1PHBwd4-KV8WkSdMiTNOfX&ust=1510900428625610",
           altText: "this is an imagemap",
           baseSize: {
-              "height": 1040,
-              "width": 1040
+              "height": 520,
+              "width": 520
           },
           actions: [
               {
                   "type": "uri",
-                  "linkUri": "https://example.com/",
+                  "linkUri": "https://www.google.co.id/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjNi-vvvMLXAhWBrJQKHYxwCPEQjRwIBw&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FAlpaca&psig=AOvVaw1PHBwd4-KV8WkSdMiTNOfX&ust=1510900428625610",
                   "area": {
                       "x": 0,
-                      "y": 0,
-                      "width": 520,
-                      "height": 1040
-                  }
-              },
-              {
-                  "type": "message",
-                  "text": "hello",
-                  "area": {
-                      "x": 520,
                       "y": 0,
                       "width": 520,
                       "height": 1040
