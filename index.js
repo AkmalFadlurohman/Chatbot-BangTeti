@@ -199,7 +199,7 @@ function handleTop10(replyToken) {
               }
           ]
     }
-    client.replyMeesage(replyToken, reply)
+    client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
