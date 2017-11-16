@@ -180,7 +180,7 @@ function handleHelp(replyToken) {
 function handleTop10(replyToken) {
     var reply = {
           type: "imagemap",
-          baseUrl: "https://img.okezone.com/content/2017/10/03/33/1787616/pasrah-jeremy-teti-mengaku-kesulitan-mencari-jodoh-C1LQd3TusT.jpg",
+          baseUrl: "https://img.okezone.com/content/2017/10/03/33/1787616/pasrah-jeremy-teti-mengaku-kesulitan-mencari-jodoh-C1LQd3TusT.jpg/520",
           altText: "Bang Teti ngirim Top-10 nih",
           baseSize: {
               "height": 520,
