@@ -166,57 +166,40 @@ function handleHelp(replyToken) {
     });;
 }
 
-/*function handleTop10(replyToken) {
+function handleTop10(replyToken) {
     var reply = { 
         type: 'text', 
-        text: 'Pagi, ini nih berita heboh yang kamu harus tau:' };
+        text: 'Pagi, ini nih 10 berita terheboh yang kamu harus tau:' };
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
-}*/
+}
 
-function handleTop10(replyToken) {
+/*function handleTop10(replyToken) {
     var reply = { 
         type: 'template', 
         template: {
-        type: 'carousel',
-        columns: [{
-                thumbnailImageUrl: 'https://example.com/bot/images/item1.jpg',
-                title: 'this is menu',
-                text: 'description',
-                actions: [{
-                    type: 'postback',
-                    label: 'Buy',
-                    data: 'action=buy&itemid=111'
-                }, {
-                    type: 'postback',
-                    label: 'Add to cart',
-                    data: 'action=add&itemid=111'
-                }, {
-                    type: 'uri',
-                    label: 'View detail',
-                    uri: 'http://example.com/page/111'
+            type: 'carousel',
+            columns: [{
+                    thumbnailImageUrl: 'https://example.com/bot/images/item1.jpg',
+                    title: 'this is menu',
+                    text: 'description',
+                    actions: [{
+                        type: 'postback',
+                        label: 'Buy',
+                        data: 'action=buy&itemid=111'
+                    }, {
+                        type: 'postback',
+                        label: 'Add to cart',
+                        data: 'action=add&itemid=111'
+                    }, {
+                        type: 'uri',
+                        label: 'View detail',
+                        uri: 'http://example.com/page/111'
+                    }]
                 }]
-            }, {
-                thumbnailImageUrl: 'https://example.com/bot/images/item2.jpg',
-                title: 'this is menu',
-                text: 'description',
-                actions: [{
-                    type: 'postback',
-                    label: 'Buy',
-                    data: 'action=buy&itemid=222'
-                }, {
-                    type: 'postback',
-                    label: 'Add to cart',
-                    data: 'action=add&itemid=222'
-                }, {
-                    type: 'uri',
-                    label: 'View detail',
-                    uri: 'http://example.com/page/222'
-                }]
-            }]
         }
     };
     client.replyMessage(replyToken, reply)
@@ -224,7 +207,7 @@ function handleTop10(replyToken) {
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
-}
+}*/
 
 
 
