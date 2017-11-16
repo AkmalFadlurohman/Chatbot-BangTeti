@@ -180,7 +180,7 @@ function handleHelp(replyToken) {
 function handleTop10(replyToken) {
     var reply = {
           type: "imagemap",
-          baseUrl: "https://www.google.co.id/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjNi-vvvMLXAhWBrJQKHYxwCPEQjRwIBw&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FAlpaca&psig=AOvVaw1PHBwd4-KV8WkSdMiTNOfX&ust=1510900428625610",
+          baseUrl: "https://example.com/images/cats/123456789.jpg",
           altText: "this is an imagemap",
           baseSize: {
               "height": 520,
@@ -189,7 +189,7 @@ function handleTop10(replyToken) {
           actions: [
               {
                   "type": "uri",
-                  "linkUri": "https://www.google.co.id/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjNi-vvvMLXAhWBrJQKHYxwCPEQjRwIBw&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FAlpaca&psig=AOvVaw1PHBwd4-KV8WkSdMiTNOfX&ust=1510900428625610",
+                  "linkUri": "https://example.com/images/cats/123456789.jpg",
                   "area": {
                       "x": 0,
                       "y": 0,
@@ -199,7 +199,7 @@ function handleTop10(replyToken) {
               }
           ]
     }
-    client.replyMessage(replyToken, reply)
+    client.replyMeesage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
