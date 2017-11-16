@@ -179,20 +179,11 @@ function handleHelp(replyToken) {
 
 function handleTop10(replyToken) {
     var reply = {
-        type: 'template',
-        template: {
-            type: 'confirm',
-            text: 'Are you sure?',
-            actions: [{
-                type: 'message',
-                label: 'Yes',
-                text: 'yes'
-            }, {
-                type: 'message',
-                label: 'No',
-                text: 'no'
-            }]
-        }
+        type: 'location',
+        title: 'LINE Plus Corporation',
+        address: '1 Empire tower, Sathorn, Bangkok 10120, Thailand',
+        latitude: 13.7202068,
+        longitude: 100.5298698
     }
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
