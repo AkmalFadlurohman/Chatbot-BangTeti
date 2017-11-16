@@ -185,7 +185,7 @@ function handleTop10(replyToken) {
     column1.addAction('Buy', 'action=buy&itemid=111', LINEBot.Action.POSTBACK)
     column1.addAction('Add to cart', 'action=buy&itemid=111', LINEBot.Action.POSTBACK)
     column1.addAction('View detail', 'http://example.com/page/111', LINEBot.Action.URI);
-    var remply = new LINEBot.CarouselTemplateBuilder([column1]);
+    var reply = new LINEBot.CarouselTemplateBuilder([column1]);
 
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
