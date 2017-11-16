@@ -166,7 +166,7 @@ function handleHelp(replyToken) {
     });;
 }
 
-function handleTop10(replyToken) {
+/*function handleTop10(replyToken) {
     var reply = { 
         type: 'text', 
         text: 'Pagi, ini nih 10 berita terheboh yang kamu harus tau:' };
@@ -175,39 +175,24 @@ function handleTop10(replyToken) {
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
-}
+}*/
 
-/*function handleTop10(replyToken) {
-    var reply = { 
-        type: 'template', 
-        template: {
-            type: 'carousel',
-            columns: [{
-                    thumbnailImageUrl: 'https://example.com/bot/images/item1.jpg',
-                    title: 'this is menu',
-                    text: 'description',
-                    actions: [{
-                        type: 'postback',
-                        label: 'Buy',
-                        data: 'action=buy&itemid=111'
-                    }, {
-                        type: 'postback',
-                        label: 'Add to cart',
-                        data: 'action=add&itemid=111'
-                    }, {
-                        type: 'uri',
-                        label: 'View detail',
-                        uri: 'http://example.com/page/111'
-                    }]
-                }]
-        }
-    };
+function handleTop10(replyToken) {
+    var column1 = new LINEBot.CarouselColumnTemplateBuilder();
+    column1.setTitle('this is item 1')
+    column1.setMessage('description')
+    column1.setThumbnail('https://example.com/bot/images/item1.jpg')
+    column1.addAction('Buy', 'action=buy&itemid=111', LINEBot.Action.POSTBACK)
+    column1.addAction('Add to cart', 'action=buy&itemid=111', LINEBot.Action.POSTBACK)
+    column1.addAction('View detail', 'http://example.com/page/111', LINEBot.Action.URI);
+    var remply = new LINEBot.CarouselTemplateBuilder([column1]);
+
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
-}*/
+}
 
 
 
