@@ -181,6 +181,7 @@ function handleHelp(replyToken) {
 }*/
 
 function handleTop10(replyToken) {
+    const buttonsImageURL = `${baseURL}/static/buttons/1040.jpg`;
     var reply = { 
         type: 'template',
         altText: 'Carousel alt text',
