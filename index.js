@@ -41,11 +41,17 @@ function saveDatabase() {
     console.log('Succes saving data.');
 }
 
-function addUserToDatabase(userId) {
-    var user = database.users.userId;
-    if (user == undefined) {
+function addUserToDatabase(userID) {
+    var users = database.users;
+    var found = false;
+    users.forEach(function(user) {
+        if (user.userId == userID) {
+            found == true;
+        }
+    });
+    if (!found) {
         database.users.push({
-            "userId": userId,
+            "userId": userID,
             "state": "all"
         })
     }
@@ -213,6 +219,7 @@ function handleCommand(command, replyToken, source) {
             .catch((err) => {
                 console.log("\tTerjadi kesalahan " + err)
             });;
+            handleAfterFeedback(source);
             break;
         case 'terhibur deh :d':
             var reply = { type: 'text', text: "Berita abang memang menarik :D\nTerimakasih feedbacknya!" };
@@ -459,7 +466,9 @@ function handleFeedback(replyToken) {
 
 function handleAfterFeedback(source) {
     var richMenuId = client.getRichMenuIdOfUser(source.userId);
+    console.log(richMenuId);
     client.deleteRichMenu(richMenuId);
+    console.log("deleted");
 }
 
 // ============================================= Start Server =============================================
