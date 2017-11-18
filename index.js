@@ -67,8 +67,12 @@ app.get('/breakingnews', function(request, response) {
 });
 
 
-app.get('/static/buttons/1040', function (req, res) {
-    res.sendFile(__dirname + '/static/buttons/1040.jpg');
+app.get('/static/emoji/:resolution', function (req, res) {
+    var resolution = request.params.resolution;
+    switch (resolution) {
+        default:
+            res.sendFile(__dirname + '/static/emoji.jpg');
+    }
 });
 
 
