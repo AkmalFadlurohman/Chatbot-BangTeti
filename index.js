@@ -359,7 +359,7 @@ function handleFeedback(replyToken) {
     const targetId = 'Uacbfb10288b2b165c88b8eec87767973';
     const reply = {
       "type": "imagemap",
-      "baseUrl": "https://raw.githubusercontent.com/fadhilimamk/bangteti/master/emoji.png",
+      "baseUrl": "https://github.com/line/line-bot-sdk-go/blob/master/examples/kitchensink/static/rich/1040",
       "altText": "this is an imagemap",
       "baseSize": {
           "height": 1040,
