@@ -42,6 +42,7 @@ function saveDatabase() {
 }
 
 function addUserToDatabase(userID) {
+    console.log("adding " + userID + " to database");
     var users = database.users;
     var found = false;
     users.forEach(function(user) {
@@ -59,15 +60,15 @@ function addUserToDatabase(userID) {
 }
 
 function editFilter(userID, filter) {
-  var users = database.users;
   for (var i in database.users) {
-    if (users[i].userId == userID) {
-      users[i].state = filter;
+    if (database.users[i].userId == userID) {
+      database.users[i].state = filter;
       saveDatabase();
       return;
     }
   }
   addUserToDatabase(userID);
+  editFilter(userID, filter);
 }
 
 function getCurrentFilter(userID) {
@@ -427,8 +428,8 @@ function handleTop10(replyToken) {
 
 function handleSearch(command, replyToken,source) {
     var keyword = command.substring(4).trim();
-	console.log(getCurrentFilter(source.userID));
-	crawler.searchNews(getCurrentFilter(source.userID),keyword,function(news) {
+	console.log(getCurrentFilter(source.userId));
+	crawler.searchNews(getCurrentFilter(source.userId),keyword,function(news) {
 		var reply;
 		if (news.length > 0) {
 			var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
