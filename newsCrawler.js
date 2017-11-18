@@ -118,15 +118,11 @@ function searchNews(topic,keyword,callback) {
 }
 module.exports.searchNews = searchNews;
 module.exports.crawlTop10 = crawlTop10;
-var keyword = "novanto";
-searchNews("all",keyword,function(news) {
-	//var newsItems  = new Array();
+crawlTop10(console.log,function(top10) {
 	var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
 	var newsCarousel = JSON.parse(msg);
-	newsCarousel['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
-	var reply = JSON.stringify(newsCarousel,null,2);
-	console.log(reply);
-})/*for (var i=1;i<news.length;i++) {
-		//newsItems.push(new newsItem(news[i].title,news[i].link,news[i].img));
+	for (var i=0;i<10;i++) {
+		newsCarousel['template']['columns'].push(new newsItem(top10[i].title,top10[i].link,top10[i].img));
 	}
-	});*/
+	console.log(JSON.stringify(newsCarousel,null,3));
+})
