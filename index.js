@@ -7,7 +7,6 @@ const https = require('https');
 const line = require('@line/bot-sdk');
 const middleware = require('@line/bot-sdk').middleware;
 const app = express();
-const baseURL = process.env.BASE_URL;
 var crawler = require('./newsCrawler');
 
 app.use(bodyParser.json());
@@ -145,9 +144,6 @@ function handleCommand(command, replyToken) {
         case 'bantuan':
             handleHelp(replyToken);
             break;
-        case 'feedback':
-            handleFeedback(replyToken);
-            break;
         default :
             var reply = { type: 'text', text: 'Ehhmm, Bang Teti bingung nih, "'+command+'" maksudnya apa ya?' };
             client.replyMessage(replyToken, reply)
@@ -170,7 +166,7 @@ function handleHelp(replyToken) {
     });;
 }
 
-/*function handleTop10(replyToken) {
+function handleTop10(replyToken) {
     var reply = { 
         type: 'text', 
         text: 'Pagi, ini nih 10 berita terheboh yang kamu harus tau:' };
@@ -179,34 +175,35 @@ function handleHelp(replyToken) {
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
-}*/
+}
 
-function handleTop10(replyToken) {
-    const baseURL = process.env.BASE_URL;
-    const buttonsImageURL = `${baseURL}/static/buttons/1040.jpg`;
+/*function handleTop10(replyToken) {
     var reply = { 
         type: 'template',
-        altText: 'Carousel alt text',
+        altText: 'Image carousel alt text',
         template: {
-          type: 'carousel',
+          type: 'image_carousel',
           columns: [
             {
-              thumbnailImageUrl: buttonsImageURL,
-              title: 'hoge',
-              text: 'fuga',
-              actions: [
-                { label: 'Go to line.me', type: 'uri', uri: 'https://line.me' },
-                { label: 'Say hello1', type: 'postback', data: 'hello こんにちは' }
-              ]
+              imageUrl: buttonsImageURL,
+              action: { label: 'Go to LINE', type: 'uri', uri: 'https://line.me' }
             },
             {
-              thumbnailImageUrl: buttonsImageURL,
-              title: 'hoge',
-              text: 'fuga',
-              actions: [
-                { label: '言 hello2', type: 'postback', data: 'hello こんにちは', text: 'hello こんにちは' },
-                { label: 'Say message', type: 'message', text: 'Rice=米' }
-              ]
+              imageUrl: buttonsImageURL,
+              action: { label: 'Say hello1', type: 'postback', data: 'hello こんにちは' }
+            },
+            {
+              imageUrl: buttonsImageURL,
+              action: { label: 'Say message', type: 'message', text: 'Rice=米' }
+            },
+            {
+              imageUrl: buttonsImageURL,
+              action: {
+                label: 'datetime',
+                type: 'datetimepicker',
+                data: 'DATETIME',
+                mode: 'datetime'
+              }
             }
           ]
         }
@@ -216,7 +213,7 @@ function handleTop10(replyToken) {
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
-}
+}*/
 
 
 function handleSearch(command, replyToken) {
@@ -243,39 +240,6 @@ function handleError(replyToken) {
     });;
 }
 
-function handleFeedback(replyToken) {
-    const buttonsImageURL = `${baseURL}/static/buttons/1040.jpg`;
-    console.log("\tBang Teti asks for feedback.");
-    const reply = {
-      "type": "template",
-      "altText": "this is a buttons template",
-      "template": {
-          "type": "buttons",
-          "thumbnailImageUrl": buttonsImageURL,
-          "title": "Menu",
-          "text": "Please select",
-          "actions": [
-              {
-                "type": "postback",
-                "label": "Buy",
-                "data": "action=buy&itemid=123"
-              },
-              {
-                "type": "postback",
-                "label": "Add to cart",
-                "data": "action=add&itemid=123"
-              },
-              {
-                "type": "uri",
-                "label": "View detail",
-                "uri": "http://example.com/page/123"
-              }
-          ]
-      }
-    };
-    handleError(replyToken);
-}
-
 // Start server
 app.listen(app.get('port'), function() {
     console.log('Bang Teti is listening on port', app.get('port'));
@@ -289,48 +253,59 @@ function pushBreakingNews() {
     const targetId = 'U064ad36afebade93b31fee05090207b0';
     const judul = 'Setya Novanto Menabrak Tiang Listrik'
     const message = {
-        type: 'template',
-        altText: 'Breaking News! ' + judul,
-        template: {
-            type: 'carousel',
-            columns: [
+        "type": "template",
+        "altText": judul,
+        "template": {
+            "type": "carousel",
+            "columns": [
                 {
-                    thumbnailImageUrl: 'https://akcdn.detik.net.id/community/media/visual/2017/11/16/9304f5ed-f4fb-4c75-b657-ef146cc77c1c.jpeg?w=780&q=90',
-                    title: 'Setya Novanto menabrak tiang',
-                    text: 'Jakarta - KPK tetap mencari tahu peristiwa kecelakaan mobil yang ditumpangi Setya Novanto. Koordinasi akan dilakukan KPK dengan Ditlantas Polda Metro Jaya ...',
-                    actions: [
-                        {
-                            type: 'postback',
-                            label: 'Selengkapnya',
-                            data: 'action=buy&itemid=111'
-                        },
-                        {
-                            type: 'postback',
-                            label: 'Beri Feedback',
-                            data: 'action=buy&itemid=111'
-                        },
-                    ]
+                  "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
+                  "title": "this is menu",
+                  "text": "description",
+                  "actions": [
+                      {
+                          "type": "postback",
+                          "label": "Buy",
+                          "data": "action=buy&itemid=111"
+                      },
+                      {
+                          "type": "postback",
+                          "label": "Add to cart",
+                          "data": "action=add&itemid=111"
+                      },
+                      {
+                          "type": "uri",
+                          "label": "View detail",
+                          "uri": "http://example.com/page/111"
+                      }
+                  ]
                 },
                 {
-                    thumbnailImageUrl: 'https://akcdn.detik.net.id/community/media/visual/2017/11/17/c9c6db6c-1cb3-49cd-9a6f-0f6455e05d6c_169.jpg?w=780&q=90',
-                    title: 'Setya Novanto menabrak tiang',
-                    text: 'Presiden Joko Widodo meminta Setya Novanto mengikuti proses hukum di Komisi Pemberantasan Korupsi (KPK). Permintaan ini dinilai sebagai peringatan keras untuk Novanto agar tak lari dari kasus dugaan korupsi proyek e-KTP....',
-                    actions: [
-                        {
-                            type: 'postback',
-                            label: 'Selengkapnya',
-                            data: 'action=buy&itemid=111'
-                        },
-                        {
-                            type: 'postback',
-                            label: 'Beri Feedback',
-                            data: 'action=buy&itemid=111'
-                        },
-                    ]
+                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
+                  "title": "this is menu",
+                  "text": "description",
+                  "actions": [
+                      {
+                          "type": "postback",
+                          "label": "Buy",
+                          "data": "action=buy&itemid=222"
+                      },
+                      {
+                          "type": "postback",
+                          "label": "Add to cart",
+                          "data": "action=add&itemid=222"
+                      },
+                      {
+                          "type": "uri",
+                          "label": "View detail",
+                          "uri": "http://example.com/page/222"
+                      }
+                  ]
                 }
             ]
         }
-    }
+    };
+
     client.pushMessage(targetId, message)
         .then(() => {
             console.log('Breaking News sent to ' + targetId);
