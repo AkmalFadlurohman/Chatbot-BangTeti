@@ -179,7 +179,7 @@ function handleTop10(replyToken) {
 
     const messageIntro = {
         "type": "text",
-        "text": "Ini dia berita Top 10",
+        "text": "Ini dia berita Top 10"
     };
 
     const message = {
@@ -362,7 +362,7 @@ function handleTop10(replyToken) {
         }
     };
 
-    client.pushMessage(targetId, [messageIntrom, message])
+    client.pushMessage(targetId, [messageIntro, message])
         .then(() => {
             console.log('Top10 sent to ' + targetId);
         })
