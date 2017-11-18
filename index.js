@@ -67,8 +67,8 @@ app.get('/breakingnews', function(request, response) {
 });
 
 
-app.get('/static/emoji/700', function (req, res) {
-    res.sendFile('/static/emoji/700');
+app.get('/static/buttons/1040', function (req, res) {
+    res.sendFile('/static/buttons/1040.jpg');
 });
 
 
