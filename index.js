@@ -495,19 +495,14 @@ function pushBreakingNews() {
                   "text": "Jakarta - Ketua DPR Setya Novanto hingga saat ini masih berada di dalam Rumah Sakit Cipto Mangunkusumo (RSCM) Kencana. Pengacaranya, Fredrich Yunadi, sebelumnya menyebut kondisi kesehatan kliennya masih mengkhawatirkan.".substring(0,60),
                   "actions": [
                       {
-                          "type": "postback",
-                          "label": "Buy",
-                          "data": "action=buy&itemid=111"
-                      },
-                      {
-                          "type": "postback",
-                          "label": "Add to cart",
-                          "data": "action=add&itemid=111"
-                      },
-                      {
                           "type": "uri",
-                          "label": "View detail",
-                          "uri": "http://example.com/page/111"
+                          "label": "Selengkapnya",
+                          "uri": "https://news.detik.com/berita/d-3731740/pengacara-kaki-novanto-keram-mata-nggak-bisa-dibuka-dada-sesak"
+                      },
+                      {
+                          "type": "postback",
+                          "label": "Beri Feedback",
+                          "data": "action=feedback&newsid=111"
                       }
                   ]
                 },
@@ -516,21 +511,16 @@ function pushBreakingNews() {
                   "title": "this is menu",
                   "text": "description",
                   "actions": [
-                      {
-                          "type": "postback",
-                          "label": "Buy",
-                          "data": "action=buy&itemid=222"
-                      },
-                      {
-                          "type": "postback",
-                          "label": "Add to cart",
-                          "data": "action=add&itemid=222"
-                      },
-                      {
-                          "type": "uri",
-                          "label": "View detail",
-                          "uri": "http://example.com/page/222"
-                      }
+                    {
+                        "type": "uri",
+                        "label": "Selengkapnya",
+                        "uri": "https://news.detik.com/berita/d-3731740/pengacara-kaki-novanto-keram-mata-nggak-bisa-dibuka-dada-sesak"
+                    },
+                    {
+                        "type": "postback",
+                        "label": "Beri Feedback",
+                        "data": "action=feedback&newsid=111"
+                    }
                   ]
                 }
             ]
