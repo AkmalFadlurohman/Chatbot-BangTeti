@@ -8,7 +8,7 @@ const line = require('@line/bot-sdk');
 const middleware = require('@line/bot-sdk').middleware;
 const app = express();
 var crawler = require('./newsCrawler');
-const baseURL = 'quiet-sands-32630.herokuapp.com';
+const baseURL = 'https://quiet-sands-32630.herokuapp.com';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
