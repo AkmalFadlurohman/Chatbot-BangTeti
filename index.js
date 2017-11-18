@@ -171,7 +171,7 @@ function handleHelp(replyToken) {
 }
 
 
-/*function handleTop10(replyToken) {
+function handleTop10(replyToken) {
     const targetId = 'Ue67f41a618a419cdf156d066c4f0b6d4';
     const message = {
         "type": "template",
@@ -353,56 +353,12 @@ function handleHelp(replyToken) {
         }
     };
 
-    client.pushMessage(targetId, message)
+    client.pushMessage(replyToken, message)
         .then(() => {
             console.log('Top10 sent to ' + targetId);
         })
         .catch((err) => {
             console.log('Top10 error: ' + err);
-        });
-}*/
-
-
-function handleTop10(replyToken) {
-    console.log("\tBang Teti asks for feedback.");
-    const reply = {
-          "type": "imagemap",
-          "baseUrl": "https://example.com/bot/images/rm001",
-          "altText": "this is an imagemap",
-          "baseSize": {
-              "height": 1040,
-              "width": 1040
-          },
-          "actions": [
-              {
-                  "type": "uri",
-                  "linkUri": "https://example.com/",
-                  "area": {
-                      "x": 0,
-                      "y": 0,
-                      "width": 520,
-                      "height": 1040
-                  }
-              },
-              {
-                  "type": "message",
-                  "text": "hello",
-                  "area": {
-                      "x": 520,
-                      "y": 0,
-                      "width": 520,
-                      "height": 1040
-                  }
-              }
-          ]
-    };
-
-    client.pushMessage(replyToken, reply)
-        .then(() => {
-            console.log('Feedback sent to ' + replyToken);
-        })
-        .catch((err) => {
-            console.log('Feedback error: ' + err);
         });
 }
 
