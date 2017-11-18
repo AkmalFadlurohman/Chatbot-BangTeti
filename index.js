@@ -38,7 +38,7 @@ var database;
 function saveDatabase() {
     console.log('saving : ' + JSON.stringify(database));
     fileSystem.writeFileSync('data/users.json', JSON.stringify(database));
-    console.log('Succes saving data.');
+    console.log('Success saving data.');
 }
 
 function addUserToDatabase(userID) {
@@ -46,7 +46,7 @@ function addUserToDatabase(userID) {
     var found = false;
     users.forEach(function(user) {
         if (user.userId == userID) {
-            found == true;
+            found = true;
         }
     });
     if (!found) {
@@ -54,8 +54,20 @@ function addUserToDatabase(userID) {
             "userId": userID,
             "state": "all"
         })
+        saveDatabase();
     }
-    saveDatabase();
+}
+
+function editFilter(userID, filter) {
+  var users database.users;
+  var found = false;
+  for (var i in database.users) {
+    if (users[i].userId == userID) {
+      users[i].state = filter;
+      saveDatabase();
+      break;
+    }
+  }
 }
 
 // ============================================= Preparing CRON Job ===========================================
