@@ -135,9 +135,7 @@ function handleCommand(command, replyToken) {
         case 'top10':
         case 'top 10':
         case 'top-10':
-            for (int i = 0; i < 10; i++) {
-              handleTop10(replyToken);              
-            }
+            handleTop10(replyToken);              
             break;
         case 'bang':
         case '?':
@@ -168,7 +166,7 @@ function handleHelp(replyToken) {
     });;
 }
 
-/*function handleTop10(replyToken) {
+function handleTop10(replyToken) {
     var reply = { 
         type: 'text', 
         text: 'Pagi, ini nih 10 berita terheboh yang kamu harus tau:' };
@@ -177,19 +175,36 @@ function handleHelp(replyToken) {
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
-}*/
+}
 
-function handleTop10(replyToken) {
+/*function handleTop10(replyToken) {
     var reply = { 
         type: 'template',
-        altText: 'Datetime pickers alt text',
+        altText: 'Image carousel alt text',
         template: {
-          type: 'buttons',
-          text: 'Select date / time !',
-          actions: [
-            { type: 'datetimepicker', label: 'date', data: 'DATE', mode: 'date' },
-            { type: 'datetimepicker', label: 'time', data: 'TIME', mode: 'time' },
-            { type: 'datetimepicker', label: 'datetime', data: 'DATETIME', mode: 'datetime' },
+          type: 'image_carousel',
+          columns: [
+            {
+              imageUrl: buttonsImageURL,
+              action: { label: 'Go to LINE', type: 'uri', uri: 'https://line.me' }
+            },
+            {
+              imageUrl: buttonsImageURL,
+              action: { label: 'Say hello1', type: 'postback', data: 'hello こんにちは' }
+            },
+            {
+              imageUrl: buttonsImageURL,
+              action: { label: 'Say message', type: 'message', text: 'Rice=米' }
+            },
+            {
+              imageUrl: buttonsImageURL,
+              action: {
+                label: 'datetime',
+                type: 'datetimepicker',
+                data: 'DATETIME',
+                mode: 'datetime'
+              }
+            }
           ]
         }
     };
@@ -198,7 +213,7 @@ function handleTop10(replyToken) {
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
-}
+}*/
 
 
 function handleSearch(command, replyToken) {
