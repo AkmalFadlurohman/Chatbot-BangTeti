@@ -60,7 +60,7 @@ function addUserToDatabase(userID) {
 }
 
 function editFilter(userID, filter) {
-  var users database.users;
+  var users = database.users;
   var found = false;
   for (var i in database.users) {
     if (users[i].userId == userID) {
