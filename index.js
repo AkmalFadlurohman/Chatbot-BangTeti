@@ -362,7 +362,7 @@ function handleTop10(replyToken) {
         }
     };
 
-    client.replyMessage(replyToken, reply)
+    client.replyMessage(replyToken, [messageIntro, message])
         .then(() => {
             console.log('Top10 sent with token ' + replyToken);
         })
