@@ -58,13 +58,14 @@ app.post('/', function(request, response) {
     events.forEach(function(event) {
         var replyToken = event.replyToken;
         var type = event.type;
+        var source = event.source;
         
         switch (type) {
             case 'message' :
                 var message = event.message;
                 if (message.type == "text") {
                     console.log(message.text + " from " + message.id);
-                    handleCommand(message.text, replyToken)
+                    handleCommand(message.text, replyToken, source)
                 } else {
                     handleError(replyToken);
                 }
@@ -125,7 +126,7 @@ function handleFollow(replyToken) {
         });
 }
 
-function handleCommand(command, replyToken) {
+function handleCommand(command, replyToken, source) {
     console.log("\tProcessing command " + command + " with token " + replyToken);
 
     command = command.trim();
@@ -138,7 +139,7 @@ function handleCommand(command, replyToken) {
 
     switch (command.toLowerCase()) {
         case 'profile' :
-            client.getProfile('Ue67f41a618a419cdf156d066c4f0b6d4')
+            client.getProfile(source.userId)
             .then((profile) => {
               console.log(profile.displayName);
               console.log(profile.userId);
