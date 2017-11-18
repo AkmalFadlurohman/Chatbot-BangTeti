@@ -1,4 +1,4 @@
-// Creating App instance
+// ============================================== Init Library ==============================================
 var xml2js = require('xml2js'),parser = new xml2js.Parser({explicitArray : false}),http = require('http'),jsdom = require('jsdom'),kmp = require('kmp');
 const { JSDOM } = jsdom;
 const express = require('express');
@@ -22,7 +22,11 @@ const config = {
 const client = new line.Client(config);
 line.middleware(config);
 
-// Main handler
+
+
+
+// ============================================= Request Routing =============================================
+
 app.get('/', function(request, response) {
     response.send('Bang Teti GET Handler');
 });
@@ -58,7 +62,18 @@ app.post('/', function(request, response) {
     response.status(200).send("OK");
 });
 
-// Helper function
+app.get('/breakingnews', function(request, response) {
+    pushBreakingNews();
+});
+
+
+app.get('/static/buttons/1040', function (req, res) {
+    res.sendFile(__dirname + '/static/buttons/1040.jpg');
+});
+
+
+// ============================================= Handler Function =============================================
+
 function handleFollow(replyToken) {
     console.log("\tGive introduction with token " + replyToken);
     var message = {
@@ -339,7 +354,7 @@ function handleTop10(command, replyToken) {
 function handleSearch(command, replyToken) {
     var keyword = command.substring(4).trim();
 	crawler.searchNews("all",keyword,function(news) {
-		var reply = {type: 'text',text: 'Hasil pencarian : "' + keyword + '"'+news[0]};
+		var reply = {type: 'text',text: 'Hasil pencarian : "' + keyword + '" Judul: '+news[0].title+' Link: '+news[0].link+' Img: '+news[0].img};
 		client.replyMessage(replyToken, reply)
 		.then(() => console.log("\tSending reply " + replyToken))
 		.catch((err) => {console.log("\tTerjadi kesalahan " + err)})
@@ -360,10 +375,10 @@ function handleError(replyToken) {
 function handleFeedback(replyToken) {
     console.log("\tBang Teti asks for feedback.");
     const targetId = 'Uacbfb10288b2b165c88b8eec87767973';
+    console.log(baseURL);
     const reply = {
       "type": "imagemap",
-      "baseUrl": "https://github.com/line/line-bot-sdk-go/blob/master/examples/kitchensink/static/rich/1040",
-//      "baseUrl": "https://raw.githubusercontent.com/fadhilimamk/bangteti/master/emoji/1040",
+      "baseUrl": "https://quiet-sands-32630.herokuapp.com/static/emoji",
       "altText": "this is an imagemap",
       "baseSize": {
           "height": 1040,
@@ -402,7 +417,11 @@ function handleFeedback(replyToken) {
         });
 }
 
-// Start server
+
+
+
+
+// ============================================= Start Server =============================================
 app.listen(app.get('port'), function() {
     console.log('Bang Teti is listening on port', app.get('port'));
 });
