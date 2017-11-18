@@ -243,7 +243,7 @@ function handleError(replyToken) {
 }
 
 function handleFeedback(replyToken) {
-    const buttonsImageURL = '${baseURL}/static/buttons/1040.jpg';
+    const buttonsImageURL = `${baseURL}/static/buttons/1040.jpg/700`;
     console.log("\tBang Teti asks for feedback.");
     const reply = {
       "type": "template",
