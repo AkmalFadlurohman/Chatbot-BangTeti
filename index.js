@@ -235,6 +235,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				   console.log("\tTerjadi kesalahan " + err)
 			});;
+      editFilter(source.userId, "semua"); 
 			break;
 		case 'politik':
 			searchState = "politik";
@@ -244,6 +245,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				   console.log("\tTerjadi kesalahan " + err)
 			});;
+      editFilter(source.userId, "politik");
 			break;
 		case 'hiburan':
 			searchState = "hiburan";
@@ -253,6 +255,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
+      editFilter(source.userId, "hiburan");
 			break;
 		case 'kesehatan':
 			searchState = "kesehatan";
@@ -262,6 +265,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
+      editFilter(source.userId, "kesehatan");
 			break;
 		case 'teknologi':
 			searchState = "teknologi";
@@ -271,6 +275,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
+      editFilter(source.userId, "teknologi");
 			break;
 		case 'olahraga':
 			searchState = "olahraga";
@@ -280,6 +285,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
+      editFilter(source.userId, "olahraga");
 			break;
 		case 'ekonomi':
 			searchState = "ekonomi";
@@ -289,6 +295,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
+      editFilter(source.userId, "ekonomi");
 			break;
         case 'yay! seneng banget!':
             var reply = { type: 'text', text: "Wah saya ikut senang :)\nTerimakasih feedbacknya!" };
