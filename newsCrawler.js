@@ -5,7 +5,7 @@ const { JSDOM } = jsdom;
 function toLowerCase(title){
 	return title.toLowerCase();
 }
-function xmlToJson(url, callback) {
+function xmlToJson(url,callback) {
 	var request = http.get(url, function(response) {
 		var xml = '';
 					   
@@ -22,15 +22,16 @@ function xmlToJson(url, callback) {
 		});
 					   
 		response.on('end', function() {
-			parser.parseString(xml, function(err, result) {
+			var result = parser.parseString(xml, function(err, result) {
 				callback(null, result);
 			});
 		});
 	});
 }
-function crawlNews(url,keyword,callback) {
-	var news = new Array();
-	xmlToJson(url, function(err, result) {
+
+function crawlNews(url,keyword,callback,output) {
+	xmlToJson(url,function(err, result) {
+		var news = new Array();
 		if (err) {
 			callback(err)
 		}
@@ -49,7 +50,7 @@ function crawlNews(url,keyword,callback) {
 				news.push({"title" : title,"link" : link,"img" : src});
 			}
 		}
-		callback(JSON.stringify(news,null,1));
+		return output(news);
 	});
 }
 var all = "http://rss.viva.co.id/get/all";
@@ -57,17 +58,37 @@ var politic = "http://rss.viva.co.id/get/politik";
 var technology = "http://rss.viva.co.id/get/teknologi";
 var sport = "http://rss.viva.co.id/get/sport";
 var economy = "http://rss.viva.co.id/get/bisnis"
-function searchNews(topic,keyword) {
+function searchNews(topic,keyword,callback) {
+	
 	if (topic === "all") {
-		crawlNews(all,keyword,console.log);
+		crawlNews(all,keyword,console.log,function(news) {
+			//console.log(news);
+			callback(news);
+		});
 	} else if (topic === "olahraga") {
-		crawlNews(sport,keyword,console.log);
+		crawlNews(sport,keyword,console.log,function(news) {
+			//console.log(news);
+			callback(news);
+		});
 	} else if (topic === "politik",console.log) {
-		crawlNews(politic,keyword);
+		crawlNews(politic,keyword,console.log,function(news) {
+			//console.log(news);
+			callback(news);
+		});
 	} else if (topic === "teknologi") {
-		crawlNews(technology,keyword,console.log);
+		crawlNews(technology,keyword,console.log,function(news) {
+			//console.log(news);
+			callback(news);
+		});
 	} else if (topic === "ekonomi") {
-		crawlNews(economy,keyword,console.log);
+		crawlNews(economy,keyword,console.log,function(news) {
+			//console.log(news);
+			callback(news);
+		});
 	}
 }
 module.exports.searchNews = searchNews;
+/*var keyword = "novanto";
+searchNews("all",keyword,function(news) {
+	
+});*/
