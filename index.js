@@ -436,65 +436,51 @@ app.listen(app.get('port'), function() {
 
 
 function pushBreakingNews() {
-    const targetId = 'U064ad36afebade93b31fee05090207b0';
-    const judul = 'Setya Novanto Menabrak Tiang Listrik'
-    const message = {
-        "type": "template",
-        "altText": judul,
-        "template": {
-            "type": "carousel",
-            "columns": [
+    const targetId = ['U064ad36afebade93b31fee05090207b0', 'Uacbfb10288b2b165c88b8eec87767973', 'Ue67f41a618a419cdf156d066c4f0b6d4'];
+    const judul = 'Setya Novanto Menabrak Tiang Listrik';
+
+    const actionsTemplate = [
+        {
+            type: "postback",
+            label: "Selengkapnya",
+            data: ""
+        },
+        {
+            type: "postback",
+            label: "Beri Feedback",
+            data: ""
+        }
+    ];
+
+    const messageIntro = {
+        type: 'message',
+        text: 'Breaking News!\n "'+judul+'". Baca info selengkapnya dari Bang Teti!'
+    };
+    const messageCarousell = {
+        type: "template",
+        altText: 'Breaking News!\n "'+judul+'". Baca info selengkapnya dari Bang Teti!',
+        template: {
+            type: "carousel",
+            columns: [
                 {
-                  "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
-                  "title": "this is menu",
-                  "text": "description",
-                  "actions": [
-                      {
-                          "type": "postback",
-                          "label": "Buy",
-                          "data": "action=buy&itemid=111"
-                      },
-                      {
-                          "type": "postback",
-                          "label": "Add to cart",
-                          "data": "action=add&itemid=111"
-                      },
-                      {
-                          "type": "uri",
-                          "label": "View detail",
-                          "uri": "http://example.com/page/111"
-                      }
-                  ]
+                  thumbnailImageUrl: "https://akcdn.detik.net.id/community/media/visual/2017/11/17/8eb03aef-1891-4be9-81f5-4a8584cebd6d_169.jpg?w=780&q=90",
+                  title: "Pengacara: Kaki Novanto Keram, Mata Nggak Bisa Dibuka, Dada Sesak".substring(0,40),   
+                  text: "Jakarta - Ketua DPR Setya Novanto hingga saat ini masih berada di dalam Rumah Sakit Cipto Mangunkusumo (RSCM) Kencana. Pengacaranya, Fredrich Yunadi, sebelumnya menyebut kondisi kesehatan kliennya masih mengkhawatirkan.".substring(0,60),
+                  actions: actionsTemplate
                 },
                 {
-                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                  "title": "this is menu",
-                  "text": "description",
-                  "actions": [
-                      {
-                          "type": "postback",
-                          "label": "Buy",
-                          "data": "action=buy&itemid=222"
-                      },
-                      {
-                          "type": "postback",
-                          "label": "Add to cart",
-                          "data": "action=add&itemid=222"
-                      },
-                      {
-                          "type": "uri",
-                          "label": "View detail",
-                          "uri": "http://example.com/page/222"
-                      }
-                  ]
+                  thumbnailImageUrl: "https://example.com/bot/images/item2.jpg",
+                  title: "this is menu",
+                  text: "description",
+                  actions: actionsTemplate
                 }
             ]
         }
     };
 
-    client.pushMessage(targetId, message)
+    client.multicast(targetId, [messageIntro, messageCarousell])
         .then(() => {
-            console.log('Breaking News sent to ' + targetId);
+            console.log('Breaking News sent');
         })
         .catch((err) => {
             console.log('Breaking News error: ' + err);
