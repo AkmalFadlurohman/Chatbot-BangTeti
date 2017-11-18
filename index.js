@@ -458,8 +458,8 @@ function pushBreakingNews() {
     ];
 
     const messageIntro = {
-        "type": 'message',
-        "text": 'Breaking News!\n "'+judul+'". Baca info selengkapnya dari Bang Teti!'
+        "type": "text",
+        "text": "Breaking News!\n \""+judul+"\". Baca info selengkapnya dari Bang Teti!",
     };
     const messageCarousell = {
         "type": "template",
@@ -485,7 +485,7 @@ function pushBreakingNews() {
 
     const template = {
         "type": "template",
-        "altText": "this is a carousel template",
+        "altText": "Breaking News!\n \""+judul+"\". Baca info selengkapnya dari Bang Teti!",
         "template": {
             "type": "carousel",
             "columns": [
@@ -537,7 +537,7 @@ function pushBreakingNews() {
         }
       };
 
-    client.multicast(targetId, [messageIntro, template])
+    client.multicast(targetId, template)
         .then(() => {
             console.log('Breaking News sent');
         })
