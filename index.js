@@ -299,7 +299,11 @@ function handleHelp(replyToken, source) {
 function handleTop10(replyToken) {
 
     crawler.crawlTop10(function(news) { 
-    var reply;
+    const reply;
+    const messageIntro = {
+        "type": "text",
+        "text": "Ini dia berita Top 10"
+    };
     var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
       var newsCarousel = JSON.parse(msg);
       for (var i=1;i<10;i++) {
@@ -307,19 +311,14 @@ function handleTop10(replyToken) {
       }
       console.log(JSON.stringify(newsCarousel));
       reply = newsCarousel;
-    })
-    const messageIntro = {
-        "type": "text",
-        "text": "Ini dia berita Top 10"
-    };
-
-    client.replyMessage(replyToken, [messageIntro, reply])
+      client.replyMessage(replyToken, [messageIntro, reply])
         .then(() => {
-            console.log('Top10 sent with token ' + replyToken);
+           console.log('Top10 sent with token ' + replyToken);
         })
         .catch((err) => {
-            console.log('Top10 error: ' + err);
-        });
+           console.log('Top10 error: ' + err);
+        })
+      });
 }
 
 
