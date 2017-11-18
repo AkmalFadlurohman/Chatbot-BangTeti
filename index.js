@@ -39,18 +39,36 @@ var database;
 function saveDatabase() {
     console.log('saving : ' + JSON.stringify(database));
     fileSystem.writeFileSync('data/users.json', JSON.stringify(database));
-    console.log('Succes saving data.');
+    console.log('Success saving data.');
 }
 
-function addUserToDatabase(userId) {
-    var user = database.users.userId;
-    if (user == undefined) {
+function addUserToDatabase(userID) {
+    var users = database.users;
+    var found = false;
+    users.forEach(function(user) {
+        if (user.userId == userID) {
+            found = true;
+        }
+    });
+    if (!found) {
         database.users.push({
-            "userId": userId,
+            "userId": userID,
             "state": "all"
         })
+        saveDatabase();
     }
-    saveDatabase();
+}
+
+function editFilter(userID, filter) {
+  var users database.users;
+  var found = false;
+  for (var i in database.users) {
+    if (users[i].userId == userID) {
+      users[i].state = filter;
+      saveDatabase();
+      break;
+    }
+  }
 }
 
 // ============================================= Preparing CRON Job ===========================================
