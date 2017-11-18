@@ -68,6 +68,21 @@ app.get('/breakingnews', function(request, response) {
 app.get('/static/emoji/:resolution', function (req, res) {
     var resolution = req.params.resolution;
     switch (resolution) {
+        case '200':
+            res.sendFile(__dirname + '/static/emoji/200.png');
+            break;
+        case '300':
+            res.sendFile(__dirname + '/static/emoji/300.png');
+            break;
+        case '460':
+            res.sendFile(__dirname + '/static/emoji/460.png');
+            break;
+        case '700':
+            res.sendFile(__dirname + '/static/emoji/700.png');
+            break;
+        case '1040': 
+            res.sendFile(__dirname + '/static/emoji/1040.png');
+            break;
         default:
             res.sendFile(__dirname + '/static/emoji.jpg');
     }
