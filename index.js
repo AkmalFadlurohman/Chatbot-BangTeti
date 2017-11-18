@@ -446,44 +446,44 @@ function pushBreakingNews() {
 
     const actionsTemplate = [
         {
-            type: "postback",
-            label: "Selengkapnya",
-            data: ""
+            "type": "postback",
+            "label": "Selengkapnya",
+            "data": ""
         },
         {
-            type: "postback",
-            label: "Beri Feedback",
-            data: ""
+            "type": "postback",
+            "label": "Beri Feedback",
+            "data": ""
         }
     ];
 
     const messageIntro = {
-        type: 'message',
-        text: 'Breaking News!\n "'+judul+'". Baca info selengkapnya dari Bang Teti!'
+        "type": 'message',
+        "text": 'Breaking News!\n "'+judul+'". Baca info selengkapnya dari Bang Teti!'
     };
     const messageCarousell = {
-        type: "template",
-        altText: 'Breaking News!\n "'+judul+'". Baca info selengkapnya dari Bang Teti!',
-        template: {
-            type: "carousel",
-            columns: [
+        "type": "template",
+        "altText": "Breaking News!\n \""+judul+"\". Baca info selengkapnya dari Bang Teti!",
+        "template": {
+            "type": "carousel",
+            "columns": [
                 {
-                  thumbnailImageUrl: "https://akcdn.detik.net.id/community/media/visual/2017/11/17/8eb03aef-1891-4be9-81f5-4a8584cebd6d_169.jpg?w=780&q=90",
-                  title: "Pengacara: Kaki Novanto Keram, Mata Nggak Bisa Dibuka, Dada Sesak".substring(0,40),   
-                  text: "Jakarta - Ketua DPR Setya Novanto hingga saat ini masih berada di dalam Rumah Sakit Cipto Mangunkusumo (RSCM) Kencana. Pengacaranya, Fredrich Yunadi, sebelumnya menyebut kondisi kesehatan kliennya masih mengkhawatirkan.".substring(0,60),
-                  actions: actionsTemplate
+                  "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/17/8eb03aef-1891-4be9-81f5-4a8584cebd6d_169.jpg?w=780&q=90",
+                  "title": "Pengacara: Kaki Novanto Keram, Mata Nggak Bisa Dibuka, Dada Sesak".substring(0,40),   
+                  "text": "Jakarta - Ketua DPR Setya Novanto hingga saat ini masih berada di dalam Rumah Sakit Cipto Mangunkusumo (RSCM) Kencana. Pengacaranya, Fredrich Yunadi, sebelumnya menyebut kondisi kesehatan kliennya masih mengkhawatirkan.".substring(0,60),
+                  "actions": actionsTemplate
                 },
                 {
-                  thumbnailImageUrl: "https://example.com/bot/images/item2.jpg",
-                  title: "this is menu",
-                  text: "description",
-                  actions: actionsTemplate
+                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
+                  "title": "this is menu",
+                  "text": "description",
+                  "actions": "actionsTemplate"
                 }
             ]
         }
     };
 
-    client.multicast(targetId, [messageIntro, messageCarousell])
+    client.multicast(targetId, messageCarousell)
         .then(() => {
             console.log('Breaking News sent');
         })
