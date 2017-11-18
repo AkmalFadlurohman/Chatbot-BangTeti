@@ -8,9 +8,10 @@ const line = require('@line/bot-sdk');
 const middleware = require('@line/bot-sdk').middleware;
 const app = express();
 var crawler = require('./newsCrawler');
-
+const baseURL = process.env.BASE_URL;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/static', express.static('static'));
 app.set('port', (process.env.PORT || 5000));
 
 const config = {
@@ -392,7 +393,7 @@ function handleFeedback(replyToken) {
     const targetId = 'Uacbfb10288b2b165c88b8eec87767973';
     const reply = {
       "type": "imagemap",
-      "baseUrl": "https://example.com/bot/images/rm001",
+      "baseUrl": `${baseURL}/static/emoji/senang.png`,
       "altText": "this is an imagemap",
       "baseSize": {
           "height": 1040,
