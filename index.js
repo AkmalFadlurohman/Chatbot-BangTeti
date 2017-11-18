@@ -447,11 +447,6 @@ function handleFeedback(replyToken) {
         });
 }
 
-function handleAfterFeedback(source) {
-    var richMenuId = client.getRichMenuIdOfUser(source.userId);
-    client.deleteRichMenu(richMenuId);
-}
-
 // ============================================= Start Server =============================================
 app.listen(app.get('port'), function() {
     console.log('Bang Teti is listening on port', app.get('port'));
