@@ -59,10 +59,9 @@ function addUserToDatabase(userID) {
 }
 
 function editFilter(userID, filter) {
-  var users = database.users;
   for (var i in database.users) {
-    if (users[i].userId == userID) {
-      users[i].state = filter;
+    if (database.users[i].userId == userID) {
+      database.users[i].state = filter;
       saveDatabase();
       return;
     }
