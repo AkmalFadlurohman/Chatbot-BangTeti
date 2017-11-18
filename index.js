@@ -180,30 +180,27 @@ function handleHelp(replyToken) {
 function handleTop10(replyToken) {
     var reply = { 
         type: 'template',
-        altText: 'Image carousel alt text',
+        altText: 'Carousel alt text',
         template: {
-          type: 'image_carousel',
+          type: 'carousel',
           columns: [
             {
-              imageUrl: buttonsImageURL,
-              action: { label: 'Go to LINE', type: 'uri', uri: 'https://line.me' }
+              thumbnailImageUrl: buttonsImageURL,
+              title: 'hoge',
+              text: 'fuga',
+              actions: [
+                { label: 'Go to line.me', type: 'uri', uri: 'https://line.me' },
+                { label: 'Say hello1', type: 'postback', data: 'hello こんにちは' }
+              ]
             },
             {
-              imageUrl: buttonsImageURL,
-              action: { label: 'Say hello1', type: 'postback', data: 'hello こんにちは' }
-            },
-            {
-              imageUrl: buttonsImageURL,
-              action: { label: 'Say message', type: 'message', text: 'Rice=米' }
-            },
-            {
-              imageUrl: buttonsImageURL,
-              action: {
-                label: 'datetime',
-                type: 'datetimepicker',
-                data: 'DATETIME',
-                mode: 'datetime'
-              }
+              thumbnailImageUrl: buttonsImageURL,
+              title: 'hoge',
+              text: 'fuga',
+              actions: [
+                { label: '言 hello2', type: 'postback', data: 'hello こんにちは', text: 'hello こんにちは' },
+                { label: 'Say message', type: 'message', text: 'Rice=米' }
+              ]
             }
           ]
         }
