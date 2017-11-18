@@ -229,7 +229,44 @@ function handleError(replyToken) {
 app.listen(app.get('port'), function() {
     console.log('Bang Teti is listening on port', app.get('port'));
 	var keyword = "anies";
-	crawler.searchNews("all",keyword);
+    crawler.searchNews("all",keyword);
+    pushBreakingNews();
 });
 
 
+function pushBreakingNews() {
+    const targetId = 'U064ad36afebade93b31fee05090207b0';
+    const message = {
+        type: 'template',
+        altText: 'this is a carousel template',
+        template: {
+            type: 'carousel',
+            'columns': [
+                {
+                    thumbnailImageUrl: 'https://example.com/bot/images/item1.jpg',
+                    title: 'Setya Novanto menabrak tiang',
+                    text: 'Bla bla bla bla bla ....',
+                    actions: [
+                        {
+                            type: 'postback',
+                            label: 'Selengkapnya',
+                            data: 'action=buy&itemid=111'
+                        },
+                        {
+                            type: 'postback',
+                            label: 'Beri Feedback',
+                            data: 'action=buy&itemid=111'
+                        },
+                    ]
+                }
+            ]
+        }
+    }
+    client.pushMessage(targetId, message)
+        .then(() => {
+            console.log('Breaking News sent to ' + targetId);
+        })
+        .catch((err) => {
+            console.log('Breaking News error: ' + err);
+        });
+}
