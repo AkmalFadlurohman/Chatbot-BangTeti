@@ -122,22 +122,22 @@ function handleFollow(replyToken, source) {
       console.log(profile.userId);
       console.log(profile.pictureUrl);
       console.log(profile.statusMessage);
-      
-    })
-
-    .catch((err) => {
-      // error handling
-    });
-    var message = {
+      var message = {
         type: 'text',
         text: 'Hai '+profile.displayName+' perkenalkan, saya Bang Teti. Saya akan melaporkan berita yang dapat dipercaya!'
     };
     
-    client.replyMessage(replyToken, message)
-        .then(() => console.log("\tSending reply " + replyToken))
-        .catch((err) => {
-            console.log("\tTerjadi kesalahan " + err)
-        });
+      client.replyMessage(replyToken, message)
+          .then(() => console.log("\tSending reply " + replyToken))
+          .catch((err) => {
+              console.log("\tTerjadi kesalahan " + err)
+          });
+    })
+
+    .catch((err) => {
+      console.log("\tTerjadi kesalahan profile" + err)
+    });
+    
 }
 
 function handleCommand(command, replyToken) {
