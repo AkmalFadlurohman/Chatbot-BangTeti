@@ -188,7 +188,7 @@ function handleCommand(command, replyToken, source) {
         case 'feedback':
             handleFeedback(replyToken);
             break;
-        case 'Yay! Seneng banget!':
+        case "Yay! Seneng banget!":
             var reply = { type: 'text', text: "Wah saya ikut senang :)\n Terimakasih feedbacknya!" };
             client.replyMessage(replyToken, reply)
             .then(() => console.log("\tSending reply " + replyToken))
