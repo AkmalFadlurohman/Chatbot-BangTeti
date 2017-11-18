@@ -433,6 +433,7 @@ function handleFeedback(replyToken) {
           {
               "type": "message",
               "text": "thanks",
+              "label": "test",
               "area": {
                   "x": 0,
                   "y": 208,
