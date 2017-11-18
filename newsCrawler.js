@@ -10,7 +10,7 @@ function newsItem(title,link,img) {
 	this.text = title;
 	this.actions = new Array();
 	this.actions.push({"type" : "uri","label" : "Selengkapnya","uri" : link});
-	this.actions.push({"type" : "postback","label" : "Beri feedback","action" : "action=feedback&newsid=111"});
+	this.actions.push({"type" : "message","label" : "Beri feedback","text" : "feedback"});
 }
 function xmlToJson(url,callback) {
 	var request = http.get(url, function(response) {
@@ -101,10 +101,9 @@ searchNews("all",keyword,function(news) {
 	var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
 	var newsCarousel = JSON.parse(msg);
 	newsCarousel['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
-	/*for (var i=1;i<news.length;i++) {
+	var reply = JSON.stringify(newsCarousel,null,2);
+	console.log(reply);
+})/*for (var i=1;i<news.length;i++) {
 		//newsItems.push(new newsItem(news[i].title,news[i].link,news[i].img));
 	}
-	var reply = JSON.stringify(newsCarousel,null,1);
-	console.log(reply);
-		   });
-*/
+	});*/

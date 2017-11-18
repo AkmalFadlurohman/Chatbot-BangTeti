@@ -19,7 +19,7 @@ function newsItem(title,link,img) {
 	this.text = title;
 	this.actions = new Array();
 	this.actions.push({"type" : "uri","label" : "Selengkapnya","uri" : link});
-	this.actions.push({"type" : "postback","label" : "Beri feedback","action" : "action=feedback&newsid=111"});
+	this.actions.push({"type" : "message","label" : "Beri feedback","text" : "feedback"});
 }
 
 const config = {
@@ -124,15 +124,6 @@ function handleCommand(command, replyToken) {
     }
 
     switch (command.toLowerCase()) {
-        case 'profile' :
-            return client.getProfile(source.userId)
-            .then((profile) => replyText(
-            replyToken,
-            [
-              `Display name: ${profile.displayName}`,
-              `Status message: ${profile.statusMessage}`,
-            ]
-          ));
         case 'abc' : 
             var reply = { type: 'text', text: "ABC adalah sebuah keyword yang valid" };
             client.replyMessage(replyToken, reply)
