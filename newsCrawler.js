@@ -58,30 +58,37 @@ var politic = "http://rss.viva.co.id/get/politik";
 var technology = "http://rss.viva.co.id/get/teknologi";
 var sport = "http://rss.viva.co.id/get/sport";
 var economy = "http://rss.viva.co.id/get/bisnis"
-function searchNews(topic,keyword) {
+function searchNews(topic,keyword,callback) {
 	
 	if (topic === "all") {
 		crawlNews(all,keyword,console.log,function(news) {
-			console.log(news);
+			//console.log(news);
+			callback(news);
 		});
 	} else if (topic === "olahraga") {
 		crawlNews(sport,keyword,console.log,function(news) {
-			console.log(news);
+			//console.log(news);
+			callback(news);
 		});
 	} else if (topic === "politik",console.log) {
 		crawlNews(politic,keyword,console.log,function(news) {
-			console.log(news);
+			//console.log(news);
+			callback(news);
 		});
 	} else if (topic === "teknologi") {
 		crawlNews(technology,keyword,console.log,function(news) {
-			console.log(news);
+			//console.log(news);
+			callback(news);
 		});
 	} else if (topic === "ekonomi") {
 		crawlNews(economy,keyword,console.log,function(news) {
-			console.log(news);
+			//console.log(news);
+			callback(news);
 		});
 	}
 }
 module.exports.searchNews = searchNews;
-var keyword = "novanto";
-searchNews("all",keyword);
+/*var keyword = "novanto";
+searchNews("all",keyword,function(news) {
+	
+});*/

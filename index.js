@@ -8,10 +8,7 @@ const line = require('@line/bot-sdk');
 const middleware = require('@line/bot-sdk').middleware;
 const app = express();
 var crawler = require('./newsCrawler');
-<<<<<<< HEAD
-=======
 const baseURL = process.env.BASE_URL;
->>>>>>> 89d9901ce63624cd4a5f315c826b1f7215965271
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
@@ -62,31 +59,6 @@ app.post('/', function(request, response) {
 });
 
 // Helper function
-
-function xmlToJson(url, callback) {
-	var request = http.get(url, function(response) {
-		var xml = '';
-						   
-		response.on('data', function(chunk) {
-			xml += chunk;
-		});
-						   
-		response.on('error', function(e) {
-			callback(e, null);
-		});
-						   
-		response.on('timeout', function(e) {
-			callback(e, null);
-		});
-						   
-		response.on('end', function() {
-			parser.parseString(xml, function(err, result) {
-				callback(null, result);
-			});
-		});
-	});
-}
-
 function handleFollow(replyToken) {
     console.log("\tGive introduction with token " + replyToken);
     var message = {
@@ -121,12 +93,6 @@ function handleCommand(command, replyToken) {
             });;
             break;
 		case 'cari' :
-			//var reply = { type: 'text', text: JSON.stringify(crawler.searchNews("all",keyword)) };
-			//client.replyMessage(replyToken, reply)
-			//.then(() => console.log("\tSending reply " + replyToken))
-			//.catch((err) => {
-				   //console.log("\tTerjadi kesalahan " + err)
-				   //});;
 			handleSearch(command, replyToken);
 			break;
         case 'image' :
@@ -369,14 +335,12 @@ function handleTop10(replyToken) {
 
 function handleSearch(command, replyToken) {
     var keyword = command.substring(4).trim();
-    var reply = {
-        type: 'text', 
-        text: 'Hasil pencarian : "' + keyword + '"'};
-    client.replyMessage(replyToken, reply)
-    .then(() => console.log("\tSending reply " + replyToken))
-    .catch((err) => {
-        console.log("\tTerjadi kesalahan " + err)
-    });;
+	crawler.searchNews("all",keyword,function(news) {
+		var reply = {type: 'text',text: 'Hasil pencarian : "' + keyword + '"'+news[0]};
+		client.replyMessage(replyToken, reply)
+		.then(() => console.log("\tSending reply " + replyToken))
+		.catch((err) => {console.log("\tTerjadi kesalahan " + err)})
+    });
 }
 
 function handleError(replyToken) {
