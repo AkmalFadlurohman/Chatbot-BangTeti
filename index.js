@@ -59,31 +59,6 @@ app.post('/', function(request, response) {
 });
 
 // Helper function
-
-function xmlToJson(url, callback) {
-	var request = http.get(url, function(response) {
-		var xml = '';
-						   
-		response.on('data', function(chunk) {
-			xml += chunk;
-		});
-						   
-		response.on('error', function(e) {
-			callback(e, null);
-		});
-						   
-		response.on('timeout', function(e) {
-			callback(e, null);
-		});
-						   
-		response.on('end', function() {
-			parser.parseString(xml, function(err, result) {
-				callback(null, result);
-			});
-		});
-	});
-}
-
 function handleFollow(replyToken) {
     console.log("\tGive introduction with token " + replyToken);
     var message = {
@@ -118,12 +93,6 @@ function handleCommand(command, replyToken) {
             });;
             break;
 		case 'cari' :
-			//var reply = { type: 'text', text: JSON.stringify(crawler.searchNews("all",keyword)) };
-			//client.replyMessage(replyToken, reply)
-			//.then(() => console.log("\tSending reply " + replyToken))
-			//.catch((err) => {
-				   //console.log("\tTerjadi kesalahan " + err)
-				   //});;
 			handleSearch(command, replyToken);
 			break;
         case 'image' :
@@ -191,9 +160,9 @@ function handleTop10(replyToken) {
                           "uri": "https://news.detik.com/berita/3732342/jokowi-minta-novanto-ikuti-proses-hukum-ksp-itu-peringatan-keras"
                       },
                       {
-                          "type": "meesage",
+                          "type": "postback",
                           "label": "Beri Feedback",
-                          "text": "Feedback"
+                          "text": "action=buy&itemid=222"
                       }
                   ]
                 },
@@ -366,15 +335,12 @@ function handleTop10(replyToken) {
 
 function handleSearch(command, replyToken) {
     var keyword = command.substring(4).trim();
-	console.log("Keyword : " + keyword);
-    var reply = {
-        type: 'text', 
-        text: 'Hasil pencarian : "' + keyword + '"'};
-    client.replyMessage(replyToken, reply)
-    .then(() => console.log("\tSending reply " + JSON.stringify(news,null,2)))//replyToken))
-    .catch((err) => {
-        console.log("\tTerjadi kesalahan " + err)
-    });;
+	crawler.searchNews("all",keyword,function(news) {
+		var reply = {type: 'text',text: 'Hasil pencarian : "' + keyword + '"'+news[0]};
+		client.replyMessage(replyToken, reply)
+		.then(() => console.log("\tSending reply " + replyToken))
+		.catch((err) => {console.log("\tTerjadi kesalahan " + err)})
+    });
 }
 
 function handleError(replyToken) {
@@ -436,9 +402,6 @@ function handleFeedback(replyToken) {
 // Start server
 app.listen(app.get('port'), function() {
     console.log('Bang Teti is listening on port', app.get('port'));
-	var keyword = "anies";
-    crawler.searchNews("all",keyword);
-    pushBreakingNews();
 });
 
 
