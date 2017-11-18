@@ -100,10 +100,11 @@ searchNews("all",keyword,function(news) {
 	//var newsItems  = new Array();
 	var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
 	var newsCarousel = JSON.parse(msg);
-	for (var i=1;i<news.length;i++) {
-		newsCarousel['template']['columns'].push(new newsItem(news[i].title,news[i].link,news[i].img));
+	newsCarousel['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
+	/*for (var i=1;i<news.length;i++) {
 		//newsItems.push(new newsItem(news[i].title,news[i].link,news[i].img));
 	}
 	var reply = JSON.stringify(newsCarousel,null,1);
 	console.log(reply);
-});*/
+		   });
+*/
