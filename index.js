@@ -43,8 +43,9 @@ function saveDatabase() {
 
 function addUserToDatabase(userId) {
     var user = database.users.userId;
+    console.log("user is :" + JSON.stringify(user));
     if (user == undefined) {
-        database.users.userId = "all";
+        database.users[userId] = "all";
     }
     saveDatabase();
 }
