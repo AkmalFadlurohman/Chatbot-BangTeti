@@ -191,7 +191,7 @@ function handleTop10(replyToken) {
                           "uri": "https://news.detik.com/berita/3732342/jokowi-minta-novanto-ikuti-proses-hukum-ksp-itu-peringatan-keras"
                       },
                       {
-                          "type": "meesage",
+                          "type": "message",
                           "label": "Beri Feedback",
                           "text": "Feedback"
                       }
@@ -393,7 +393,7 @@ function handleFeedback(replyToken) {
     const targetId = 'Uacbfb10288b2b165c88b8eec87767973';
     const reply = {
       "type": "imagemap",
-      "baseUrl": "https://raw.githubusercontent.com/fadhilimamk/bangteti/master/emoji.png/1040",
+      "baseUrl": "https://raw.githubusercontent.com/fadhilimamk/bangteti/master/emoji.png",
       "altText": "this is an imagemap",
       "baseSize": {
           "height": 1040,
