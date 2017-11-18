@@ -428,9 +428,17 @@ function handleFeedback(replyToken) {
       ]
     };
 
+    client.replyMessage(replyToken, reply)
+        .then(() => {
+            console.log('Feedback sent with token ' + replyToken);
+        })
+        .catch((err) => {
+            console.log('Feedback error: ' + err);
+        });
+
     client.pushMessage(targetId, reply)
         .then(() => {
-            console.log('Feedback sent to ' + replyToken);
+            console.log('Feedback sent to ' + targetId);
         })
         .catch((err) => {
             console.log('Feedback error: ' + err);
