@@ -362,6 +362,14 @@ function handleTop10(replyToken) {
         }
     };
 
+    client.replyMessage(replyToken, reply)
+        .then(() => {
+            console.log('Top10 sent with token ' + replyToken);
+        })
+        .catch((err) => {
+            console.log('Top10 error: ' + err);
+        });
+
     client.pushMessage(targetId, [messageIntro, message])
         .then(() => {
             console.log('Top10 sent to ' + targetId);
