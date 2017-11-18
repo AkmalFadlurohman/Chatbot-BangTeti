@@ -43,9 +43,11 @@ function saveDatabase() {
 
 function addUserToDatabase(userId) {
     var user = database.users.userId;
-    console.log("user is :" + JSON.stringify(user));
     if (user == undefined) {
-        database.users[userId] = "all";
+        database.users.push({
+            "userId": userId,
+            "state": "all"
+        })
     }
     saveDatabase();
 }
@@ -302,7 +304,7 @@ function handleTop10(replyToken) {
     var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
       var newsCarousel = JSON.parse(msg);
       for (var i=1;i<10;i++) {
-        newsCarousel['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
+        newsCarousel['template']['columns'].push(new newsItem(news[i].title,news[i].link,news[i].img));
       }
       console.log(JSON.stringify(newsCarousel));
       reply = newsCarousel;
