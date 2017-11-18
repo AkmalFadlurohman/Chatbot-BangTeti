@@ -428,8 +428,8 @@ function handleTop10(replyToken) {
 
 function handleSearch(command, replyToken,source) {
     var keyword = command.substring(4).trim();
-	console.log(getCurrentFilter(source.userID));
-	crawler.searchNews(getCurrentFilter(source.userID),keyword,function(news) {
+	console.log(getCurrentFilter(source.userId));
+	crawler.searchNews(getCurrentFilter(source.userId),keyword,function(news) {
 		var reply;
 		if (news.length > 0) {
 			var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
