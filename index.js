@@ -166,7 +166,7 @@ function handleHelp(replyToken) {
     });;
 }
 
-function handleTop10(replyToken) {
+/*function handleTop10(replyToken) {
     var reply = { 
         type: 'text', 
         text: 'Pagi, ini nih 10 berita terheboh yang kamu harus tau:' };
@@ -175,9 +175,9 @@ function handleTop10(replyToken) {
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
-}
+}*/
 
-/*function handleTop10(replyToken) {
+function handleTop10(replyToken) {
     var reply = { 
         type: 'template',
         altText: 'Image carousel alt text',
@@ -213,7 +213,7 @@ function handleTop10(replyToken) {
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
-}*/
+}
 
 
 function handleSearch(command, replyToken) {
