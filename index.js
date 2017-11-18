@@ -16,8 +16,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
 app.set('port', (process.env.PORT || 5000));
 
-var database;
-
 function newsItem(title,link,img) {
 	this.thumbnailImageUrl = img;
 	this.text = title.substring(0,40);
@@ -34,6 +32,20 @@ const config = {
 const client = new line.Client(config);
 line.middleware(config);
 
+// =============================================== Access Database ============================================
+var database;
+function saveDatabase() {
+    fs.writeFileSync('data/users.json', JSON.stringify(database));
+    console.log('Succes saving data.');
+}
+
+function addUserToDatabase(userId) {
+    var user = database.users.userId;
+    if (user == undefined) {
+        user.userId = "all";
+    }
+    saveDatabase();
+}
 
 // ============================================= Preparing CRON Job ===========================================
 var top10job = new CronJob({
@@ -87,6 +99,7 @@ app.post('/', function(request, response) {
 
 app.get('/breakingnews', function(request, response) {
     pushBreakingNews();
+    response.send("Pushing breaking news to all saved user");
 });
 
 
@@ -214,10 +227,8 @@ function handleCommand(command, replyToken, source) {
 
 }
 
-function handleHelp(replyToken) {
-
-    console.log(JSON.stringify(database));
-
+function handleHelp(replyToken, source) {
+    addUserToDatabase(source.userId);
     var reply = { 
         type: 'text', 
         text: 'Hai gan, kamu perlu bantuan? \nTenang aja, apapun kesulitannya Bang Teti bakal bantu kok. \n\n- Kalo kamu mau nyari berita ketik aja "Cari <sesuatu>", ntar Bang Teti bakal nyariin berita buat kamu. \n- Nah kalo kamu mau nyari berita yang lagi viral kamu bisa ketik "top10" \n\nGampang kan! Kalo masih bingung panggil Abang lagi aja, ntar bakal dibantu kok \uDBC0\uDC84' };
@@ -415,6 +426,7 @@ app.listen(app.get('port'), function() {
 
 
 function pushBreakingNews() {
+    console.log("sending to " + JSON.stringify(database.users));
     const targetId = ['U064ad36afebade93b31fee05090207b0', 'Uacbfb10288b2b165c88b8eec87767973', 'Ue67f41a618a419cdf156d066c4f0b6d4'];
     const judul = 'Setya Novanto Menabrak Tiang Listrik';
 
