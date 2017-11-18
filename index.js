@@ -65,13 +65,13 @@ app.post('/', function(request, response) {
                 var message = event.message;
                 if (message.type == "text") {
                     console.log(message.text + " from " + message.id);
-                    handleCommand(message.text, replyToken, source)
+                    handleCommand(message.text, replyToken)
                 } else {
                     handleError(replyToken);
                 }
                 break;
             case 'follow' :
-                handleFollow(replyToken);
+                handleFollow(replyToken, source);
                 break;
             default :
                 handleError(replyToken);
@@ -113,12 +113,25 @@ app.get('/static/emoji/:resolution', function (req, res) {
 
 // ============================================= Handler Function =============================================
 
-function handleFollow(replyToken) {
+function handleFollow(replyToken, source) {
     console.log("\tGive introduction with token " + replyToken);
-    var message = {
+    var message;
+    client.getProfile(source.userId)
+    .then((profile) => {
+      console.log(profile.displayName);
+      console.log(profile.userId);
+      console.log(profile.pictureUrl);
+      console.log(profile.statusMessage);
+      message = {
         type: 'text',
-        text: 'Hai perkenalkan, saya Bang Teti. Saya akan melaporkan berita yang dapat dipercaya!'
+        text: 'Hai '+profile.displayName+' perkenalkan, saya Bang Teti. Saya akan melaporkan berita yang dapat dipercaya!'
     };
+    })
+    .catch((err) => {
+      // error handling
+    });
+    
+    
     client.replyMessage(replyToken, message)
         .then(() => console.log("\tSending reply " + replyToken))
         .catch((err) => {
@@ -126,7 +139,7 @@ function handleFollow(replyToken) {
         });
 }
 
-function handleCommand(command, replyToken, source) {
+function handleCommand(command, replyToken) {
     console.log("\tProcessing command " + command + " with token " + replyToken);
 
     command = command.trim();
@@ -138,19 +151,7 @@ function handleCommand(command, replyToken, source) {
     }
 
     switch (command.toLowerCase()) {
-        case 'profile' :
-            client.getProfile(source.userId)
-            .then((profile) => {
-              console.log(profile.displayName);
-              console.log(profile.userId);
-              console.log(profile.pictureUrl);
-              console.log(profile.statusMessage);
-            })
-            .catch((err) => {
-              // error handling
-            });
 
-            break;
         case 'abc' : 
             var reply = { type: 'text', text: "ABC adalah sebuah keyword yang valid" };
             client.replyMessage(replyToken, reply)
