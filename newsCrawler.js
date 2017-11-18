@@ -32,7 +32,7 @@ function crawlNews(url,keyword,callback) {
 	var news = new Array();
 	xmlToJson(url, function(err, result) {
 		if (err) {
-			console.log(err)
+			callback(err)
 		}
 		for(var i = 0; i < result.rss.channel.item.length; i++) {
 			var title = result.rss.channel.item[i].title;
@@ -49,9 +49,7 @@ function crawlNews(url,keyword,callback) {
 				news.push({"title" : title,"link" : link,"img" : src});
 			}
 		}
-		//callback(news);
-		//return news;
-		console.log(JSON.stringify(news,null,1));
+		callback(JSON.stringify(news,null,1));
 	});
 }
 var all = "http://rss.viva.co.id/get/all";
@@ -61,18 +59,15 @@ var sport = "http://rss.viva.co.id/get/sport";
 var economy = "http://rss.viva.co.id/get/bisnis"
 function searchNews(topic,keyword) {
 	if (topic === "all") {
-		//console.log(JSON.stringify(crawlNews(all,keyword),null,1));
-		crawlNews(all,keyword);
+		crawlNews(all,keyword,console.log);
 	} else if (topic === "olahraga") {
-		crawlNews(sport,keyword);
-	} else if (topic === "politik") {
+		crawlNews(sport,keyword,console.log);
+	} else if (topic === "politik",console.log) {
 		crawlNews(politic,keyword);
 	} else if (topic === "teknologi") {
-		crawlNews(technology,keyword);
+		crawlNews(technology,keyword,console.log);
 	} else if (topic === "ekonomi") {
-		crawlNews(economy,keyword);
+		crawlNews(economy,keyword,console.log);
 	}
 }
 module.exports.searchNews = searchNews;
-var keyword = "banyuwangi";
-searchNews("all",keyword);

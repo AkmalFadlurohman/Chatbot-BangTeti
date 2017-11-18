@@ -7,7 +7,7 @@ const https = require('https');
 const line = require('@line/bot-sdk');
 const middleware = require('@line/bot-sdk').middleware;
 const app = express();
-//var crawler = require('./newsCrawler');
+var crawler = require('./newsCrawler');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -232,6 +232,7 @@ function handleTop10(replyToken) {
 
 function handleSearch(command, replyToken) {
     var keyword = command.substring(4).trim();
+	console.log("Keyword : " + keyword);
     var reply = {
         type: 'text', 
         text: 'Hasil pencarian :' + keyword};
@@ -256,6 +257,8 @@ function handleError(replyToken) {
 // Start server
 app.listen(app.get('port'), function() {
     console.log('Bang Teti is listening on port', app.get('port'));
+	var keyword = "anies";
+	crawler.searchNews("all",keyword);
 });
 
 
