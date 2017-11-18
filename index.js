@@ -418,13 +418,19 @@ function handleTop10(replyToken) {
 function handleSearch(command, replyToken) {
     var keyword = command.substring(4).trim();
 	crawler.searchNews("all",keyword,function(news) {
-		var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
-		var newsCarousel = JSON.parse(msg);
-		for (var i=1;i<news.length;i++) {
-			newsCarousel['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
+		var reply;
+		if (news.length > 0) {
+			var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
+			var newsCarousel = JSON.parse(msg);
+			for (var i=1;i<news.length;i++) {
+				newsCarousel['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
+			}
+			console.log(JSON.stringify(newsCarousel));
+			reply = newsCarousel;
+		} else {
+			reply = {"type": "text","text": "Tidak ada hasil pencarian yang cocok"};
 		}
-		console.log(JSON.stringify(newsCarousel));
-		client.replyMessage(replyToken, newsCarousel)
+		client.replyMessage(replyToken, reply)
 		.then(() => console.log("\tSending reply " + replyToken))
 		.catch((err) => {console.log("\tTerjadi kesalahan " + err)})
     });
