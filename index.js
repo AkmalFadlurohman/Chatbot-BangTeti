@@ -434,31 +434,35 @@ function handleError(replyToken) {
 function handleFeedback(replyToken) {
     console.log("\tBang Teti asks for feedback.");
     const reply = {
-        "type": "template",
-        "altText": "Feedback button sent.",
-        "template": {
-          "type": "buttons",
-          "thumbnailImageUrl": "https://cdn.shopify.com/s/files/1/1061/1924/files/Hugging_Face_Emoji_2028ce8b-c213-4d45-94aa-21e1a0842b4d_large.png?15202324258887420558",
-          "title": "Menu",
-          "text": "Please select",
-          "actions": [
-              {
-                "type": "postback",
-                "label": "Buy",
-                "data": "action=buy&itemid=111"
-              },
-              {
-                "type": "postback",
-                "label": "Add to cart",
-                "data": "action=add&itemid=11"
-              },
-              {
-                "type": "uri",
-                "label": "View detail",
-                "uri": "http://example.com/page/111"
+      "type": "imagemap",
+      "baseUrl": "https://example.com/bot/images/rm001",
+      "altText": "this is an imagemap",
+      "baseSize": {
+          "height": 1040,
+          "width": 1040
+      },
+      "actions": [
+          {
+              "type": "uri",
+              "linkUri": "https://example.com/",
+              "area": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 520,
+                  "height": 1040
               }
-          ]
-      }
+          },
+          {
+              "type": "message",
+              "text": "hello",
+              "area": {
+                  "x": 520,
+                  "y": 0,
+                  "width": 520,
+                  "height": 1040
+              }
+          }
+      ]
     };
 
     client.pushMessage(replyToken, reply)
