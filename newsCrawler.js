@@ -28,11 +28,11 @@ function xmlToJson(url, callback) {
 		});
 	});
 }
-function crawlNews(url,keyword) {
-	var news = [];
+function crawlNews(url,keyword,callback) {
+	var news = new Array();
 	xmlToJson(url, function(err, result) {
 		if (err) {
-			  console.log(err)
+			callback(err)
 		}
 		for(var i = 0; i < result.rss.channel.item.length; i++) {
 			var title = result.rss.channel.item[i].title;
@@ -43,13 +43,13 @@ function crawlNews(url,keyword) {
 			if (img == null) {
 			  	src = "none";
 			} else {
-				src = img.getAttribute('src');
+			  	src = img.getAttribute('src');
 			}
 			if (kmp(toLowerCase(title),keyword) != -1) {
-			  news.push({"title" : title,"link" : link,"img" : src});
+				news.push({"title" : title,"link" : link,"img" : src});
 			}
 		}
-		return news;
+		callback(JSON.stringify(news,null,1));
 	});
 }
 var all = "http://rss.viva.co.id/get/all";
@@ -59,15 +59,15 @@ var sport = "http://rss.viva.co.id/get/sport";
 var economy = "http://rss.viva.co.id/get/bisnis"
 function searchNews(topic,keyword) {
 	if (topic === "all") {
-		return crawlNews(all,keyword);
+		crawlNews(all,keyword,console.log);
 	} else if (topic === "olahraga") {
-		return crawlNews(sport,keyword);
-	} else if (topic === "politik") {
-		return crawlNews(politic,keyword);
+		crawlNews(sport,keyword,console.log);
+	} else if (topic === "politik",console.log) {
+		crawlNews(politic,keyword);
 	} else if (topic === "teknologi") {
-		return crawlNews(technology,keyword);
+		crawlNews(technology,keyword,console.log);
 	} else if (topic === "ekonomi") {
-		return crawlNews(economy,keyword);
+		crawlNews(economy,keyword,console.log);
 	}
 }
 module.exports.searchNews = searchNews;

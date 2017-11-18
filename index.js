@@ -1,11 +1,13 @@
 // Creating App instance
+var xml2js = require('xml2js'),parser = new xml2js.Parser({explicitArray : false}),http = require('http'),jsdom = require('jsdom'),kmp = require('kmp');
+const { JSDOM } = jsdom;
 const express = require('express');
 const bodyParser = require('body-parser');
 const https = require('https');
 const line = require('@line/bot-sdk');
 const middleware = require('@line/bot-sdk').middleware;
 const app = express();
-// var crawler = require('./newsCrawler');
+var crawler = require('./newsCrawler');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -55,6 +57,31 @@ app.post('/', function(request, response) {
 });
 
 // Helper function
+
+function xmlToJson(url, callback) {
+	var request = http.get(url, function(response) {
+		var xml = '';
+						   
+		response.on('data', function(chunk) {
+			xml += chunk;
+		});
+						   
+		response.on('error', function(e) {
+			callback(e, null);
+		});
+						   
+		response.on('timeout', function(e) {
+			callback(e, null);
+		});
+						   
+		response.on('end', function() {
+			parser.parseString(xml, function(err, result) {
+				callback(null, result);
+			});
+		});
+	});
+}
+
 function handleFollow(replyToken) {
     console.log("\tGive introduction with token " + replyToken);
     var message = {
@@ -108,7 +135,9 @@ function handleCommand(command, replyToken) {
         case 'top10':
         case 'top 10':
         case 'top-10':
-            handleTop10(replyToken);
+            for (int i = 0; i < 10; i++) {
+              handleTop10(replyToken);              
+            }
             break;
         case 'bang':
         case '?':
@@ -139,10 +168,31 @@ function handleHelp(replyToken) {
     });;
 }
 
-function handleTop10(replyToken) {
+/*function handleTop10(replyToken) {
     var reply = { 
         type: 'text', 
-        text: 'Pagi, ini nih berita heboh yang kamu harus tau:' };
+        text: 'Pagi, ini nih 10 berita terheboh yang kamu harus tau:' };
+    client.replyMessage(replyToken, reply)
+    .then(() => console.log("\tSending reply " + replyToken))
+    .catch((err) => {
+        console.log("\tTerjadi kesalahan " + err)
+    });;
+}*/
+
+function handleTop10(replyToken) {
+    var reply = { 
+        type: 'template',
+        altText: 'Datetime pickers alt text',
+        template: {
+          type: 'buttons',
+          text: 'Select date / time !',
+          actions: [
+            { type: 'datetimepicker', label: 'date', data: 'DATE', mode: 'date' },
+            { type: 'datetimepicker', label: 'time', data: 'TIME', mode: 'time' },
+            { type: 'datetimepicker', label: 'datetime', data: 'DATETIME', mode: 'datetime' },
+          ]
+        }
+    };
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
@@ -150,14 +200,15 @@ function handleTop10(replyToken) {
     });;
 }
 
+
 function handleSearch(command, replyToken) {
     var keyword = command.substring(4).trim();
-
-    var reply = { 
+	console.log("Keyword : " + keyword);
+    var reply = {
         type: 'text', 
         text: 'Hasil pencarian : "' + keyword + '"'};
     client.replyMessage(replyToken, reply)
-    .then(() => console.log("\tSending reply " + replyToken))
+    .then(() => console.log("\tSending reply " + JSON.stringify(news,null,2)))//replyToken))
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
@@ -177,6 +228,8 @@ function handleError(replyToken) {
 // Start server
 app.listen(app.get('port'), function() {
     console.log('Bang Teti is listening on port', app.get('port'));
+	var keyword = "anies";
+	crawler.searchNews("all",keyword);
 });
 
 
