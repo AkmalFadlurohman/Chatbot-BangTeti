@@ -137,6 +137,19 @@ function handleCommand(command, replyToken) {
     }
 
     switch (command.toLowerCase()) {
+        case 'profile' :
+            client.getProfile('<userId>')
+            .then((profile) => {
+              console.log(profile.displayName);
+              console.log(profile.userId);
+              console.log(profile.pictureUrl);
+              console.log(profile.statusMessage);
+            })
+            .catch((err) => {
+              // error handling
+            });
+
+            break;
         case 'abc' : 
             var reply = { type: 'text', text: "ABC adalah sebuah keyword yang valid" };
             client.replyMessage(replyToken, reply)
@@ -432,7 +445,6 @@ function handleError(replyToken) {
 
 function handleFeedback(replyToken) {
     console.log("\tBang Teti asks for feedback.");
-    const targetId = 'Uacbfb10288b2b165c88b8eec87767973';
     const reply = {
       "type": "imagemap",
       "baseUrl": baseURL+"/static/emoji",
@@ -469,14 +481,6 @@ function handleFeedback(replyToken) {
     client.replyMessage(replyToken, reply)
         .then(() => {
             console.log('Feedback sent with token ' + replyToken);
-        })
-        .catch((err) => {
-            console.log('Feedback error: ' + err);
-        });
-
-    client.pushMessage(targetId, reply)
-        .then(() => {
-            console.log('Feedback sent to ' + targetId);
         })
         .catch((err) => {
             console.log('Feedback error: ' + err);
