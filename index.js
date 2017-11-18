@@ -116,6 +116,15 @@ function handleCommand(command, replyToken) {
     }
 
     switch (command.toLowerCase()) {
+        case 'profile' :
+            return client.getProfile(source.userId)
+            .then((profile) => replyText(
+            replyToken,
+            [
+              `Display name: ${profile.displayName}`,
+              `Status message: ${profile.statusMessage}`,
+            ]
+          ));
         case 'abc' : 
             var reply = { type: 'text', text: "ABC adalah sebuah keyword yang valid" };
             client.replyMessage(replyToken, reply)
