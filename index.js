@@ -23,8 +23,6 @@ const client = new line.Client(config);
 line.middleware(config);
 
 
-
-
 // ============================================= Request Routing =============================================
 
 app.get('/', function(request, response) {
@@ -67,8 +65,12 @@ app.get('/breakingnews', function(request, response) {
 });
 
 
-app.get('/static/buttons/1040', function (req, res) {
-    res.sendFile(__dirname + '/static/buttons/1040.jpg');
+app.get('/static/emoji/:resolution', function (req, res) {
+    var resolution = request.params.resolution;
+    switch (resolution) {
+        default:
+            res.sendFile(__dirname + '/static/emoji.jpg');
+    }
 });
 
 
@@ -121,7 +123,7 @@ function handleCommand(command, replyToken) {
         case 'top10':
         case 'top 10':
         case 'top-10':
-            handleTop10(command, replyToken);              
+            handleTop10(replyToken);              
             break;
         case 'bang':
         case '?':
@@ -156,7 +158,8 @@ function handleHelp(replyToken) {
 }
 
 
-function handleTop10(command, replyToken) {
+
+function handleTop10(replyToken) {
     const targetId = 'Ue67f41a618a419cdf156d066c4f0b6d4';
     const message = {
         "type": "template",
@@ -375,7 +378,7 @@ function handleFeedback(replyToken) {
     console.log(baseURL);
     const reply = {
       "type": "imagemap",
-      "baseUrl": "https://quiet-sands-32630.herokuapp.com/static/emoji",
+      "baseUrl": baseURL+"/static/emoji",
       "altText": "this is an imagemap",
       "baseSize": {
           "height": 1040,
