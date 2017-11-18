@@ -135,9 +135,7 @@ function handleCommand(command, replyToken) {
         case 'top10':
         case 'top 10':
         case 'top-10':
-            for (int i = 0; i < 10; i++) {
-              handleTop10(replyToken);              
-            }
+            handleTop10(replyToken);              
             break;
         case 'bang':
         case '?':
@@ -185,14 +183,28 @@ function handleHelp(replyToken) {
 function handleTop10(replyToken) {
     var reply = { 
         type: 'template',
-        altText: 'Datetime pickers alt text',
+        altText: 'Carousel alt text',
         template: {
-          type: 'buttons',
-          text: 'Select date / time !',
-          actions: [
-            { type: 'datetimepicker', label: 'date', data: 'DATE', mode: 'date' },
-            { type: 'datetimepicker', label: 'time', data: 'TIME', mode: 'time' },
-            { type: 'datetimepicker', label: 'datetime', data: 'DATETIME', mode: 'datetime' },
+          type: 'carousel',
+          columns: [
+            {
+              thumbnailImageUrl: buttonsImageURL,
+              title: 'hoge',
+              text: 'fuga',
+              actions: [
+                { label: 'Go to line.me', type: 'uri', uri: 'https://line.me' },
+                { label: 'Say hello1', type: 'postback', data: 'hello こんにちは' }
+              ]
+            },
+            {
+              thumbnailImageUrl: buttonsImageURL,
+              title: 'hoge',
+              text: 'fuga',
+              actions: [
+                { label: '言 hello2', type: 'postback', data: 'hello こんにちは', text: 'hello こんにちは' },
+                { label: 'Say message', type: 'message', text: 'Rice=米' }
+              ]
+            }
           ]
         }
     };
@@ -264,7 +276,44 @@ function handleFeedback(replyToken) {
 app.listen(app.get('port'), function() {
     console.log('Bang Teti is listening on port', app.get('port'));
 	var keyword = "anies";
-	crawler.searchNews("all",keyword);
+    crawler.searchNews("all",keyword);
+    pushBreakingNews();
 });
 
 
+function pushBreakingNews() {
+    const targetId = 'U064ad36afebade93b31fee05090207b0';
+    const message = {
+        type: 'template',
+        altText: 'this is a carousel template',
+        template: {
+            type: 'carousel',
+            'columns': [
+                {
+                    thumbnailImageUrl: 'https://example.com/bot/images/item1.jpg',
+                    title: 'Setya Novanto menabrak tiang',
+                    text: 'Bla bla bla bla bla ....',
+                    actions: [
+                        {
+                            type: 'postback',
+                            label: 'Selengkapnya',
+                            data: 'action=buy&itemid=111'
+                        },
+                        {
+                            type: 'postback',
+                            label: 'Beri Feedback',
+                            data: 'action=buy&itemid=111'
+                        },
+                    ]
+                }
+            ]
+        }
+    }
+    client.pushMessage(targetId, message)
+        .then(() => {
+            console.log('Breaking News sent to ' + targetId);
+        })
+        .catch((err) => {
+            console.log('Breaking News error: ' + err);
+        });
+}
