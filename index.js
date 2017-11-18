@@ -14,6 +14,7 @@ const app           = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
+app.use('/data', express.static('data'));
 app.set('port', (process.env.PORT || 5000));
 
 function newsItem(title,link,img) {
