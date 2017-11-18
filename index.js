@@ -196,7 +196,7 @@ function handleCommand(command, replyToken, source) {
         case 'abang':
         case 'help':
         case 'bantuan':
-            handleHelp(replyToken);
+            handleHelp(replyToken, source);
             break;
         case 'feedback':
             handleFeedback(replyToken);
