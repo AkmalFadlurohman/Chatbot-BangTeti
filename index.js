@@ -176,6 +176,12 @@ function handleHelp(replyToken) {
 
 function handleTop10(replyToken) {
     const targetId = 'Ue67f41a618a419cdf156d066c4f0b6d4';
+
+    const messageIntro = {
+        "type": "text",
+        "text": "Ini dia berita Top 10",
+    };
+
     const message = {
         "type": "template",
         "altText": 'Bang Teti ngirim berita top 10 nih',
@@ -356,7 +362,7 @@ function handleTop10(replyToken) {
         }
     };
 
-    client.pushMessage(targetId, message)
+    client.pushMessage(targetId, [messageIntrom, message])
         .then(() => {
             console.log('Top10 sent to ' + targetId);
         })
