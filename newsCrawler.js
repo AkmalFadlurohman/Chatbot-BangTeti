@@ -107,11 +107,11 @@ function searchNews(topic,keyword,callback) {
 			callback(news);
 		});
 	} else if (topic === "hiburan") {
-		crawlNews(economy,keyword,console.log,function(news) {
+		crawlNews(entertainment,keyword,console.log,function(news) {
 			callback(news);
 		});
 	} else if (topic === "kesehatan") {
-		crawlNews(economy,keyword,console.log,function(news) {
+		crawlNews(health,keyword,console.log,function(news) {
 			callback(news);
 		});
 	}
