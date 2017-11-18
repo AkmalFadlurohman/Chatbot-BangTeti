@@ -173,6 +173,7 @@ function handleHelp(replyToken) {
 }
 
 
+
 function handleTop10(replyToken) {
     const targetId = 'Ue67f41a618a419cdf156d066c4f0b6d4';
     const message = {
