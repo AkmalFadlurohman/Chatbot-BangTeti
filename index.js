@@ -45,13 +45,13 @@ app.post('/', function(request, response) {
     events.forEach(function(event) {
         var replyToken = event.replyToken;
         var type = event.type;
-        var source = event.source;
+        
         switch (type) {
             case 'message' :
                 var message = event.message;
                 if (message.type == "text") {
                     console.log(message.text + " from " + message.id);
-                    handleCommand(message.text, replyToken, source)
+                    handleCommand(message.text, replyToken)
                 } else {
                     handleError(replyToken);
                 }
@@ -112,7 +112,7 @@ function handleFollow(replyToken) {
         });
 }
 
-function handleCommand(command, replyToken, source) {
+function handleCommand(command, replyToken) {
     console.log("\tProcessing command " + command + " with token " + replyToken);
 
     command = command.trim();
@@ -124,15 +124,6 @@ function handleCommand(command, replyToken, source) {
     }
 
     switch (command.toLowerCase()) {
-        case 'profile' :
-            client.getProfile(source.userId)
-            .then((profile) => replyText(
-                replyToken,
-                [
-                  `Display name: ${profile.displayName}`,
-                  `Status message: ${profile.statusMessage}`,
-                ]
-            ));
         case 'abc' : 
             var reply = { type: 'text', text: "ABC adalah sebuah keyword yang valid" };
             client.replyMessage(replyToken, reply)
