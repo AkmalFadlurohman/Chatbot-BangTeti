@@ -146,8 +146,44 @@ function handleCommand(command, replyToken) {
             handleHelp(replyToken);
             break;
         case 'feedback':
-            handleFeedback(replyToken);
-            break;
+            // handleFeedback(replyToken);
+            {
+                const buttonsImageURL = '${baseURL}/static/buttons/1040.jpg';
+                console.log("\tBang Teti asks for feedback.");
+                const reply = {
+                  "type": "template",
+                  "altText": "this is a buttons template",
+                  "template": {
+                      "type": "buttons",
+                      "thumbnailImageUrl": buttonsImageURL,
+                      "title": "Menu",
+                      "text": "Please select",
+                      "actions": [
+                          {
+                            "type": "postback",
+                            "label": "Buy",
+                            "data": "action=buy&itemid=123"
+                          },
+                          {
+                            "type": "postback",
+                            "label": "Add to cart",
+                            "data": "action=add&itemid=123"
+                          },
+                          {
+                            "type": "uri",
+                            "label": "View detail",
+                            "uri": "http://example.com/page/123"
+                          }
+                      ]
+                  }
+                };
+                client.replyMessage(replyToken, reply)
+                .then(() => console.log("\tSending reply " + replyToken))
+                .catch((err) => {
+                    console.log("\tTerjadi kesalahan " + err)
+                });;
+                break;
+            }
         default :
             var reply = { type: 'text', text: 'Ehhmm, Bang Teti bingung nih, "'+command+'" maksudnya apa ya?' };
             client.replyMessage(replyToken, reply)
