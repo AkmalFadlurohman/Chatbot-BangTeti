@@ -17,7 +17,6 @@ app.use('/static', express.static('static'));
 app.use('/data', express.static('data'));
 app.set('port', (process.env.PORT || 5000));
 
-var searchState = "all";
 function newsItem(title,link,img) {
 	this.thumbnailImageUrl = img;
 	this.text = title.trim().substring(0,40);
@@ -70,7 +69,7 @@ function editFilter(userID, filter) {
   }
 }
 
-function getCurrentFilter() {
+function getCurrentFilter(userID) {
   var users = database.users;
   for (var i in database.users) {
     if (users[i].userId == userID) {
@@ -236,24 +235,22 @@ function handleCommand(command, replyToken, source) {
             handleFeedback(replyToken);
             break;
 		case 'semua':
-			searchState = "all";
 			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+command};
 			client.replyMessage(replyToken, reply)
 			.then(() => console.log("\tSending reply " + replyToken))
 			.catch((err) => {
 				   console.log("\tTerjadi kesalahan " + err)
 			});;
-      editFilter(source.userId, "semua"); 
+      		editFilter(source.userId, "semua");
 			break;
 		case 'politik':
-			searchState = "politik";
 			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+command};
 			client.replyMessage(replyToken, reply)
 			.then(() => console.log("\tSending reply " + replyToken))
 			.catch((err) => {
 				   console.log("\tTerjadi kesalahan " + err)
 			});;
-      editFilter(source.userId, "politik");
+      		editFilter(source.userId, "politik");
 			break;
 		case 'hiburan':
 			searchState = "hiburan";
@@ -263,7 +260,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
-      editFilter(source.userId, "hiburan");
+      		editFilter(source.userId, "hiburan");
 			break;
 		case 'kesehatan':
 			searchState = "kesehatan";
@@ -273,7 +270,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
-      editFilter(source.userId, "kesehatan");
+			editFilter(source.userId, "kesehatan");
 			break;
 		case 'teknologi':
 			searchState = "teknologi";
@@ -283,7 +280,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
-      editFilter(source.userId, "teknologi");
+      		editFilter(source.userId, "teknologi");
 			break;
 		case 'olahraga':
 			searchState = "olahraga";
@@ -293,7 +290,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
-      editFilter(source.userId, "olahraga");
+      		editFilter(source.userId, "olahraga");
 			break;
 		case 'ekonomi':
 			searchState = "ekonomi";
@@ -303,7 +300,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
-      editFilter(source.userId, "ekonomi");
+      		editFilter(source.userId, "ekonomi");
 			break;
         case 'yay! seneng banget!':
             var reply = { type: 'text', text: "Wah saya ikut senang :)\nTerimakasih feedbacknya!" };
@@ -428,7 +425,7 @@ function handleTop10(replyToken) {
 
 function handleSearch(command, replyToken) {
     var keyword = command.substring(4).trim();
-	crawler.searchNews(searchState,keyword,function(news) {
+	crawler.searchNews(getCurrentFilter(source.userID),keyword,function(news) {
 		var reply;
 		if (news.length > 0) {
 			var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
