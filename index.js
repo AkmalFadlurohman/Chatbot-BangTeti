@@ -202,20 +202,69 @@ function handleCommand(command, replyToken, source) {
             handleFeedback(replyToken);
             break;
         case 'yay! seneng banget!':
-            var reply = { type: 'text', text: "Wah saya ikut senang :)\n Terimakasih feedbacknya!" };
+            var reply = { type: 'text', text: "Wah saya ikut senang :)\nTerimakasih feedbacknya!" };
             client.replyMessage(replyToken, reply)
             .then(() => console.log("\tSending reply " + replyToken))
             .catch((err) => {
                 console.log("\tTerjadi kesalahan " + err)
             });;
             break;
-              // "text": "Terhibur deh :D",
-              // "text": "Wow, sangat menginspirasi!",
-              // "text": "Bangga banget!",
-              // "text": "Astaga, seriusan?",
-              // "text": "Aku sedih :(",
-              // "text": "Duh, merinding, serem..",
-              // "text": "Ih ngeselin!",
+        case 'terhibur deh :d':
+            var reply = { type: 'text', text: "Berita abang memang menarik :D\nTerimakasih feedbacknya!" };
+            client.replyMessage(replyToken, reply)
+            .then(() => console.log("\tSending reply " + replyToken))
+            .catch((err) => {
+                console.log("\tTerjadi kesalahan " + err)
+            });;
+            break;
+        case 'wow, sangat menginspirasi!':
+            var reply = { type: 'text', text: "Keren ya!\nTerimakasih feedbacknya!" };
+            client.replyMessage(replyToken, reply)
+            .then(() => console.log("\tSending reply " + replyToken))
+            .catch((err) => {
+                console.log("\tTerjadi kesalahan " + err)
+            });;
+            break;
+        case 'bangga banget!':
+            var reply = { type: 'text', text: "Memang membanggakan,\nTerimakasih feedbacknya!" };
+            client.replyMessage(replyToken, reply)
+            .then(() => console.log("\tSending reply " + replyToken))
+            .catch((err) => {
+                console.log("\tTerjadi kesalahan " + err)
+            });;
+            break;
+        case 'astaga, seriusan?':
+            var reply = { type: 'text', text: "Ciyusss,\nTerimakasih feedbacknya!" };
+            client.replyMessage(replyToken, reply)
+            .then(() => console.log("\tSending reply " + replyToken))
+            .catch((err) => {
+                console.log("\tTerjadi kesalahan " + err)
+            });;
+            break;
+        case 'aku sedih :(':
+            var reply = { type: 'text', text: "Cup cup, jangan sedih,\nTerimakasih feedbacknya!" };
+            client.replyMessage(replyToken, reply)
+            .then(() => console.log("\tSending reply " + replyToken))
+            .catch((err) => {
+                console.log("\tTerjadi kesalahan " + err)
+            });;
+            break;
+        case 'duh, merinding, serem..':
+            var reply = { type: 'text', text: "Jangan takut, ada abang di sini.\nTerimakasih feedbacknya!" };
+            client.replyMessage(replyToken, reply)
+            .then(() => console.log("\tSending reply " + replyToken))
+            .catch((err) => {
+                console.log("\tTerjadi kesalahan " + err)
+            });;
+            break;
+        case 'ih ngeselin!':
+            var reply = { type: 'text', text: "Iya ih, abang jadi kesel juga.\nTerimakasih feedbacknya!" };
+            client.replyMessage(replyToken, reply)
+            .then(() => console.log("\tSending reply " + replyToken))
+            .catch((err) => {
+                console.log("\tTerjadi kesalahan " + err)
+            });;
+            break;
         default :
             var reply = { type: 'text', text: 'Ehhmm, Bang Teti bingung nih, "'+command+'" maksudnya apa ya?' };
             client.replyMessage(replyToken, reply)
