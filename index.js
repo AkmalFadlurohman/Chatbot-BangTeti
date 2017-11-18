@@ -327,7 +327,6 @@ function handleCommand(command, replyToken, source) {
             });;
             handleAfterFeedback(source);
             break;
->>>>>>> 7e90bfc0d8d720a8ccbde069a2c52ba785a3ee98
         default :
             var reply = { type: 'text', text: 'Ehhmm, Bang Teti bingung nih, "'+command+'" maksudnya apa ya?' };
             client.replyMessage(replyToken, reply)
@@ -384,13 +383,8 @@ function handleTop10(replyToken) {
 
 
 function handleSearch(command, replyToken) {
-<<<<<<< HEAD
     var keyword = command.substring(4).trim();
 	crawler.searchNews(searchState,keyword,function(news) {
-=======
-   var keyword = command.substring(4).trim();
-	 crawler.searchNews("all",keyword,function(news) {
->>>>>>> 7e90bfc0d8d720a8ccbde069a2c52ba785a3ee98
 		var reply;
 		if (news.length > 0) {
 			var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
@@ -412,7 +406,7 @@ function handleSearch(command, replyToken) {
 function handleError(replyToken) {
     console.log("\tBang Teti bingung!");
 
-    const reply = { type: 'text', text: "Bang Teto bingung!" };
+    var reply = { type: 'text', text: "Bang Teto bingung!" };
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
@@ -422,7 +416,7 @@ function handleError(replyToken) {
 
 function handleFeedback(replyToken) {
     console.log("\tBang Teti asks for feedback.");
-    const reply = {
+    var reply = {
       "type": "imagemap",
       "baseUrl": baseURL+"/static/emoji-cropped",
       "altText": "Bang Teti minta feedback.",
