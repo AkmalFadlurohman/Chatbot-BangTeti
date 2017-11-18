@@ -146,6 +146,9 @@ function handleCommand(command, replyToken) {
         case 'bantuan':
             handleHelp(replyToken);
             break;
+        case 'feedback':
+            handleFeedback(replyToken);
+            break;
         default :
             var reply = { type: 'text', text: 'Ehhmm, Bang Teti bingung nih, "'+command+'" maksudnya apa ya?' };
             client.replyMessage(replyToken, reply)
@@ -253,7 +256,8 @@ function handleFeedback(replyToken) {
               }
           ]
       }
-}
+    };
+    handleError(replyToken);
 }
 
 // Start server
