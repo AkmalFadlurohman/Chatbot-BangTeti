@@ -14,10 +14,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
 app.set('port', (process.env.PORT || 5000));
-
+var searchState = "all";
 function newsItem(title,link,img) {
 	this.thumbnailImageUrl = img;
-	this.text = title.substring(0,40);
+	this.text = title.trim().substring(0,40);
 	this.actions = new Array();
 	this.actions.push({"type" : "uri","label" : "Selengkapnya","uri" : link});
 	this.actions.push({"type" : "message","label" : "Beri feedback","text" : "feedback"});
@@ -185,6 +185,62 @@ function handleCommand(command, replyToken) {
         case 'feedback':
             handleFeedback(replyToken);
             break;
+		case 'all':
+			searchState = "all";
+			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+command};
+			client.replyMessage(replyToken, reply)
+			.then(() => console.log("\tSending reply " + replyToken))
+			.catch((err) => {
+				   console.log("\tTerjadi kesalahan " + err)
+			});;
+		case 'politik':
+			searchState = "politik";
+			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+command};
+			client.replyMessage(replyToken, reply)
+			.then(() => console.log("\tSending reply " + replyToken))
+			.catch((err) => {
+				   console.log("\tTerjadi kesalahan " + err)
+			});;
+		case 'hiburan':
+			searchState = "hiburan";
+			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+searchState};
+			client.replyMessage(replyToken, reply)
+			.then(() => console.log("\tSending reply " + replyToken))
+			.catch((err) => {
+				console.log("\tTerjadi kesalahan " + err)
+			});;
+		case 'kesehatan':
+			searchState = "kesehatan";
+			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+searchState};
+			client.replyMessage(replyToken, reply)
+			.then(() => console.log("\tSending reply " + replyToken))
+			.catch((err) => {
+				console.log("\tTerjadi kesalahan " + err)
+			});;
+		case 'teknologi':
+			searchState = "teknologi";
+			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+searchState};
+			client.replyMessage(replyToken, reply)
+			.then(() => console.log("\tSending reply " + replyToken))
+			.catch((err) => {
+				console.log("\tTerjadi kesalahan " + err)
+			});;
+		case 'olahraga':
+			searchState = "olahraga";
+			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+searchState};
+			client.replyMessage(replyToken, reply)
+			.then(() => console.log("\tSending reply " + replyToken))
+			.catch((err) => {
+				console.log("\tTerjadi kesalahan " + err)
+			});;
+		case 'ekonomi':
+			searchState = "ekonomi";
+			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+searchState};
+			client.replyMessage(replyToken, reply)
+			.then(() => console.log("\tSending reply " + replyToken))
+			.catch((err) => {
+				console.log("\tTerjadi kesalahan " + err)
+			});;
         default :
             var reply = { type: 'text', text: 'Ehhmm, Bang Teti bingung nih, "'+command+'" maksudnya apa ya?' };
             client.replyMessage(replyToken, reply)
@@ -417,12 +473,12 @@ function handleTop10(replyToken) {
 
 function handleSearch(command, replyToken) {
     var keyword = command.substring(4).trim();
-	crawler.searchNews("all",keyword,function(news) {
+	crawler.searchNews(searchState,keyword,function(news) {
 		var reply;
 		if (news.length > 0) {
 			var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
 			var newsCarousel = JSON.parse(msg);
-			for (var i=1;i<news.length;i++) {
+			for (var i=0;i<news.length;i++) {
 				newsCarousel['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
 			}
 			console.log(JSON.stringify(newsCarousel));

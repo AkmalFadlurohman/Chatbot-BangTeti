@@ -61,41 +61,41 @@ function crawlNews(url,keyword,callback,output) {
 	});
 }
 var all = "http://sindikasi.okezone.com/index.php/rss/1/RSS2.0";
-var politic = "http://rss.viva.co.id/get/politik";
-var technology = "http://rss.viva.co.id/get/teknologi";
-var sport = "http://rss.viva.co.id/get/sport";
-var economy = "http://rss.viva.co.id/get/bisnis"
+var technology = "http://sindikasi.okezone.com/index.php/rss/16/RSS2.0";
+var sport = "http://sindikasi.okezone.com/index.php/rss/2/RSS2.0";
+var economy = "http://sindikasi.okezone.com/index.php/rss/11/RSS2.0"
+var health = "http://sindikasi.okezone.com/index.php/rss/12/RSS2.0"
+var entertainment = "http://sindikasi.okezone.com/index.php/rss/13/RSS2.0"
 function searchNews(topic,keyword,callback) {
 	
 	if (topic === "all") {
 		crawlNews(all,keyword,console.log,function(news) {
-			//console.log(news);
 			callback(news);
 		});
 	} else if (topic === "olahraga") {
 		crawlNews(sport,keyword,console.log,function(news) {
-			//console.log(news);
-			callback(news);
-		});
-	} else if (topic === "politik",console.log) {
-		crawlNews(politic,keyword,console.log,function(news) {
-			//console.log(news);
 			callback(news);
 		});
 	} else if (topic === "teknologi") {
 		crawlNews(technology,keyword,console.log,function(news) {
-			//console.log(news);
 			callback(news);
 		});
 	} else if (topic === "ekonomi") {
 		crawlNews(economy,keyword,console.log,function(news) {
-			//console.log(news);
+			callback(news);
+		});
+	} else if (topic === "hiburan") {
+		crawlNews(economy,keyword,console.log,function(news) {
+			callback(news);
+		});
+	} else if (topic === "kesehatan") {
+		crawlNews(economy,keyword,console.log,function(news) {
 			callback(news);
 		});
 	}
 }
 module.exports.searchNews = searchNews;
-var keyword = "novanto";
+/*var keyword = "novanto";
 searchNews("all",keyword,function(news) {
 	//var newsItems  = new Array();
 	var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
