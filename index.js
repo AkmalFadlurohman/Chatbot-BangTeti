@@ -160,9 +160,9 @@ function handleTop10(replyToken) {
                           "uri": "https://news.detik.com/berita/3732342/jokowi-minta-novanto-ikuti-proses-hukum-ksp-itu-peringatan-keras"
                       },
                       {
-                          "type": "postback",
+                          "type": "message",
                           "label": "Beri Feedback",
-                          "text": "action=buy&itemid=222"
+                          "text": "feedback"
                       }
                   ]
                 },
