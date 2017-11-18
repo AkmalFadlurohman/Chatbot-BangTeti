@@ -1,14 +1,15 @@
 // ============================================== Init Library ==============================================
 var xml2js = require('xml2js'),parser = new xml2js.Parser({explicitArray : false}),http = require('http'),jsdom = require('jsdom'),kmp = require('kmp');
-const { JSDOM } = jsdom;
-const express = require('express');
-const bodyParser = require('body-parser');
-const https = require('https');
-const line = require('@line/bot-sdk');
-const middleware = require('@line/bot-sdk').middleware;
-const app = express();
-var crawler = require('./newsCrawler');
-const baseURL = 'https://quiet-sands-32630.herokuapp.com';
+const { JSDOM }     = jsdom;
+const express       = require('express');
+const bodyParser    = require('body-parser');
+const https         = require('https');
+const line          = require('@line/bot-sdk');
+const middleware    = require('@line/bot-sdk').middleware;
+const CronJob       = require('cron').CronJob;
+var crawler         = require('./newsCrawler');
+const baseURL       = 'https://quiet-sands-32630.herokuapp.com';
+const app           = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
@@ -29,6 +30,18 @@ const config = {
 }
 const client = new line.Client(config);
 line.middleware(config);
+
+
+// ============================================= Preparing CRON Job ===========================================
+var top10job = new CronJob({
+    cronTime: '30 6 * * *',
+    onTick: function() {
+      pushBreakingNews();
+    },
+    start: false,
+    timeZone: 'Asia/Jakarta'
+  });
+
 
 
 // ============================================= Request Routing =============================================
@@ -481,6 +494,7 @@ function handleFeedback(replyToken) {
 // ============================================= Start Server =============================================
 app.listen(app.get('port'), function() {
     console.log('Bang Teti is listening on port', app.get('port'));
+    top10job.start();
 });
 
 
