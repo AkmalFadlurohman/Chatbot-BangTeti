@@ -389,6 +389,7 @@ function handleError(replyToken) {
 
 function handleFeedback(replyToken) {
     console.log("\tBang Teti asks for feedback.");
+    const targetId = 'Uacbfb10288b2b165c88b8eec87767973';
     const reply = {
       "type": "imagemap",
       "baseUrl": "https://example.com/bot/images/rm001",
@@ -421,7 +422,7 @@ function handleFeedback(replyToken) {
       ]
     };
 
-    client.pushMessage(replyToken, reply)
+    client.pushMessage(targetId, reply)
         .then(() => {
             console.log('Feedback sent to ' + replyToken);
         })
