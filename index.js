@@ -65,7 +65,7 @@ app.post('/', function(request, response) {
                 var message = event.message;
                 if (message.type == "text") {
                     console.log(message.text + " from " + message.id);
-                    handleCommand(message.text, replyToken)
+                    handleCommand(message.text, replyToken, source)
                 } else {
                     handleError(replyToken);
                 }
@@ -138,7 +138,7 @@ function handleFollow(replyToken, source) {
     
 }
 
-function handleCommand(command, replyToken) {
+function handleCommand(command, replyToken, source) {
     console.log("\tProcessing command " + command + " with token " + replyToken);
 
     command = command.trim();
@@ -159,9 +159,9 @@ function handleCommand(command, replyToken) {
                 console.log("\tTerjadi kesalahan " + err)
             });;
             break;
-		case 'cari' :
-			handleSearch(command, replyToken);
-			break;
+    		case 'cari' :
+      			handleSearch(command, replyToken);
+      			break;
         case 'image' :
             var reply = { type: 'image', originalContentUrl: "https://img.okezone.com/content/2017/10/03/33/1787616/pasrah-jeremy-teti-mengaku-kesulitan-mencari-jodoh-C1LQd3TusT.jpg" , previewImageUrl : "https://ruclip.com/chimg/e4/UCvYygswZM7vKjdMA90d0YIg.jpg"};
             client.replyMessage(replyToken, reply)
@@ -185,6 +185,22 @@ function handleCommand(command, replyToken) {
         case 'feedback':
             handleFeedback(replyToken);
             break;
+        case 'Yay! Seneng banget!':
+            var reply = { type: 'text', text: "Wah saya ikut senang :)\n Terimakasih feedbacknya!" };
+            client.replyMessage(replyToken, reply)
+            .then(() => console.log("\tSending reply " + replyToken))
+            .catch((err) => {
+                console.log("\tTerjadi kesalahan " + err)
+            });;
+            handleAfterFeedback(source);
+            break;
+              // "text": "Terhibur deh :D",
+              // "text": "Wow, sangat menginspirasi!",
+              // "text": "Bangga banget!",
+              // "text": "Astaga, seriusan?",
+              // "text": "Aku sedih :(",
+              // "text": "Duh, merinding, serem..",
+              // "text": "Ih ngeselin!",
         default :
             var reply = { type: 'text', text: 'Ehhmm, Bang Teti bingung nih, "'+command+'" maksudnya apa ya?' };
             client.replyMessage(replyToken, reply)
@@ -547,9 +563,10 @@ function handleFeedback(replyToken) {
         });
 }
 
-
-
-
+function handleAfterFeedback(source) {
+    var richMenuId = client.getRichMenuIdOfUser(source.userId);
+    client.deleteRichMenu(richMenuId);
+}
 
 // ============================================= Start Server =============================================
 app.listen(app.get('port'), function() {
