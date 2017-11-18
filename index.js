@@ -53,7 +53,7 @@ function addUserToDatabase(userID) {
     if (!found) {
         database.users.push({
             "userId": userID,
-            "state": "all"
+            "state": "semua"
         })
         saveDatabase();
     }
@@ -61,12 +61,20 @@ function addUserToDatabase(userID) {
 
 function editFilter(userID, filter) {
   var users = database.users;
-  var found = false;
   for (var i in database.users) {
     if (users[i].userId == userID) {
       users[i].state = filter;
       saveDatabase();
       break;
+    }
+  }
+}
+
+function getCurrentFilter() {
+  var users = database.users;
+  for (var i in database.users) {
+    if (users[i].userId == userID) {
+      return users[i].state;
     }
   }
 }
