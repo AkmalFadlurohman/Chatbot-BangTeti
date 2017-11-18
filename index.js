@@ -19,7 +19,7 @@ app.set('port', (process.env.PORT || 5000));
 
 function newsItem(title,link,img) {
 	this.thumbnailImageUrl = img;
-	this.text = title.trim().substring(0,40);
+	this.text = title.trim().substring(0,60);
 	this.actions = new Array();
 	this.actions.push({"type" : "uri","label" : "Selengkapnya","uri" : link});
 	this.actions.push({"type" : "message","label" : "Beri feedback","text" : "feedback"});

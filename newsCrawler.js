@@ -90,7 +90,7 @@ var health = "http://sindikasi.okezone.com/index.php/rss/12/RSS2.0"
 var entertainment = "http://sindikasi.okezone.com/index.php/rss/13/RSS2.0"
 function searchNews(topic,keyword,callback) {
 	
-	if (topic === "all") {
+	if (topic === "semua") {
 		crawlNews(all,keyword,console.log,function(news) {
 			callback(news);
 		});
