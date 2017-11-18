@@ -208,7 +208,6 @@ function handleCommand(command, replyToken, source) {
             .catch((err) => {
                 console.log("\tTerjadi kesalahan " + err)
             });;
-            handleAfterFeedback(source);
             break;
               // "text": "Terhibur deh :D",
               // "text": "Wow, sangat menginspirasi!",
