@@ -537,7 +537,7 @@ function pushBreakingNews() {
         }
       };
 
-    client.multicast(targetId, template)
+    client.multicast(targetId, [messageIntro, template])
         .then(() => {
             console.log('Breaking News sent');
         })
