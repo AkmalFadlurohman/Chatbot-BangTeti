@@ -177,12 +177,8 @@ function handleTop10(replyToken) {
     });;
 }
 
-<<<<<<< HEAD
-/*function handleTop10(replyToken) {
-=======
 function handleTop10(replyToken) {
     const buttonsImageURL = '${baseURL}/static/buttons/1040.jpg';
->>>>>>> 54fd6783c4c18990257565b8f878bc8120e7fdcb
     var reply = { 
         type: 'template',
         altText: 'Image carousel alt text',
