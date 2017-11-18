@@ -146,7 +146,7 @@ function handleCommand(command, replyToken) {
             handleHelp(replyToken);
             break;
         case 'feedback':
-            // handleFeedback(replyToken);
+            handleFeedback(replyToken);
             break;
         default :
             var reply = { type: 'text', text: 'Ehhmm, Bang Teti bingung nih, "'+command+'" maksudnya apa ya?' };
