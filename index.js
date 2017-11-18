@@ -444,20 +444,7 @@ app.listen(app.get('port'), function() {
 function pushBreakingNews() {
     const targetId = ['U064ad36afebade93b31fee05090207b0', 'Uacbfb10288b2b165c88b8eec87767973', 'Ue67f41a618a419cdf156d066c4f0b6d4'];
     const judul = 'Setya Novanto Menabrak Tiang Listrik';
-
-    const actionsTemplate = [
-        {
-            "type": "postback",
-            "label": "Selengkapnya",
-            "data": ""
-        },
-        {
-            "type": "postback",
-            "label": "Beri Feedback",
-            "data": ""
-        }
-    ];
-
+    
     const messageIntro = {
         "type": "text",
         "text": "Breaking News!\n \""+judul+"\". Baca info selengkapnya dari Bang Teti!",
