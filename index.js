@@ -298,13 +298,17 @@ function handleHelp(replyToken, source) {
 
 function handleTop10(replyToken) {
     crawler.crawlTop10(console.log,function(top10) {
-    var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
+    var messageIntro = { 
+      "type": "text",
+      "text": "Ini dia berita top10"
+    }
+    var msg = '{"type": "template","altText": "Bang Teti ngirimin berita top10 nih","template": {"type": "carousel","columns": []}}';
     var newsCarousel = JSON.parse(msg);
     for (var i=0;i<10;i++) {
       newsCarousel['template']['columns'].push(new newsItem(top10[i].title,top10[i].link,top10[i].img));
     }
     console.log(JSON.stringify(newsCarousel,null,2));
-    client.replyMessage(replyToken, newsCarousel)
+    client.replyMessage(replyToken, [messageIntro, newsCarousel])
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {console.log("\tTerjadi kesalahan " + err)})
     });
