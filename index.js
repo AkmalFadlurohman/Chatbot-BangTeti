@@ -359,11 +359,7 @@ function handleFeedback(replyToken) {
     const targetId = 'Uacbfb10288b2b165c88b8eec87767973';
     const reply = {
       "type": "imagemap",
-<<<<<<< HEAD
-      "baseUrl": "https://raw.githubusercontent.com/fadhilimamk/bangteti/master/emoji.png",
-=======
       "baseUrl": "https://raw.githubusercontent.com/fadhilimamk/bangteti/master/emoji/1040",
->>>>>>> 16c196fb96957430a45fbc4e804975d32cf76ab0
       "altText": "this is an imagemap",
       "baseSize": {
           "height": 1040,
