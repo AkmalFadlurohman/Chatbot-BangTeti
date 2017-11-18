@@ -241,13 +241,14 @@ function handleError(replyToken) {
 }
 
 function handleFeedback(replyToken) {
+    const buttonsImageURL = `${baseURL}/static/buttons/1040.jpg`;
     console.log("\tBang Teti asks for feedback.");
     const reply = {
       "type": "template",
       "altText": "this is a buttons template",
       "template": {
           "type": "buttons",
-          "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
+          "thumbnailImageUrl": buttonsImageURL,
           "title": "Menu",
           "text": "Please select",
           "actions": [
