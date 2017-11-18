@@ -273,7 +273,11 @@ function handleFeedback(replyToken) {
           ]
       }
     };
-    handleError(replyToken);
+    client.replyMessage(replyToken, reply)
+    .then(() => console.log("\tSending reply " + replyToken))
+    .catch((err) => {
+        console.log("\tTerjadi kesalahan " + err)
+    });;
 }
 
 // Start server
