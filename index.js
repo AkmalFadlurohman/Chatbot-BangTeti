@@ -393,7 +393,7 @@ function handleFeedback(replyToken) {
     const targetId = 'Uacbfb10288b2b165c88b8eec87767973';
     const reply = {
       "type": "imagemap",
-      "baseUrl": `${baseURL}/static/emoji/senang.png`,
+      "baseUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/72/apple/114/smiling-face-with-open-mouth-and-tightly-closed-eyes_1f606.png",
       "altText": "this is an imagemap",
       "baseSize": {
           "height": 1040,
