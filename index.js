@@ -135,7 +135,9 @@ function handleCommand(command, replyToken) {
         case 'top10':
         case 'top 10':
         case 'top-10':
-            handleTop10(replyToken);
+            for (int i = 0; i < 10; i++) {
+              handleTop10(replyToken);              
+            }
             break;
         case 'bang':
         case '?':
