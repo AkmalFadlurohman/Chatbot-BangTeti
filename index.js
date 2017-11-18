@@ -232,33 +232,9 @@ function handleTop10(replyToken) {
 
 function handleSearch(command, replyToken) {
     var keyword = command.substring(4).trim();
-	//var result = crawler.searchNews("all",keyword);
-	//crawler.searchNews("all",keyword);
-	var url = "http://rss.viva.co.id/get/all";
-	var news = new Array();
-	xmlToJson(url, function(err, result) {
-		if (err) {
-			console.log(err)
-		}
-		for(var i = 0; i < result.rss.channel.item.length; i++) {
-			var title = result.rss.channel.item[i].title;
-			var link = result.rss.channel.item[i].link;
-			var dom = new JSDOM(result.rss.channel.item[i].description,{ includeNodeLocations: true });
-			var img = dom.window.document.querySelector("img");
-			var src;
-			if (img == null) {
-				src = "none";
-			} else {
-				src = img.getAttribute('src');
-			}
-			if (kmp(title.toLowerCase(),keyword) != -1) {
-				  news.push({"title" : title,"link" : link,"img" : src});
-			}
-		}
-	});
     var reply = {
         type: 'text', 
-        text: 'Hasil pencarian :' + keyword + JSON.stringify(news,null,2)};
+        text: 'Hasil pencarian :' + keyword};
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + JSON.stringify(news,null,2)))//replyToken))
     .catch((err) => {
