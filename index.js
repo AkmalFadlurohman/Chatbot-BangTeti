@@ -291,14 +291,24 @@ function handleCommand(command, replyToken, source) {
 
 function handleHelp(replyToken, source) {
     addUserToDatabase(source.userId);
-    var reply = { 
-        type: 'text', 
-        text: 'Hai gan, kamu perlu bantuan? \nTenang aja, apapun kesulitannya Bang Teti bakal bantu kok. \n\n- Kalo kamu mau nyari berita ketik aja "Cari <sesuatu>", ntar Bang Teti bakal nyariin berita buat kamu. \n- Nah kalo kamu mau nyari berita yang lagi viral kamu bisa ketik "top10" \n\nGampang kan! Kalo masih bingung panggil Abang lagi aja, ntar bakal dibantu kok \uDBC0\uDC84' };
-    client.replyMessage(replyToken, reply)
-    .then(() => console.log("\tSending reply " + replyToken))
-    .catch((err) => {
-        console.log("\tTerjadi kesalahan " + err)
-    });;
+    
+    client.getProfile(source.userId)
+    .then((profile) => {
+        var reply = { 
+            type: 'text', 
+            text: 'Hai '+profile.displayName+', kamu perlu bantuan? \nTenang aja, apapun kesulitannya Bang Teti bakal bantu kok. \n\n- Kalo kamu mau nyari berita ketik aja "Cari <sesuatu>", ntar Bang Teti bakal nyariin berita buat kamu. \n- Nah kalo kamu mau nyari berita yang lagi viral kamu bisa ketik "top10" \n\nGampang kan! Kalo masih bingung panggil Abang lagi aja, ntar bakal dibantu kok \uDBC0\uDC84'
+        };
+        
+        client.replyMessage(replyToken, reply)
+            .then(() => console.log("\tSending reply " + replyToken))
+            .catch((err) => {
+                console.log("\tTerjadi kesalahan " + err)
+            }
+        );
+    }).catch((err) => {
+        console.log("\tTerjadi kesalahan profile" + err)
+    });
+
 }
 
 
