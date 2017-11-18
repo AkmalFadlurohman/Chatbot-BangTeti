@@ -462,29 +462,8 @@ function pushBreakingNews() {
         "type": "text",
         "text": "Breaking News!\n \""+judul+"\". Baca info selengkapnya dari Bang Teti!",
     };
-    const messageCarousell = {
-        "type": "template",
-        "altText": "Breaking News!\n \""+judul+"\". Baca info selengkapnya dari Bang Teti!",
-        "template": {
-            "type": "carousel",
-            "columns": [
-                {
-                  "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/17/8eb03aef-1891-4be9-81f5-4a8584cebd6d_169.jpg?w=780&q=90",
-                  "title": "Pengacara: Kaki Novanto Keram, Mata Nggak Bisa Dibuka, Dada Sesak".substring(0,40),   
-                  "text": "Jakarta - Ketua DPR Setya Novanto hingga saat ini masih berada di dalam Rumah Sakit Cipto Mangunkusumo (RSCM) Kencana. Pengacaranya, Fredrich Yunadi, sebelumnya menyebut kondisi kesehatan kliennya masih mengkhawatirkan.".substring(0,60),
-                  "actions": actionsTemplate
-                },
-                {
-                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                  "title": "this is menu",
-                  "text": "description",
-                  "actions": "actionsTemplate"
-                }
-            ]
-        }
-    };
 
-    const template = {
+    const messageCarousell = {
         "type": "template",
         "altText": "Ini Bang Teti kabarin berita tentang \""+judul+"\"!",
         "template": {
@@ -508,27 +487,27 @@ function pushBreakingNews() {
                   ]
                 },
                 {
-                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                  "title": "this is menu",
-                  "text": "description",
-                  "actions": [
-                    {
-                        "type": "uri",
-                        "label": "Selengkapnya",
-                        "uri": "https://news.detik.com/berita/d-3731740/pengacara-kaki-novanto-keram-mata-nggak-bisa-dibuka-dada-sesak"
-                    },
-                    {
-                        "type": "postback",
-                        "label": "Beri Feedback",
-                        "data": "action=feedback&newsid=111"
-                    }
-                  ]
+                    "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/17/8eb03aef-1891-4be9-81f5-4a8584cebd6d_169.jpg?w=780&q=90",
+                    "title": "Karangan Bunga Bernada Satire Dikirim untuk Setya Novanto".substring(0,40),   
+                    "text": "Jakarta - Ada kiriman bunga yang dikirimkan untuk Ketua DPR Setya Novanto yang sedang dirawat di RSCM Kencana, Jakarta Pusat. Salah satunya bernada satire.".substring(0,60),
+                    "actions": [
+                        {
+                            "type": "uri",
+                            "label": "Selengkapnya",
+                            "uri": "https://news.detik.com/berita/d-3732326/karangan-bunga-bernada-satire-dikirim-untuk-setya-novanto"
+                        },
+                        {
+                            "type": "postback",
+                            "label": "Beri Feedback",
+                            "data": "action=feedback&newsid=111"
+                        }
+                    ]
                 }
             ]
         }
       };
 
-    client.multicast(targetId, [messageIntro, template])
+    client.multicast(targetId, [messageIntro, messageCarousell])
         .then(() => {
             console.log('Breaking News sent');
         })
