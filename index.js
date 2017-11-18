@@ -53,7 +53,7 @@ function addUserToDatabase(userID) {
     if (!found) {
         database.users.push({
             "userId": userID,
-            "state": "all"
+            "state": "semua"
         })
         saveDatabase();
     }
@@ -61,12 +61,20 @@ function addUserToDatabase(userID) {
 
 function editFilter(userID, filter) {
   var users = database.users;
-  var found = false;
   for (var i in database.users) {
     if (users[i].userId == userID) {
       users[i].state = filter;
       saveDatabase();
       break;
+    }
+  }
+}
+
+function getCurrentFilter() {
+  var users = database.users;
+  for (var i in database.users) {
+    if (users[i].userId == userID) {
+      return users[i].state;
     }
   }
 }
@@ -235,6 +243,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				   console.log("\tTerjadi kesalahan " + err)
 			});;
+      editFilter(source.userId, "semua"); 
 			break;
 		case 'politik':
 			searchState = "politik";
@@ -244,6 +253,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				   console.log("\tTerjadi kesalahan " + err)
 			});;
+      editFilter(source.userId, "politik");
 			break;
 		case 'hiburan':
 			searchState = "hiburan";
@@ -253,6 +263,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
+      editFilter(source.userId, "hiburan");
 			break;
 		case 'kesehatan':
 			searchState = "kesehatan";
@@ -262,6 +273,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
+      editFilter(source.userId, "kesehatan");
 			break;
 		case 'teknologi':
 			searchState = "teknologi";
@@ -271,6 +283,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
+      editFilter(source.userId, "teknologi");
 			break;
 		case 'olahraga':
 			searchState = "olahraga";
@@ -280,6 +293,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
+      editFilter(source.userId, "olahraga");
 			break;
 		case 'ekonomi':
 			searchState = "ekonomi";
@@ -289,6 +303,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
+      editFilter(source.userId, "ekonomi");
 			break;
         case 'yay! seneng banget!':
             var reply = { type: 'text', text: "Wah saya ikut senang :)\nTerimakasih feedbacknya!" };
