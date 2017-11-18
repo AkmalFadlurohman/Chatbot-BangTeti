@@ -171,9 +171,9 @@ function handleTop10(replyToken) {
                           "uri": "https://news.detik.com/berita/3732342/jokowi-minta-novanto-ikuti-proses-hukum-ksp-itu-peringatan-keras"
                       },
                       {
-                          "type": "postback",
+                          "type": "message",
                           "label": "Beri Feedback",
-                          "text": "action=buy&itemid=222"
+                          "text": "feedback"
                       }
                   ]
                 },
@@ -347,7 +347,7 @@ function handleTop10(replyToken) {
 function handleSearch(command, replyToken) {
     var keyword = command.substring(4).trim();
 	crawler.searchNews("all",keyword,function(news) {
-		var reply = {type: 'text',text: 'Hasil pencarian : "' + keyword + '"'+news[0]};
+		var reply = {type: 'text',text: 'Hasil pencarian : "' + keyword + '" Judul: '+news[0].title+' Link: '+news[0].link+' Img: '+news[0].img};
 		client.replyMessage(replyToken, reply)
 		.then(() => console.log("\tSending reply " + replyToken))
 		.catch((err) => {console.log("\tTerjadi kesalahan " + err)})
@@ -370,7 +370,7 @@ function handleFeedback(replyToken) {
     const targetId = 'Uacbfb10288b2b165c88b8eec87767973';
     const reply = {
       "type": "imagemap",
-      "baseUrl": "https://raw.githubusercontent.com/fadhilimamk/bangteti/master/emoji/1040",
+      "baseUrl": "https://github.com/line/line-bot-sdk-go/blob/master/examples/kitchensink/static/rich/1040",
       "altText": "this is an imagemap",
       "baseSize": {
           "height": 1040,
