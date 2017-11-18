@@ -289,7 +289,7 @@ app.listen(app.get('port'), function() {
 
 function pushBreakingNews() {
     const targetId = 'U064ad36afebade93b31fee05090207b0';
-    const judul = 'Setya Novanto Menabrak Tiang Listrik'
+    const judul = 'Setya Novanto Menabrak Tiang Listrik'.substring(0,40);
     const message = {
         "type": "template",
         "altText": judul,
@@ -297,24 +297,19 @@ function pushBreakingNews() {
             "type": "carousel",
             "columns": [
                 {
-                  "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
-                  "title": "this is menu",
-                  "text": "description",
+                  "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/16/9304f5ed-f4fb-4c75-b657-ef146cc77c1c.jpeg?w=780&q=90",
+                  "title": "Jokowi Minta Novanto Ikuti Proses Hukum, KSP: Itu Peringatan Keras".substring(0,40),
+                  "text": "Jakarta - Presiden Joko Widodo meminta Setya Novanto mengikuti proses hukum di Komisi Pemberantasan Korupsi (KPK). Permintaan ini dinilai sebagai peringatan keras untuk Novanto agar tak lari dari kasus dugaan korupsi proyek e-KTP.".substring(0,60),
                   "actions": [
                       {
                           "type": "postback",
-                          "label": "Buy",
+                          "label": "Selengkapnya",
                           "data": "action=buy&itemid=111"
                       },
                       {
                           "type": "postback",
-                          "label": "Add to cart",
+                          "label": "Beri Feedback",
                           "data": "action=add&itemid=111"
-                      },
-                      {
-                          "type": "uri",
-                          "label": "View detail",
-                          "uri": "http://example.com/page/111"
                       }
                   ]
                 },
@@ -325,18 +320,13 @@ function pushBreakingNews() {
                   "actions": [
                       {
                           "type": "postback",
-                          "label": "Buy",
+                          "label": "Selengkapnya",
                           "data": "action=buy&itemid=222"
                       },
                       {
                           "type": "postback",
-                          "label": "Add to cart",
+                          "label": "Beri Feedback",
                           "data": "action=add&itemid=222"
-                      },
-                      {
-                          "type": "uri",
-                          "label": "View detail",
-                          "uri": "http://example.com/page/222"
                       }
                   ]
                 }
