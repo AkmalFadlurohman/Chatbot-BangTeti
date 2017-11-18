@@ -106,7 +106,7 @@ function handleCommand(command, replyToken) {
         case 'top10':
         case 'top 10':
         case 'top-10':
-            handleTop10(replyToken);              
+            handleTop10(command, replyToken);              
             break;
         case 'bang':
         case '?':
@@ -141,7 +141,10 @@ function handleHelp(replyToken) {
 }
 
 
-function handleTop10(replyToken) {
+function handleTop10(command, replyToken) {
+    var keyword = command.substring(4).trim();
+    crawler.searchNews("all",keyword,function(news) {
+    var link = news[0].link;
     const targetId = 'Ue67f41a618a419cdf156d066c4f0b6d4';
     const message = {
         "type": "template",
@@ -157,7 +160,7 @@ function handleTop10(replyToken) {
                       {
                           "type": "uri",
                           "label": "Selengkapnya",
-                          "uri": "https://news.detik.com/berita/3732342/jokowi-minta-novanto-ikuti-proses-hukum-ksp-itu-peringatan-keras"
+                          "uri": link
                       },
                       {
                           "type": "message",
