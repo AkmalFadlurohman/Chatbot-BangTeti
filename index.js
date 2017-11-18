@@ -64,18 +64,20 @@ function editFilter(userID, filter) {
     if (users[i].userId == userID) {
       users[i].state = filter;
       saveDatabase();
-      break;
+      return;
     }
   }
+  addUserToDatabase(userID);
 }
 
 function getCurrentFilter(userID) {
-  var users = database.users;
-  for (var i in database.users) {
-    if (users[i].userId == userID) {
-      return users[i].state;
+    for (var i in database.users) {
+        if (database.users[i].userId == userID) {
+            return database.users[i].state;
+        }
     }
-  }
+    addUserToDatabase(userID);
+    return "semua";
 }
 
 // ============================================= Preparing CRON Job ===========================================
