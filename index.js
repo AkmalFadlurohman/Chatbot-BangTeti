@@ -42,6 +42,7 @@ function saveDatabase() {
 }
 
 function addUserToDatabase(userID) {
+    console.log("adding " + userID + " to database");
     var users = database.users;
     var found = false;
     users.forEach(function(user) {
@@ -67,6 +68,7 @@ function editFilter(userID, filter) {
     }
   }
   addUserToDatabase(userID);
+  editFilter(userID, filter);
 }
 
 function getCurrentFilter(userID) {
