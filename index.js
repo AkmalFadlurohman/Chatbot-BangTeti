@@ -177,7 +177,12 @@ function handleTop10(replyToken) {
     });;
 }
 
+<<<<<<< HEAD
 /*function handleTop10(replyToken) {
+=======
+function handleTop10(replyToken) {
+    const buttonsImageURL = '${baseURL}/static/buttons/1040.jpg';
+>>>>>>> 54fd6783c4c18990257565b8f878bc8120e7fdcb
     var reply = { 
         type: 'template',
         altText: 'Image carousel alt text',
@@ -233,6 +238,43 @@ function handleError(replyToken) {
     console.log("\tBang Teti bingung!");
 
     const reply = { type: 'text', text: "Bang Teto bingung!" };
+    client.replyMessage(replyToken, reply)
+    .then(() => console.log("\tSending reply " + replyToken))
+    .catch((err) => {
+        console.log("\tTerjadi kesalahan " + err)
+    });;
+}
+
+function handleFeedback(replyToken) {
+    const buttonsImageURL = `${baseURL}/static/buttons/1040.jpg/700`;
+    console.log("\tBang Teti asks for feedback.");
+    const reply = {
+      "type": "template",
+      "altText": "this is a buttons template",
+      "template": {
+          "type": "buttons",
+          "thumbnailImageUrl": buttonsImageURL,
+          "title": "Menu",
+          "text": "Please select",
+          "actions": [
+              {
+                "type": "postback",
+                "label": "Buy",
+                "data": "action=buy&itemid=123"
+              },
+              {
+                "type": "postback",
+                "label": "Add to cart",
+                "data": "action=add&itemid=123"
+              },
+              {
+                "type": "uri",
+                "label": "View detail",
+                "uri": "http://example.com/page/123"
+              }
+          ]
+      }
+    };
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
