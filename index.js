@@ -1,4 +1,4 @@
-// Creating App instance
+// ============================================== Init Library ==============================================
 var xml2js = require('xml2js'),parser = new xml2js.Parser({explicitArray : false}),http = require('http'),jsdom = require('jsdom'),kmp = require('kmp');
 const { JSDOM } = jsdom;
 const express = require('express');
@@ -22,7 +22,11 @@ const config = {
 const client = new line.Client(config);
 line.middleware(config);
 
-// Main handler
+
+
+
+// ============================================= Request Routing =============================================
+
 app.get('/', function(request, response) {
     response.send('Bang Teti GET Handler');
 });
@@ -58,7 +62,14 @@ app.post('/', function(request, response) {
     response.status(200).send("OK");
 });
 
-// Helper function
+app.get('/breakingnews', function(request, response) {
+    pushBreakingNews();
+});
+
+
+
+// ============================================= Handler Function =============================================
+
 function handleFollow(replyToken) {
     console.log("\tGive introduction with token " + replyToken);
     var message = {
@@ -398,7 +409,11 @@ function handleFeedback(replyToken) {
         });
 }
 
-// Start server
+
+
+
+
+// ============================================= Start Server =============================================
 app.listen(app.get('port'), function() {
     console.log('Bang Teti is listening on port', app.get('port'));
 });
