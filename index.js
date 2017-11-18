@@ -14,6 +14,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
 app.set('port', (process.env.PORT || 5000));
 
+function newsItem(title,link,img) {
+	this.thumbnailImageUrl = img;
+	this.text = title;
+	this.actions = new Array();
+	this.actions.push({"type" : "uri","label" : "Selengkapnya","uri" : link});
+	this.actions.push({"type" : "postback","label" : "Beri feedback","action" : "action=feedback&newsid=111"});
+}
+
 const config = {
     channelAccessToken: '5T0Ter+WeMhWyPhCkh9DULTAkq1MyKNLaSZscQBQ2tRJSUfj9+JHlI+M2BmyNvWBSGHB6qTAbeMMkuPzf2T2x7bE+ROvxr6prGZu5awO6dB5a1V/BM7J20GG9pLX92kwGuiRDTWM2wwTTHYkzGtZvgdB04t89/1O/w1cDnyilFU=',
     channelSecret: '3d4009bee32c80a68b725e3cbb45d13c',
@@ -116,6 +124,15 @@ function handleCommand(command, replyToken) {
     }
 
     switch (command.toLowerCase()) {
+        case 'profile' :
+            return client.getProfile(source.userId)
+            .then((profile) => replyText(
+            replyToken,
+            [
+              `Display name: ${profile.displayName}`,
+              `Status message: ${profile.statusMessage}`,
+            ]
+          ));
         case 'abc' : 
             var reply = { type: 'text', text: "ABC adalah sebuah keyword yang valid" };
             client.replyMessage(replyToken, reply)
@@ -362,6 +379,14 @@ function handleTop10(replyToken) {
         }
     };
 
+    client.replyMessage(replyToken, [messageIntro, message])
+        .then(() => {
+            console.log('Top10 sent with token ' + replyToken);
+        })
+        .catch((err) => {
+            console.log('Top10 error: ' + err);
+        });
+
     client.pushMessage(targetId, [messageIntro, message])
         .then(() => {
             console.log('Top10 sent to ' + targetId);
@@ -375,8 +400,16 @@ function handleTop10(replyToken) {
 function handleSearch(command, replyToken) {
     var keyword = command.substring(4).trim();
 	crawler.searchNews("all",keyword,function(news) {
-		var reply = {type: 'text',text: 'Hasil pencarian : "' + keyword + '" Judul: '+news[0].title+' Link: '+news[0].link+' Img: '+news[0].img};
-		client.replyMessage(replyToken, reply)
+		//var reply = {type: 'text',text: 'Hasil pencarian : "' + keyword + '" Judul: '+news[0].title+' Link: '+news[0].link+' Img: '+news[0].img};
+		var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
+		var newsCarousel = JSON.parse(msg);
+		newsCarousel['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
+		/*for (var i=1;i<news.length;i++) {
+			//newsItems.push(new newsItem(news[i].title,news[i].link,news[i].img));
+		}*/
+		//var reply = JSON.stringify(newsCarousel,null,2);
+		console.log(JSON.stringify(newsCarousel));
+		client.replyMessage(replyToken, newsCarousel)
 		.then(() => console.log("\tSending reply " + replyToken))
 		.catch((err) => {console.log("\tTerjadi kesalahan " + err)})
     });
