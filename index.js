@@ -188,12 +188,12 @@ function handleTop10(replyToken) {
                       {
                           "type": "uri",
                           "label": "Selengkapnya",
-                          "uri": "https://news.detik.com/msite/berita/d-3732342/jokowi-minta-novanto-ikuti-proses-hukum-ksp-itu-peringatan-keras"
+                          "uri": "https://news.detik.com/berita/3732342/jokowi-minta-novanto-ikuti-proses-hukum-ksp-itu-peringatan-keras"
                       },
                       {
                           "type": "postback",
                           "label": "Beri Feedback",
-                          "data": "action=add&itemid=111"
+                          "data": "action="
                       }
                   ]
                 },
