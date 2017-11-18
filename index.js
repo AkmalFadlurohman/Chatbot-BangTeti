@@ -1,4 +1,4 @@
-// Creating App instance
+// ============================================== Init Library ==============================================
 var xml2js = require('xml2js'),parser = new xml2js.Parser({explicitArray : false}),http = require('http'),jsdom = require('jsdom'),kmp = require('kmp');
 const { JSDOM } = jsdom;
 const express = require('express');
@@ -8,7 +8,7 @@ const line = require('@line/bot-sdk');
 const middleware = require('@line/bot-sdk').middleware;
 const app = express();
 var crawler = require('./newsCrawler');
-const baseURL = process.env.BASE_URL;
+const baseURL = 'https://quiet-sands-32630.herokuapp.com';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
@@ -30,7 +30,9 @@ const config = {
 const client = new line.Client(config);
 line.middleware(config);
 
-// Main handler
+
+// ============================================= Request Routing =============================================
+
 app.get('/', function(request, response) {
     response.send('Bang Teti GET Handler');
 });
@@ -66,7 +68,37 @@ app.post('/', function(request, response) {
     response.status(200).send("OK");
 });
 
-// Helper function
+app.get('/breakingnews', function(request, response) {
+    pushBreakingNews();
+});
+
+
+app.get('/static/emoji/:resolution', function (req, res) {
+    var resolution = req.params.resolution;
+    switch (resolution) {
+        case '200':
+            res.sendFile(__dirname + '/static/emoji/200.png');
+            break;
+        case '300':
+            res.sendFile(__dirname + '/static/emoji/300.png');
+            break;
+        case '460':
+            res.sendFile(__dirname + '/static/emoji/460.png');
+            break;
+        case '700':
+            res.sendFile(__dirname + '/static/emoji/700.png');
+            break;
+        case '1040': 
+            res.sendFile(__dirname + '/static/emoji/1040.png');
+            break;
+        default:
+            res.sendFile(__dirname + '/static/emoji.jpg');
+    }
+});
+
+
+// ============================================= Handler Function =============================================
+
 function handleFollow(replyToken) {
     console.log("\tGive introduction with token " + replyToken);
     var message = {
@@ -149,8 +181,15 @@ function handleHelp(replyToken) {
 }
 
 
+
 function handleTop10(replyToken) {
     const targetId = 'Ue67f41a618a419cdf156d066c4f0b6d4';
+
+    const messageIntro = {
+        "type": "text",
+        "text": "Ini dia berita Top 10"
+    };
+
     const message = {
         "type": "template",
         "altText": 'Bang Teti ngirim berita top 10 nih',
@@ -331,7 +370,15 @@ function handleTop10(replyToken) {
         }
     };
 
-    client.pushMessage(targetId, message)
+    client.replyMessage(replyToken, [messageIntro, message])
+        .then(() => {
+            console.log('Top10 sent with token ' + replyToken);
+        })
+        .catch((err) => {
+            console.log('Top10 error: ' + err);
+        });
+
+    client.pushMessage(targetId, [messageIntro, message])
         .then(() => {
             console.log('Top10 sent to ' + targetId);
         })
@@ -374,7 +421,7 @@ function handleFeedback(replyToken) {
     const targetId = 'Uacbfb10288b2b165c88b8eec87767973';
     const reply = {
       "type": "imagemap",
-      "baseUrl": "https://github.com/line/line-bot-sdk-go/blob/master/examples/kitchensink/static/rich/1040",
+      "baseUrl": baseURL+"/static/emoji",
       "altText": "this is an imagemap",
       "baseSize": {
           "height": 1040,
@@ -404,16 +451,28 @@ function handleFeedback(replyToken) {
       ]
     };
 
+    client.replyMessage(replyToken, reply)
+        .then(() => {
+            console.log('Feedback sent with token ' + replyToken);
+        })
+        .catch((err) => {
+            console.log('Feedback error: ' + err);
+        });
+
     client.pushMessage(targetId, reply)
         .then(() => {
-            console.log('Feedback sent to ' + replyToken);
+            console.log('Feedback sent to ' + targetId);
         })
         .catch((err) => {
             console.log('Feedback error: ' + err);
         });
 }
 
-// Start server
+
+
+
+
+// ============================================= Start Server =============================================
 app.listen(app.get('port'), function() {
     console.log('Bang Teti is listening on port', app.get('port'));
 });
