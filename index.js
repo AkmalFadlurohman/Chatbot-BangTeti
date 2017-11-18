@@ -125,7 +125,7 @@ function handleCommand(command, replyToken) {
 
     switch (command.toLowerCase()) {
         case 'profile' :
-            client.getProfile('<userId>')
+            client.getProfile('Ue67f41a618a419cdf156d066c4f0b6d4')
             .then((profile) => {
               console.log(profile.displayName);
               console.log(profile.userId);
