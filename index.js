@@ -178,56 +178,25 @@ function handleHelp(replyToken) {
 }*/
 
 function handleTop10(replyToken) {
-    var reply = {
-          type: "imagemap",
-          imagemap: [{
-              baseUrl: "https://img.okezone.com/content/2017/10/03/33/1787616/pasrah-jeremy-teti-mengaku-kesulitan-mencari-jodoh-C1LQd3TusT.jpg/520",
-              altText: "Bang Teti ngirim Top-10 nih",
-              baseSize: {
-                  "height": 260,
-                  "width": 260
-              },
-              actions: [
-                  {
-                      "type": "uri",
-                      "linkUri": "https://img.okezone.com/content/2017/10/03/33/1787616/pasrah-jeremy-teti-mengaku-kesulitan-mencari-jodoh-C1LQd3TusT.jpg",
-                      "area": {
-                          "x": 0,
-                          "y": 0,
-                          "width": 520,
-                          "height": 1040
-                      }
-                  }
-              ]
-        },
-        {
-              baseUrl: "https://img.okezone.com/content/2017/10/03/33/1787616/pasrah-jeremy-teti-mengaku-kesulitan-mencari-jodoh-C1LQd3TusT.jpg/520",
-              altText: "Bang Teti ngirim Top-10 nih",
-              baseSize: {
-                  "height": 260,
-                  "width": 260
-              },
-              actions: [
-                  {
-                      "type": "uri",
-                      "linkUri": "https://img.okezone.com/content/2017/10/03/33/1787616/pasrah-jeremy-teti-mengaku-kesulitan-mencari-jodoh-C1LQd3TusT.jpg",
-                      "area": {
-                          "x": 0,
-                          "y": 0,
-                          "width": 520,
-                          "height": 1040
-                      }
-                  }
-              ]
-        }]
-    }
+    var reply = { 
+        type: 'template',
+        altText: 'Datetime pickers alt text',
+        template: {
+          type: 'buttons',
+          text: 'Select date / time !',
+          actions: [
+            { type: 'datetimepicker', label: 'date', data: 'DATE', mode: 'date' },
+            { type: 'datetimepicker', label: 'time', data: 'TIME', mode: 'time' },
+            { type: 'datetimepicker', label: 'datetime', data: 'DATETIME', mode: 'datetime' },
+          ]
+        }
+    };
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
 }
-
 
 
 function handleSearch(command, replyToken) {
