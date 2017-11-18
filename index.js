@@ -566,9 +566,18 @@ app.listen(app.get('port'), function() {
 });
 
 
-function pushBreakingNews() {
-    console.log("sending to " + JSON.stringify(database.users));
-    const targetId = ['U064ad36afebade93b31fee05090207b0', 'Uacbfb10288b2b165c88b8eec87767973', 'Ue67f41a618a419cdf156d066c4f0b6d4'];
+function pushBreakingNews() {   
+    var targetId = [];
+    database.users.forEach(function(user) {
+        targetId.push(user.userId);
+    });
+    console.log("sending to " + JSON.stringify(targetId));
+
+    if (targetId.length == 0) {
+        console.log("Bang Teti have no friend :(");
+        return;
+    }
+
     const judul = 'Setya Novanto Menabrak Tiang Listrik';
 
     const messageIntro = {
@@ -597,58 +606,7 @@ function pushBreakingNews() {
                           "data": "action=feedback&newsid=111"
                       }
                   ]
-                },
-                {
-                    "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/18/53226336-9412-41e3-8472-b435cdcd0347_169.jpg?w=780&q=90",
-                    "title": "Karangan Bunga Bernada Satire Dikirim untuk Setya Novanto".substring(0,40),   
-                    "text": "Jakarta - Ada kiriman bunga yang dikirimkan untuk Ketua DPR Setya Novanto yang sedang dirawat di RSCM Kencana, Jakarta Pusat. Salah satunya bernada satire.".substring(0,60),
-                    "actions": [
-                        {
-                            "type": "uri",
-                            "label": "Selengkapnya",
-                            "uri": "https://news.detik.com/berita/d-3732326/karangan-bunga-bernada-satire-dikirim-untuk-setya-novanto"
-                        },
-                        {
-                            "type": "postback",
-                            "label": "Beri Feedback",
-                            "data": "action=feedback&newsid=111"
-                        }
-                    ]
-                },
-                {
-                    "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/17/8eb03aef-1891-4be9-81f5-4a8584cebd6d_169.jpg?w=780&q=90",
-                    "title": "Pengacara: Kaki Novanto Keram, Mata Nggak Bisa Dibuka, Dada Sesak".substring(0,40),   
-                    "text": "Jakarta - Ketua DPR Setya Novanto hingga saat ini masih berada di dalam Rumah Sakit Cipto Mangunkusumo (RSCM) Kencana. Pengacaranya, Fredrich Yunadi, sebelumnya menyebut kondisi kesehatan kliennya masih mengkhawatirkan.".substring(0,60),
-                    "actions": [
-                        {
-                            "type": "uri",
-                            "label": "Selengkapnya",
-                            "uri": "https://news.detik.com/berita/d-3731740/pengacara-kaki-novanto-keram-mata-nggak-bisa-dibuka-dada-sesak"
-                        },
-                        {
-                            "type": "postback",
-                            "label": "Beri Feedback",
-                            "data": "action=feedback&newsid=111"
-                        }
-                    ]
-                  },
-                  {
-                    "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/17/8eb03aef-1891-4be9-81f5-4a8584cebd6d_169.jpg?w=780&q=90",
-                    "title": "Pengacara: Kaki Novanto Keram, Mata Nggak Bisa Dibuka, Dada Sesak".substring(0,40),   
-                    "text": "Jakarta - Ketua DPR Setya Novanto hingga saat ini masih berada di dalam Rumah Sakit Cipto Mangunkusumo (RSCM) Kencana. Pengacaranya, Fredrich Yunadi, sebelumnya menyebut kondisi kesehatan kliennya masih mengkhawatirkan.".substring(0,60),
-                    "actions": [
-                        {
-                            "type": "uri",
-                            "label": "Selengkapnya",
-                            "uri": "https://news.detik.com/berita/d-3731740/pengacara-kaki-novanto-keram-mata-nggak-bisa-dibuka-dada-sesak"
-                        },
-                        {
-                            "type": "postback",
-                            "label": "Beri Feedback",
-                            "data": "action=feedback&newsid=111"
-                        }
-                    ]
-                  }                                  
+                }                                
             ]
         }
       };
