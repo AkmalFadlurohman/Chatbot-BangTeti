@@ -427,7 +427,7 @@ function handleTop10(replyToken) {
 
 
 function handleSearch(command, replyToken,source) {
-    var keyword = command.substring(4).trim();
+    var keyword = command.substring(4).trim().toLowerCase();
 	console.log(getCurrentFilter(source.userId));
 	crawler.searchNews(getCurrentFilter(source.userId),keyword,function(news) {
 		var reply;
