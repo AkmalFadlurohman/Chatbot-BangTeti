@@ -5,6 +5,13 @@ const { JSDOM } = jsdom;
 function toLowerCase(title){
 	return title.toLowerCase();
 }
+function newsItem(title,link,img) {
+	this.thumbnailImageUrl = img;
+	this.text = title;
+	this.actions = new Array();
+	this.actions.push({"type" : "uri","label" : "Selengkapnya","uri" : link});
+	this.actions.push({"type" : "postback","label" : "Beri feedback","action" : "action=feedback&newsid=111"});
+}
 function xmlToJson(url,callback) {
 	var request = http.get(url, function(response) {
 		var xml = '';
@@ -90,5 +97,13 @@ function searchNews(topic,keyword,callback) {
 module.exports.searchNews = searchNews;
 /*var keyword = "novanto";
 searchNews("all",keyword,function(news) {
-	
+	//var newsItems  = new Array();
+	var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
+	var newsCarousel = JSON.parse(msg);
+	for (var i=1;i<news.length;i++) {
+		newsCarousel['template']['columns'].push(new newsItem(news[i].title,news[i].link,news[i].img));
+		//newsItems.push(new newsItem(news[i].title,news[i].link,news[i].img));
+	}
+	var reply = JSON.stringify(newsCarousel,null,1);
+	console.log(reply);
 });*/
