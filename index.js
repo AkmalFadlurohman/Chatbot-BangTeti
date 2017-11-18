@@ -120,8 +120,6 @@ function handleFollow(replyToken, source) {
     .then((profile) => {
       console.log(profile.displayName);
       console.log(profile.userId);
-      console.log(profile.pictureUrl);
-      console.log(profile.statusMessage);
       var message = {
         type: 'text',
         text: 'Hai '+profile.displayName+' perkenalkan, saya Bang Teti. Saya akan melaporkan berita yang dapat dipercaya!'
