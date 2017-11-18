@@ -139,7 +139,7 @@ function handleCommand(command, replyToken, source) {
 
     switch (command.toLowerCase()) {
         case 'profile' :
-            client.getProfile('source.userId')
+            client.getProfile(source.userId)
             .then((profile) => {
               console.log(profile.displayName);
               console.log(profile.userId);
