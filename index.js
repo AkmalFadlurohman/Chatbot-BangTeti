@@ -135,7 +135,7 @@ function handleCommand(command, replyToken) {
         case 'top10':
         case 'top 10':
         case 'top-10':
-              handleTop10(replyToken);              
+            handleTop10(replyToken);              
             break;
         case 'bang':
         case '?':
@@ -186,15 +186,15 @@ function handleTop10(replyToken) {
           columns: [
             {
               imageUrl: buttonsImageURL,
-              action: { label: 'Go to LINE', type: 'uri', uri: 'https://line.me' },
+              action: { label: 'Go to LINE', type: 'uri', uri: 'https://line.me' }
             },
             {
               imageUrl: buttonsImageURL,
-              action: { label: 'Say hello1', type: 'postback', data: 'hello こんにちは' },
+              action: { label: 'Say hello1', type: 'postback', data: 'hello こんにちは' }
             },
             {
               imageUrl: buttonsImageURL,
-              action: { label: 'Say message', type: 'message', text: 'Rice=米' },
+              action: { label: 'Say message', type: 'message', text: 'Rice=米' }
             },
             {
               imageUrl: buttonsImageURL,
@@ -202,7 +202,7 @@ function handleTop10(replyToken) {
                 label: 'datetime',
                 type: 'datetimepicker',
                 data: 'DATETIME',
-                mode: 'datetime',
+                mode: 'datetime'
               }
             }
           ]
