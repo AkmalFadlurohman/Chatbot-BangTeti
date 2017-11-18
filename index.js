@@ -137,6 +137,8 @@ app.get('/static/emoji-cropped/:resolution', function (req, res) {
 function handleFollow(replyToken, source) {
     console.log("\tGive introduction with token " + replyToken);
     
+    addUserToDatabase(source.userId);
+    
     client.getProfile(source.userId)
     .then((profile) => {
       console.log(profile.displayName);
@@ -345,7 +347,7 @@ function handleHelp(replyToken, source) {
     .then((profile) => {
         var reply = { 
             type: 'text', 
-            text: 'Hai '+profile.displayName+', kamu perlu bantuan? \nTenang aja, apapun kesulitannya Bang Teti bakal bantu kok. \n\n- Kalo kamu mau nyari berita ketik aja "Cari <sesuatu>", ntar Bang Teti bakal nyariin berita buat kamu. \n- Nah kalo kamu mau nyari berita yang lagi viral kamu bisa ketik "top10" \n\nGampang kan! Kalo masih bingung panggil Abang lagi aja, ntar bakal dibantu kok \uDBC0\uDC84'
+            text: 'Hai '+profile.displayName+', kamu perlu bantuan? Tenang aja, apapun kesulitannya Bang Teti bakal bantu kok. \n\n- Kalo kamu mau nyari berita ketik aja "Cari <sesuatu>", ntar Bang Teti bakal nyariin berita buat kamu. \n- Nah kalo kamu mau nyari berita yang lagi viral kamu bisa ketik "top10" \n\nGampang kan! Kalo masih bingung panggil Abang lagi aja, ntar bakal dibantu kok \uDBC0\uDC84'
         };
         
         client.replyMessage(replyToken, reply)
