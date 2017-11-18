@@ -173,10 +173,9 @@ function handleHelp(replyToken) {
 
 function handleTop10(replyToken) {
     const targetId = 'Ue67f41a618a419cdf156d066c4f0b6d4';
-    const judul = 'Setya Novanto Menabrak Tiang Listrik'.substring(0,40);
     const message = {
         "type": "template",
-        "altText": 'Inilah top10',
+        "altText": 'Bang Teti ngirim berita top 10 nih',
         "template": {
             "type": "carousel",
             "columns": [
@@ -194,6 +193,142 @@ function handleTop10(replyToken) {
                           "type": "postback",
                           "label": "Beri Feedback",
                           "data": "action=add&itemid=111"
+                      }
+                  ]
+                },
+                {
+                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
+                  "title": "this is menu",
+                  "text": "description",
+                  "actions": [
+                      {
+                          "type": "postback",
+                          "label": "Selengkapnya",
+                          "data": "action=buy&itemid=222"
+                      },
+                      {
+                          "type": "postback",
+                          "label": "Beri Feedback",
+                          "data": "action=add&itemid=222"
+                      }
+                  ]
+                },
+                {
+                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
+                  "title": "this is menu",
+                  "text": "description",
+                  "actions": [
+                      {
+                          "type": "postback",
+                          "label": "Selengkapnya",
+                          "data": "action=buy&itemid=222"
+                      },
+                      {
+                          "type": "postback",
+                          "label": "Beri Feedback",
+                          "data": "action=add&itemid=222"
+                      }
+                  ]
+                },
+                {
+                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
+                  "title": "this is menu",
+                  "text": "description",
+                  "actions": [
+                      {
+                          "type": "postback",
+                          "label": "Selengkapnya",
+                          "data": "action=buy&itemid=222"
+                      },
+                      {
+                          "type": "postback",
+                          "label": "Beri Feedback",
+                          "data": "action=add&itemid=222"
+                      }
+                  ]
+                },
+                {
+                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
+                  "title": "this is menu",
+                  "text": "description",
+                  "actions": [
+                      {
+                          "type": "postback",
+                          "label": "Selengkapnya",
+                          "data": "action=buy&itemid=222"
+                      },
+                      {
+                          "type": "postback",
+                          "label": "Beri Feedback",
+                          "data": "action=add&itemid=222"
+                      }
+                  ]
+                },
+                {
+                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
+                  "title": "this is menu",
+                  "text": "description",
+                  "actions": [
+                      {
+                          "type": "postback",
+                          "label": "Selengkapnya",
+                          "data": "action=buy&itemid=222"
+                      },
+                      {
+                          "type": "postback",
+                          "label": "Beri Feedback",
+                          "data": "action=add&itemid=222"
+                      }
+                  ]
+                },
+                {
+                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
+                  "title": "this is menu",
+                  "text": "description",
+                  "actions": [
+                      {
+                          "type": "postback",
+                          "label": "Selengkapnya",
+                          "data": "action=buy&itemid=222"
+                      },
+                      {
+                          "type": "postback",
+                          "label": "Beri Feedback",
+                          "data": "action=add&itemid=222"
+                      }
+                  ]
+                },
+                {
+                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
+                  "title": "this is menu",
+                  "text": "description",
+                  "actions": [
+                      {
+                          "type": "postback",
+                          "label": "Selengkapnya",
+                          "data": "action=buy&itemid=222"
+                      },
+                      {
+                          "type": "postback",
+                          "label": "Beri Feedback",
+                          "data": "action=add&itemid=222"
+                      }
+                  ]
+                },
+                {
+                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
+                  "title": "this is menu",
+                  "text": "description",
+                  "actions": [
+                      {
+                          "type": "postback",
+                          "label": "Selengkapnya",
+                          "data": "action=buy&itemid=222"
+                      },
+                      {
+                          "type": "postback",
+                          "label": "Beri Feedback",
+                          "data": "action=add&itemid=222"
                       }
                   ]
                 },
