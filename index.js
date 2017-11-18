@@ -231,7 +231,8 @@ function handleTop10(replyToken) {
         message['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
       }
       console.log(JSON.stringify(message));
-    }
+    });
+
     client.replyMessage(replyToken, [messageIntro, message])
         .then(() => {
             console.log('Top10 sent with token ' + replyToken);
