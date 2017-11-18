@@ -418,14 +418,11 @@ function handleTop10(replyToken) {
 function handleSearch(command, replyToken) {
     var keyword = command.substring(4).trim();
 	crawler.searchNews("all",keyword,function(news) {
-		//var reply = {type: 'text',text: 'Hasil pencarian : "' + keyword + '" Judul: '+news[0].title+' Link: '+news[0].link+' Img: '+news[0].img};
 		var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
 		var newsCarousel = JSON.parse(msg);
-		newsCarousel['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
-		/*for (var i=1;i<news.length;i++) {
-			//newsItems.push(new newsItem(news[i].title,news[i].link,news[i].img));
-		}*/
-		//var reply = JSON.stringify(newsCarousel,null,2);
+		for (var i=1;i<news.length;i++) {
+			newsCarousel['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
+		}
 		console.log(JSON.stringify(newsCarousel));
 		client.replyMessage(replyToken, newsCarousel)
 		.then(() => console.log("\tSending reply " + replyToken))
