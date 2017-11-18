@@ -211,6 +211,7 @@ function handleCommand(command, replyToken, source) {
             .catch((err) => {
                 console.log("\tTerjadi kesalahan " + err)
             });;
+            handleAfterFeedback(source);
             break;
         case 'terhibur deh :d':
             var reply = { type: 'text', text: "Berita abang memang menarik :D\nTerimakasih feedbacknya!" };
@@ -458,7 +459,9 @@ function handleFeedback(replyToken) {
 
 function handleAfterFeedback(source) {
     var richMenuId = client.getRichMenuIdOfUser(source.userId);
+    console.log(richMenuId);
     client.deleteRichMenu(richMenuId);
+    console.log("deleted");
 }
 
 // ============================================= Start Server =============================================
