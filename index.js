@@ -115,22 +115,23 @@ app.get('/static/emoji/:resolution', function (req, res) {
 
 function handleFollow(replyToken, source) {
     console.log("\tGive introduction with token " + replyToken);
-    var message;
+    
     client.getProfile(source.userId)
     .then((profile) => {
       console.log(profile.displayName);
       console.log(profile.userId);
       console.log(profile.pictureUrl);
       console.log(profile.statusMessage);
-      message = {
-        type: 'text',
-        text: 'Hai '+profile.displayName+' perkenalkan, saya Bang Teti. Saya akan melaporkan berita yang dapat dipercaya!'
-    };
+      
     })
+
     .catch((err) => {
       // error handling
     });
-    
+    var message = {
+        type: 'text',
+        text: 'Hai '+profile.displayName+' perkenalkan, saya Bang Teti. Saya akan melaporkan berita yang dapat dipercaya!'
+    };
     
     client.replyMessage(replyToken, message)
         .then(() => console.log("\tSending reply " + replyToken))
