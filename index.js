@@ -490,17 +490,49 @@ function pushBreakingNews() {
             "type": "carousel",
             "columns": [
                 {
-                    "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/17/8eb03aef-1891-4be9-81f5-4a8584cebd6d_169.jpg?w=780&q=90",
-                    "title": "Pengacara: Kaki Novanto Keram, Mata Nggak Bisa Dibuka, Dada Sesak".substring(0,40),   
-                    "text": "Jakarta - Ketua DPR Setya Novanto hingga saat ini masih berada di dalam Rumah Sakit Cipto Mangunkusumo (RSCM) Kencana. Pengacaranya, Fredrich Yunadi, sebelumnya menyebut kondisi kesehatan kliennya masih mengkhawatirkan.".substring(0,60),
-                    "actions": actionsTemplate
-                  },
-                  {
-                    "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                    "title": "this is menu",
-                    "text": "description",
-                    "actions": "actionsTemplate"
-                  }
+                  "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/17/8eb03aef-1891-4be9-81f5-4a8584cebd6d_169.jpg?w=780&q=90",
+                  "title": "Pengacara: Kaki Novanto Keram, Mata Nggak Bisa Dibuka, Dada Sesak".substring(0,40),   
+                  "text": "Jakarta - Ketua DPR Setya Novanto hingga saat ini masih berada di dalam Rumah Sakit Cipto Mangunkusumo (RSCM) Kencana. Pengacaranya, Fredrich Yunadi, sebelumnya menyebut kondisi kesehatan kliennya masih mengkhawatirkan.".substring(0,60),
+                  "actions": [
+                      {
+                          "type": "postback",
+                          "label": "Buy",
+                          "data": "action=buy&itemid=111"
+                      },
+                      {
+                          "type": "postback",
+                          "label": "Add to cart",
+                          "data": "action=add&itemid=111"
+                      },
+                      {
+                          "type": "uri",
+                          "label": "View detail",
+                          "uri": "http://example.com/page/111"
+                      }
+                  ]
+                },
+                {
+                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
+                  "title": "this is menu",
+                  "text": "description",
+                  "actions": [
+                      {
+                          "type": "postback",
+                          "label": "Buy",
+                          "data": "action=buy&itemid=222"
+                      },
+                      {
+                          "type": "postback",
+                          "label": "Add to cart",
+                          "data": "action=add&itemid=222"
+                      },
+                      {
+                          "type": "uri",
+                          "label": "View detail",
+                          "uri": "http://example.com/page/222"
+                      }
+                  ]
+                }
             ]
         }
       };
