@@ -67,6 +67,10 @@ app.get('/breakingnews', function(request, response) {
 });
 
 
+app.get('/static/emoji/700', function (req, res) {
+    res.sendFile('/static/emoji/700');
+});
+
 
 // ============================================= Handler Function =============================================
 
