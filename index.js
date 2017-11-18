@@ -181,6 +181,7 @@ function handleHelp(replyToken) {
 }*/
 
 function handleTop10(replyToken) {
+    const baseURL = process.env.BASE_URL;
     const buttonsImageURL = `${baseURL}/static/buttons/1040.jpg`;
     var reply = { 
         type: 'template',
