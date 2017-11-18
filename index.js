@@ -255,37 +255,6 @@ function handleError(replyToken) {
 function handleFeedback(replyToken) {
     console.log("\tBang Teti asks for feedback.");
     const reply = {
-      "type": "template",
-      "altText": "this is a buttons template",
-      "template": {
-          "type": "buttons",
-          "thumbnailImageUrl": buttonsImageURL,
-          "title": "Menu",
-          "text": "Please select",
-          "actions": [
-              {
-                "type": "postback",
-                "label": "Buy",
-                "data": "action=buy&itemid=123"
-              },
-              {
-                "type": "postback",
-                "label": "Add to cart",
-                "data": "action=add&itemid=123"
-              },
-              {
-                "type": "uri",
-                "label": "View detail",
-                "uri": "http://example.com/page/123"
-              }
-          ]
-      }
-    };
-
-
-
-    const targetId = 'U064ad36afebade93b31fee05090207b0';
-    const reply = {
         "type": "template",
         "altText": "Feedback button sent.",
         "template": {
