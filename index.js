@@ -353,7 +353,7 @@ function handleTop10(replyToken) {
         }
     };
 
-    client.pushMessage(targetId, message)
+    client.pushMessage(replyToken, message)
         .then(() => {
             console.log('Top10 sent to ' + targetId);
         })
