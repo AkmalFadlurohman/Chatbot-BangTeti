@@ -7,6 +7,7 @@ const https         = require('https');
 const line          = require('@line/bot-sdk');
 const middleware    = require('@line/bot-sdk').middleware;
 const CronJob       = require('cron').CronJob;
+const fileSystem    = require('fs');
 var crawler         = require('./newsCrawler');
 const baseURL       = 'https://quiet-sands-32630.herokuapp.com';
 const app           = express();
@@ -15,9 +16,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
 app.set('port', (process.env.PORT || 5000));
 
+var database;
+
 function newsItem(title,link,img) {
 	this.thumbnailImageUrl = img;
-	this.text = title;
+	this.text = title.substring(0,40);
 	this.actions = new Array();
 	this.actions.push({"type" : "uri","label" : "Selengkapnya","uri" : link});
 	this.actions.push({"type" : "message","label" : "Beri feedback","text" : "feedback"});
@@ -34,7 +37,7 @@ line.middleware(config);
 
 // ============================================= Preparing CRON Job ===========================================
 var top10job = new CronJob({
-    cronTime: '30 6 * * *',
+    cronTime: '*/5 * * * *',
     onTick: function() {
       pushBreakingNews();
     },
@@ -213,6 +216,9 @@ function handleCommand(command, replyToken, source) {
 }
 
 function handleHelp(replyToken) {
+
+    console.log(JSON.stringify(database));
+
     var reply = { 
         type: 'text', 
         text: 'Hai gan, kamu perlu bantuan? \nTenang aja, apapun kesulitannya Bang Teti bakal bantu kok. \n\n- Kalo kamu mau nyari berita ketik aja "Cari <sesuatu>", ntar Bang Teti bakal nyariin berita buat kamu. \n- Nah kalo kamu mau nyari berita yang lagi viral kamu bisa ketik "top10" \n\nGampang kan! Kalo masih bingung panggil Abang lagi aja, ntar bakal dibantu kok \uDBC0\uDC84' };
@@ -233,185 +239,15 @@ function handleTop10(replyToken) {
         "text": "Ini dia berita Top 10"
     };
 
-    const message = {
-        "type": "template",
-        "altText": 'Bang Teti ngirim berita top 10 nih',
-        "template": {
-            "type": "carousel",
-            "columns": [
-                {
-                  "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/16/9304f5ed-f4fb-4c75-b657-ef146cc77c1c.jpeg?w=780&q=90",
-                  "title": "Jokowi Minta Novanto Ikuti Proses Hukum, KSP: Itu Peringatan Keras".substring(0,40),
-                  "text": "Jakarta - Presiden Joko Widodo meminta Setya Novanto mengikuti proses hukum di Komisi Pemberantasan Korupsi (KPK). Permintaan ini dinilai sebagai peringatan keras untuk Novanto agar tak lari dari kasus dugaan korupsi proyek e-KTP.".substring(0,60),
-                  "actions": [
-                      {
-                          "type": "uri",
-                          "label": "Selengkapnya",
-                          "uri": "https://news.detik.com/berita/3732342/jokowi-minta-novanto-ikuti-proses-hukum-ksp-itu-peringatan-keras"
-                      },
-                      {
-                          "type": "message",
-                          "label": "Beri Feedback",
-                          "text": "feedback"
-                      }
-                  ]
-                },
-                {
-                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                  "title": "this is menu",
-                  "text": "description",
-                  "actions": [
-                      {
-                          "type": "postback",
-                          "label": "Selengkapnya",
-                          "data": "action=buy&itemid=222"
-                      },
-                      {
-                          "type": "postback",
-                          "label": "Beri Feedback",
-                          "data": "action=add&itemid=222"
-                      }
-                  ]
-                },
-                {
-                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                  "title": "this is menu",
-                  "text": "description",
-                  "actions": [
-                      {
-                          "type": "postback",
-                          "label": "Selengkapnya",
-                          "data": "action=buy&itemid=222"
-                      },
-                      {
-                          "type": "postback",
-                          "label": "Beri Feedback",
-                          "data": "action=add&itemid=222"
-                      }
-                  ]
-                },
-                {
-                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                  "title": "this is menu",
-                  "text": "description",
-                  "actions": [
-                      {
-                          "type": "postback",
-                          "label": "Selengkapnya",
-                          "data": "action=buy&itemid=222"
-                      },
-                      {
-                          "type": "postback",
-                          "label": "Beri Feedback",
-                          "data": "action=add&itemid=222"
-                      }
-                  ]
-                },
-                {
-                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                  "title": "this is menu",
-                  "text": "description",
-                  "actions": [
-                      {
-                          "type": "postback",
-                          "label": "Selengkapnya",
-                          "data": "action=buy&itemid=222"
-                      },
-                      {
-                          "type": "postback",
-                          "label": "Beri Feedback",
-                          "data": "action=add&itemid=222"
-                      }
-                  ]
-                },
-                {
-                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                  "title": "this is menu",
-                  "text": "description",
-                  "actions": [
-                      {
-                          "type": "postback",
-                          "label": "Selengkapnya",
-                          "data": "action=buy&itemid=222"
-                      },
-                      {
-                          "type": "postback",
-                          "label": "Beri Feedback",
-                          "data": "action=add&itemid=222"
-                      }
-                  ]
-                },
-                {
-                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                  "title": "this is menu",
-                  "text": "description",
-                  "actions": [
-                      {
-                          "type": "postback",
-                          "label": "Selengkapnya",
-                          "data": "action=buy&itemid=222"
-                      },
-                      {
-                          "type": "postback",
-                          "label": "Beri Feedback",
-                          "data": "action=add&itemid=222"
-                      }
-                  ]
-                },
-                {
-                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                  "title": "this is menu",
-                  "text": "description",
-                  "actions": [
-                      {
-                          "type": "postback",
-                          "label": "Selengkapnya",
-                          "data": "action=buy&itemid=222"
-                      },
-                      {
-                          "type": "postback",
-                          "label": "Beri Feedback",
-                          "data": "action=add&itemid=222"
-                      }
-                  ]
-                },
-                {
-                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                  "title": "this is menu",
-                  "text": "description",
-                  "actions": [
-                      {
-                          "type": "postback",
-                          "label": "Selengkapnya",
-                          "data": "action=buy&itemid=222"
-                      },
-                      {
-                          "type": "postback",
-                          "label": "Beri Feedback",
-                          "data": "action=add&itemid=222"
-                      }
-                  ]
-                },
-                {
-                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                  "title": "this is menu",
-                  "text": "description",
-                  "actions": [
-                      {
-                          "type": "postback",
-                          "label": "Selengkapnya",
-                          "data": "action=buy&itemid=222"
-                      },
-                      {
-                          "type": "postback",
-                          "label": "Beri Feedback",
-                          "data": "action=add&itemid=222"
-                      }
-                  ]
-                }
-            ]
-        }
-    };
+    var keyword = command.substring(4).trim();
+    crawler.searchNews("all",keyword,function(news) {
+      var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
+      var message = JSON.parse(msg);
+      for (var i=1;i<10;i++) {
+        message['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
+      }
+      console.log(JSON.stringify(message));
+    });
 
     client.replyMessage(replyToken, [messageIntro, message])
         .then(() => {
@@ -434,16 +270,19 @@ function handleTop10(replyToken) {
 function handleSearch(command, replyToken) {
     var keyword = command.substring(4).trim();
 	crawler.searchNews("all",keyword,function(news) {
-		//var reply = {type: 'text',text: 'Hasil pencarian : "' + keyword + '" Judul: '+news[0].title+' Link: '+news[0].link+' Img: '+news[0].img};
-		var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
-		var newsCarousel = JSON.parse(msg);
-		newsCarousel['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
-		/*for (var i=1;i<news.length;i++) {
-			//newsItems.push(new newsItem(news[i].title,news[i].link,news[i].img));
-		}*/
-		//var reply = JSON.stringify(newsCarousel,null,2);
-		console.log(JSON.stringify(newsCarousel));
-		client.replyMessage(replyToken, newsCarousel)
+		var reply;
+		if (news.length > 0) {
+			var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
+			var newsCarousel = JSON.parse(msg);
+			for (var i=1;i<news.length;i++) {
+				newsCarousel['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
+			}
+			console.log(JSON.stringify(newsCarousel));
+			reply = newsCarousel;
+		} else {
+			reply = {"type": "text","text": "Tidak ada hasil pencarian yang cocok"};
+		}
+		client.replyMessage(replyToken, reply)
 		.then(() => console.log("\tSending reply " + replyToken))
 		.catch((err) => {console.log("\tTerjadi kesalahan " + err)})
     });
@@ -572,6 +411,7 @@ function handleAfterFeedback(source) {
 app.listen(app.get('port'), function() {
     console.log('Bang Teti is listening on port', app.get('port'));
     top10job.start();
+    database = JSON.parse(fileSystem.readFileSync('data/users.json', 'utf8'));
 });
 
 

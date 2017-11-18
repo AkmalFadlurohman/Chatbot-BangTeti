@@ -45,14 +45,14 @@ function crawlNews(url,keyword,callback,output) {
 		for(var i = 0; i < result.rss.channel.item.length; i++) {
 			var title = result.rss.channel.item[i].title;
 			var link = result.rss.channel.item[i].link;
-			var dom = new JSDOM(result.rss.channel.item[i].description,{ includeNodeLocations: true });
-			var img = dom.window.document.querySelector("img");
-			var src;
-			if (img == null) {
+			//var dom = new JSDOM(result.rss.channel.item[i].image,{ includeNodeLocations: true });
+			//var img = dom.window.document.querySelector("img");
+			var src = result.rss.channel.item[i].image.url;
+			/*if (img == null) {
 			  	src = "none";
 			} else {
 			  	src = img.getAttribute('src');
-			}
+			}*/
 			if (kmp(toLowerCase(title),keyword) != -1) {
 				news.push({"title" : title,"link" : link,"img" : src});
 			}
@@ -60,7 +60,7 @@ function crawlNews(url,keyword,callback,output) {
 		return output(news);
 	});
 }
-var all = "http://rss.viva.co.id/get/all";
+var all = "http://sindikasi.okezone.com/index.php/rss/1/RSS2.0";
 var politic = "http://rss.viva.co.id/get/politik";
 var technology = "http://rss.viva.co.id/get/teknologi";
 var sport = "http://rss.viva.co.id/get/sport";
@@ -95,7 +95,7 @@ function searchNews(topic,keyword,callback) {
 	}
 }
 module.exports.searchNews = searchNews;
-/*var keyword = "novanto";
+var keyword = "novanto";
 searchNews("all",keyword,function(news) {
 	//var newsItems  = new Array();
 	var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
