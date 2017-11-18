@@ -354,7 +354,7 @@ function handleTop10(replyToken) {
         }
     };
 
-    client.pushMessage(replyToken, message)
+    client.pushMessage(targetId, message)
         .then(() => {
             console.log('Top10 sent to ' + targetId);
         })
@@ -442,18 +442,58 @@ app.listen(app.get('port'), function() {
 
 
 function pushBreakingNews() {
-    const targetId = 'U064ad36afebade93b31fee05090207b0';
-    const judul = 'Setya Novanto Menabrak Tiang Listrik'
-    const message = {
+    const targetId = ['U064ad36afebade93b31fee05090207b0', 'Uacbfb10288b2b165c88b8eec87767973', 'Ue67f41a618a419cdf156d066c4f0b6d4'];
+    const judul = 'Setya Novanto Menabrak Tiang Listrik';
+
+    const actionsTemplate = [
+        {
+            "type": "postback",
+            "label": "Selengkapnya",
+            "data": ""
+        },
+        {
+            "type": "postback",
+            "label": "Beri Feedback",
+            "data": ""
+        }
+    ];
+
+    const messageIntro = {
+        "type": "text",
+        "text": "Breaking News!\n \""+judul+"\". Baca info selengkapnya dari Bang Teti!",
+    };
+    const messageCarousell = {
         "type": "template",
-        "altText": judul,
+        "altText": "Breaking News!\n \""+judul+"\". Baca info selengkapnya dari Bang Teti!",
         "template": {
             "type": "carousel",
             "columns": [
                 {
-                  "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
+                  "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/17/8eb03aef-1891-4be9-81f5-4a8584cebd6d_169.jpg?w=780&q=90",
+                  "title": "Pengacara: Kaki Novanto Keram, Mata Nggak Bisa Dibuka, Dada Sesak".substring(0,40),   
+                  "text": "Jakarta - Ketua DPR Setya Novanto hingga saat ini masih berada di dalam Rumah Sakit Cipto Mangunkusumo (RSCM) Kencana. Pengacaranya, Fredrich Yunadi, sebelumnya menyebut kondisi kesehatan kliennya masih mengkhawatirkan.".substring(0,60),
+                  "actions": actionsTemplate
+                },
+                {
+                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
                   "title": "this is menu",
                   "text": "description",
+                  "actions": "actionsTemplate"
+                }
+            ]
+        }
+    };
+
+    const template = {
+        "type": "template",
+        "altText": "Ini Bang Teti kabarin berita tentang \""+judul+"\"!",
+        "template": {
+            "type": "carousel",
+            "columns": [
+                {
+                  "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/17/8eb03aef-1891-4be9-81f5-4a8584cebd6d_169.jpg?w=780&q=90",
+                  "title": "Pengacara: Kaki Novanto Keram, Mata Nggak Bisa Dibuka, Dada Sesak".substring(0,40),   
+                  "text": "Jakarta - Ketua DPR Setya Novanto hingga saat ini masih berada di dalam Rumah Sakit Cipto Mangunkusumo (RSCM) Kencana. Pengacaranya, Fredrich Yunadi, sebelumnya menyebut kondisi kesehatan kliennya masih mengkhawatirkan.".substring(0,60),
                   "actions": [
                       {
                           "type": "postback",
@@ -496,11 +536,11 @@ function pushBreakingNews() {
                 }
             ]
         }
-    };
+      };
 
-    client.pushMessage(targetId, message)
+    client.multicast(targetId, [messageIntro, template])
         .then(() => {
-            console.log('Breaking News sent to ' + targetId);
+            console.log('Breaking News sent');
         })
         .catch((err) => {
             console.log('Breaking News error: ' + err);
