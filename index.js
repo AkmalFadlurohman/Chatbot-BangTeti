@@ -36,6 +36,7 @@ line.middleware(config);
 // =============================================== Access Database ============================================
 var database;
 function saveDatabase() {
+    console.log('saving : ' + JSON.stringify(database));
     fileSystem.writeFileSync('data/users.json', JSON.stringify(database));
     console.log('Succes saving data.');
 }
