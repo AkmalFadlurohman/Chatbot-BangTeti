@@ -186,9 +186,9 @@ function handleTop10(replyToken) {
                   "text": "Jakarta - Presiden Joko Widodo meminta Setya Novanto mengikuti proses hukum di Komisi Pemberantasan Korupsi (KPK). Permintaan ini dinilai sebagai peringatan keras untuk Novanto agar tak lari dari kasus dugaan korupsi proyek e-KTP.".substring(0,60),
                   "actions": [
                       {
-                          "type": "postback",
+                          "type": "uri",
                           "label": "Selengkapnya",
-                          "data": "https://news.detik.com/msite/berita/d-3732342/jokowi-minta-novanto-ikuti-proses-hukum-ksp-itu-peringatan-keras"
+                          "uri": "https://news.detik.com/msite/berita/d-3732342/jokowi-minta-novanto-ikuti-proses-hukum-ksp-itu-peringatan-keras"
                       },
                       {
                           "type": "postback",
