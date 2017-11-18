@@ -287,14 +287,49 @@ app.listen(app.get('port'), function() {
 
 function pushBreakingNews() {
     const targetId = 'U064ad36afebade93b31fee05090207b0';
+    const judul = 'Setya Novanto Menabrak Tiang Listrik'
     const message = {
         type: 'template',
-        altText: 'this is a carousel template',
+        altText: 'Breaking News! ' + judul,
         template: {
             type: 'carousel',
             'columns': [
                 {
-                    thumbnailImageUrl: 'https://example.com/bot/images/item1.jpg',
+                    thumbnailImageUrl: 'https://akcdn.detik.net.id/community/media/visual/2017/11/16/9304f5ed-f4fb-4c75-b657-ef146cc77c1c.jpeg?w=780&q=90',
+                    title: 'Setya Novanto menabrak tiang',
+                    text: 'Jakarta - KPK tetap mencari tahu peristiwa kecelakaan mobil yang ditumpangi Setya Novanto. Koordinasi akan dilakukan KPK dengan Ditlantas Polda Metro Jaya ...',
+                    actions: [
+                        {
+                            type: 'postback',
+                            label: 'Selengkapnya',
+                            data: 'action=buy&itemid=111'
+                        },
+                        {
+                            type: 'postback',
+                            label: 'Beri Feedback',
+                            data: 'action=buy&itemid=111'
+                        },
+                    ]
+                },
+                {
+                    thumbnailImageUrl: 'https://akcdn.detik.net.id/community/media/visual/2017/11/17/c9c6db6c-1cb3-49cd-9a6f-0f6455e05d6c_169.jpg?w=780&q=90',
+                    title: 'Setya Novanto menabrak tiang',
+                    text: 'Presiden Joko Widodo meminta Setya Novanto mengikuti proses hukum di Komisi Pemberantasan Korupsi (KPK). Permintaan ini dinilai sebagai peringatan keras untuk Novanto agar tak lari dari kasus dugaan korupsi proyek e-KTP....',
+                    actions: [
+                        {
+                            type: 'postback',
+                            label: 'Selengkapnya',
+                            data: 'action=buy&itemid=111'
+                        },
+                        {
+                            type: 'postback',
+                            label: 'Beri Feedback',
+                            data: 'action=buy&itemid=111'
+                        },
+                    ]
+                },
+                {
+                    thumbnailImageUrl: 'https://akcdn.detik.net.id/community/media/visual/2017/11/16/9304f5ed-f4fb-4c75-b657-ef146cc77c1c.jpeg?w=780&q=90',
                     title: 'Setya Novanto menabrak tiang',
                     text: 'Bla bla bla bla bla ....',
                     actions: [
@@ -309,7 +344,126 @@ function pushBreakingNews() {
                             data: 'action=buy&itemid=111'
                         },
                     ]
-                }
+                },
+                {
+                    thumbnailImageUrl: 'https://akcdn.detik.net.id/community/media/visual/2017/11/17/c9c6db6c-1cb3-49cd-9a6f-0f6455e05d6c_169.jpg?w=780&q=90',
+                    title: 'Setya Novanto menabrak tiang',
+                    text: 'Bla bla bla bla bla ....',
+                    actions: [
+                        {
+                            type: 'postback',
+                            label: 'Selengkapnya',
+                            data: 'action=buy&itemid=111'
+                        },
+                        {
+                            type: 'postback',
+                            label: 'Beri Feedback',
+                            data: 'action=buy&itemid=111'
+                        },
+                    ]
+                },
+                {
+                    thumbnailImageUrl: 'https://akcdn.detik.net.id/community/media/visual/2017/11/16/9304f5ed-f4fb-4c75-b657-ef146cc77c1c.jpeg?w=780&q=90',
+                    title: 'Setya Novanto menabrak tiang',
+                    text: 'Bla bla bla bla bla ....',
+                    actions: [
+                        {
+                            type: 'postback',
+                            label: 'Selengkapnya',
+                            data: 'action=buy&itemid=111'
+                        },
+                        {
+                            type: 'postback',
+                            label: 'Beri Feedback',
+                            data: 'action=buy&itemid=111'
+                        },
+                    ]
+                },
+                {
+                    thumbnailImageUrl: 'https://akcdn.detik.net.id/community/media/visual/2017/11/17/c9c6db6c-1cb3-49cd-9a6f-0f6455e05d6c_169.jpg?w=780&q=90',
+                    title: 'Setya Novanto menabrak tiang',
+                    text: 'Bla bla bla bla bla ....',
+                    actions: [
+                        {
+                            type: 'postback',
+                            label: 'Selengkapnya',
+                            data: 'action=buy&itemid=111'
+                        },
+                        {
+                            type: 'postback',
+                            label: 'Beri Feedback',
+                            data: 'action=buy&itemid=111'
+                        },
+                    ]
+                },
+                {
+                    thumbnailImageUrl: 'https://akcdn.detik.net.id/community/media/visual/2017/11/16/9304f5ed-f4fb-4c75-b657-ef146cc77c1c.jpeg?w=780&q=90',
+                    title: 'Setya Novanto menabrak tiang',
+                    text: 'Bla bla bla bla bla ....',
+                    actions: [
+                        {
+                            type: 'postback',
+                            label: 'Selengkapnya',
+                            data: 'action=buy&itemid=111'
+                        },
+                        {
+                            type: 'postback',
+                            label: 'Beri Feedback',
+                            data: 'action=buy&itemid=111'
+                        },
+                    ]
+                },
+                {
+                    thumbnailImageUrl: 'https://akcdn.detik.net.id/community/media/visual/2017/11/17/c9c6db6c-1cb3-49cd-9a6f-0f6455e05d6c_169.jpg?w=780&q=90',
+                    title: 'Setya Novanto menabrak tiang',
+                    text: 'Bla bla bla bla bla ....',
+                    actions: [
+                        {
+                            type: 'postback',
+                            label: 'Selengkapnya',
+                            data: 'action=buy&itemid=111'
+                        },
+                        {
+                            type: 'postback',
+                            label: 'Beri Feedback',
+                            data: 'action=buy&itemid=111'
+                        },
+                    ]
+                },
+                {
+                    thumbnailImageUrl: 'https://akcdn.detik.net.id/community/media/visual/2017/11/16/9304f5ed-f4fb-4c75-b657-ef146cc77c1c.jpeg?w=780&q=90',
+                    title: 'Setya Novanto menabrak tiang',
+                    text: 'Bla bla bla bla bla ....',
+                    actions: [
+                        {
+                            type: 'postback',
+                            label: 'Selengkapnya',
+                            data: 'action=buy&itemid=111'
+                        },
+                        {
+                            type: 'postback',
+                            label: 'Beri Feedback',
+                            data: 'action=buy&itemid=111'
+                        },
+                    ]
+                },
+                {
+                    thumbnailImageUrl: 'https://akcdn.detik.net.id/community/media/visual/2017/11/17/c9c6db6c-1cb3-49cd-9a6f-0f6455e05d6c_169.jpg?w=780&q=90',
+                    title: 'Setya Novanto menabrak tiang',
+                    text: 'Bla bla bla bla bla ....',
+                    actions: [
+                        {
+                            type: 'postback',
+                            label: 'Selengkapnya',
+                            data: 'action=buy&itemid=111'
+                        },
+                        {
+                            type: 'postback',
+                            label: 'Beri Feedback',
+                            data: 'action=buy&itemid=111'
+                        },
+                    ]
+                }                                
             ]
         }
     }
