@@ -87,23 +87,23 @@ app.get('/breakingnews', function(request, response) {
 });
 
 
-app.get('/static/emoji/:resolution', function (req, res) {
+app.get('/static/emoji-cropped/:resolution', function (req, res) {
     var resolution = req.params.resolution;
     switch (resolution) {
         case '200':
-            res.sendFile(__dirname + '/static/emoji/200.png');
+            res.sendFile(__dirname + '/static/emoji-cropped/200.png');
             break;
         case '300':
-            res.sendFile(__dirname + '/static/emoji/300.png');
+            res.sendFile(__dirname + '/static/emoji-cropped/300.png');
             break;
         case '460':
-            res.sendFile(__dirname + '/static/emoji/460.png');
+            res.sendFile(__dirname + '/static/emoji-cropped/460.png');
             break;
         case '700':
-            res.sendFile(__dirname + '/static/emoji/700.png');
+            res.sendFile(__dirname + '/static/emoji-cropped/700.png');
             break;
         case '1040': 
-            res.sendFile(__dirname + '/static/emoji/1040.png');
+            res.sendFile(__dirname + '/static/emoji-cropped/1040.png');
             break;
         default:
             res.sendFile(__dirname + '/static/emoji-cropped.png');
@@ -448,8 +448,8 @@ function handleFeedback(replyToken) {
     console.log("\tBang Teti asks for feedback.");
     const reply = {
       "type": "imagemap",
-      "baseUrl": baseURL+"/static/emoji",
-      "altText": "this is an imagemap",
+      "baseUrl": baseURL+"/static/emoji-cropped",
+      "altText": "Bang Teti minta feedback.",
       "baseSize": {
           "height": 709,
           "width": 1040
@@ -457,21 +457,80 @@ function handleFeedback(replyToken) {
       "actions": [
           {
               "type": "message",
-              "text": "thanks",
-              "label": "test",
+              "text": "Yay! Seneng banget!",
               "area": {
                   "x": 0,
-                  "y": 208,
+                  "y": 100,
                   "width": 200,
                   "height": 200
               }
           },
           {
               "type": "message",
-              "text": "hello",
+              "text": "Terhibur deh :D",
               "area": {
                   "x": 260,
-                  "y": 208,
+                  "y": 100,
+                  "width": 200,
+                  "height": 200
+              }
+          },
+          {
+              "type": "message",
+              "text": "Wow, sangat menginspirasi!",
+              "area": {
+                  "x": 520,
+                  "y": 100,
+                  "width": 200,
+                  "height": 200
+              }
+          },
+          {
+              "type": "message",
+              "text": "Bangga banget!",
+              "area": {
+                  "x": 780,
+                  "y": 100,
+                  "width": 200,
+                  "height": 200
+              }
+          },
+          {
+              "type": "message",
+              "text": "Astaga, seriusan?",
+              "area": {
+                  "x": 0,
+                  "y": 410,
+                  "width": 200,
+                  "height": 200
+              }
+          },
+          {
+              "type": "message",
+              "text": "Aku sedih :(",
+              "area": {
+                  "x": 260,
+                  "y": 410,
+                  "width": 200,
+                  "height": 200
+              }
+          },
+          {
+              "type": "message",
+              "text": "Duh, merinding, serem..",
+              "area": {
+                  "x": 520,
+                  "y": 410,
+                  "width": 200,
+                  "height": 200
+              }
+          },
+          {
+              "type": "message",
+              "text": "Ih ngeselin!",
+              "area": {
+                  "x": 780,
+                  "y": 410,
                   "width": 200,
                   "height": 200
               }
