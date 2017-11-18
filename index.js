@@ -7,6 +7,7 @@ const https         = require('https');
 const line          = require('@line/bot-sdk');
 const middleware    = require('@line/bot-sdk').middleware;
 const CronJob       = require('cron').CronJob;
+const fileSystem    = require('fs');
 var crawler         = require('./newsCrawler');
 const baseURL       = 'https://quiet-sands-32630.herokuapp.com';
 const app           = express();
@@ -14,6 +15,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
 app.set('port', (process.env.PORT || 5000));
+
+var database;
 
 function newsItem(title,link,img) {
 	this.thumbnailImageUrl = img;
@@ -34,7 +37,7 @@ line.middleware(config);
 
 // ============================================= Preparing CRON Job ===========================================
 var top10job = new CronJob({
-    cronTime: '30 6 * * *',
+    cronTime: '*/5 * * * *',
     onTick: function() {
       pushBreakingNews();
     },
@@ -495,6 +498,7 @@ function handleFeedback(replyToken) {
 app.listen(app.get('port'), function() {
     console.log('Bang Teti is listening on port', app.get('port'));
     top10job.start();
+    database = JSON.parse(fileSystem.readFileSync('data/users.json', 'utf8'));
 });
 
 
