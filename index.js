@@ -23,8 +23,6 @@ const client = new line.Client(config);
 line.middleware(config);
 
 
-
-
 // ============================================= Request Routing =============================================
 
 app.get('/', function(request, response) {
@@ -125,7 +123,7 @@ function handleCommand(command, replyToken) {
         case 'top10':
         case 'top 10':
         case 'top-10':
-            handleTop10(command, replyToken);              
+            handleTop10(replyToken);              
             break;
         case 'bang':
         case '?':
@@ -160,10 +158,7 @@ function handleHelp(replyToken) {
 }
 
 
-function handleTop10(command, replyToken) {
-    var keyword = command.substring(4).trim();
-    crawler.searchNews("all",keyword,function(news) {
-    var link = news[0].link;
+function handleTop10(replyToken) {
     const targetId = 'Ue67f41a618a419cdf156d066c4f0b6d4';
     const message = {
         "type": "template",
@@ -179,7 +174,7 @@ function handleTop10(command, replyToken) {
                       {
                           "type": "uri",
                           "label": "Selengkapnya",
-                          "uri": link
+                          "uri": "https://news.detik.com/berita/3732342/jokowi-minta-novanto-ikuti-proses-hukum-ksp-itu-peringatan-keras"
                       },
                       {
                           "type": "message",
@@ -382,7 +377,7 @@ function handleFeedback(replyToken) {
     console.log(baseURL);
     const reply = {
       "type": "imagemap",
-      "baseUrl": "https://quiet-sands-32630.herokuapp.com/static/emoji",
+      "baseUrl": baseURL+"/static/emoji",
       "altText": "this is an imagemap",
       "baseSize": {
           "height": 1040,
