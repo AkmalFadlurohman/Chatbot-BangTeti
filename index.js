@@ -393,7 +393,7 @@ function handleFeedback(replyToken) {
     const targetId = 'Uacbfb10288b2b165c88b8eec87767973';
     const reply = {
       "type": "imagemap",
-      "baseUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/72/apple/114/smiling-face-with-open-mouth-and-tightly-closed-eyes_1f606.png",
+      "baseUrl": "https://github.com/fadhilimamk/bangteti/blob/master/emoji.jpg",
       "altText": "this is an imagemap",
       "baseSize": {
           "height": 1040,
@@ -401,23 +401,23 @@ function handleFeedback(replyToken) {
       },
       "actions": [
           {
-              "type": "uri",
-              "linkUri": "https://example.com/",
+              "type": "message",
+              "text": "thanks",
               "area": {
                   "x": 0,
-                  "y": 0,
-                  "width": 520,
-                  "height": 1040
+                  "y": 208,
+                  "width": 200,
+                  "height": 200
               }
           },
           {
               "type": "message",
               "text": "hello",
               "area": {
-                  "x": 520,
-                  "y": 0,
-                  "width": 520,
-                  "height": 1040
+                  "x": 260,
+                  "y": 208,
+                  "width": 200,
+                  "height": 200
               }
           }
       ]
