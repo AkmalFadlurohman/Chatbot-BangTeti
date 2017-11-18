@@ -93,7 +93,7 @@ app.get('/static/emoji/:resolution', function (req, res) {
             res.sendFile(__dirname + '/static/emoji/1040.png');
             break;
         default:
-            res.sendFile(__dirname + '/static/emoji.jpg');
+            res.sendFile(__dirname + '/static/emoji-cropped.png');
     }
 });
 
@@ -435,7 +435,7 @@ function handleFeedback(replyToken) {
       "baseUrl": baseURL+"/static/emoji",
       "altText": "this is an imagemap",
       "baseSize": {
-          "height": 1040,
+          "height": 709,
           "width": 1040
       },
       "actions": [
