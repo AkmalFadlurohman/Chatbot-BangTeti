@@ -1,14 +1,15 @@
 // ============================================== Init Library ==============================================
 var xml2js = require('xml2js'),parser = new xml2js.Parser({explicitArray : false}),http = require('http'),jsdom = require('jsdom'),kmp = require('kmp');
-const { JSDOM } = jsdom;
-const express = require('express');
-const bodyParser = require('body-parser');
-const https = require('https');
-const line = require('@line/bot-sdk');
-const middleware = require('@line/bot-sdk').middleware;
-const app = express();
-var crawler = require('./newsCrawler');
-const baseURL = 'https://quiet-sands-32630.herokuapp.com';
+const { JSDOM }     = jsdom;
+const express       = require('express');
+const bodyParser    = require('body-parser');
+const https         = require('https');
+const line          = require('@line/bot-sdk');
+const middleware    = require('@line/bot-sdk').middleware;
+const CronJob       = require('cron').CronJob;
+var crawler         = require('./newsCrawler');
+const baseURL       = 'https://quiet-sands-32630.herokuapp.com';
+const app           = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
@@ -31,6 +32,18 @@ const client = new line.Client(config);
 line.middleware(config);
 
 
+// ============================================= Preparing CRON Job ===========================================
+var top10job = new CronJob({
+    cronTime: '30 6 * * *',
+    onTick: function() {
+      pushBreakingNews();
+    },
+    start: false,
+    timeZone: 'Asia/Jakarta'
+  });
+
+
+
 // ============================================= Request Routing =============================================
 
 app.get('/', function(request, response) {
@@ -45,14 +58,13 @@ app.post('/', function(request, response) {
     events.forEach(function(event) {
         var replyToken = event.replyToken;
         var type = event.type;
-        var source = event.source;
         
         switch (type) {
             case 'message' :
                 var message = event.message;
                 if (message.type == "text") {
                     console.log(message.text + " from " + message.id);
-                    handleCommand(message.text, replyToken, source)
+                    handleCommand(message.text, replyToken)
                 } else {
                     handleError(replyToken);
                 }
@@ -113,7 +125,7 @@ function handleFollow(replyToken) {
         });
 }
 
-function handleCommand(command, replyToken, source) {
+function handleCommand(command, replyToken) {
     console.log("\tProcessing command " + command + " with token " + replyToken);
 
     command = command.trim();
@@ -126,14 +138,17 @@ function handleCommand(command, replyToken, source) {
 
     switch (command.toLowerCase()) {
         case 'profile' :
-            client.getProfile(source.userId)
-            .then((profile) => replyText(
-            replyToken,
-            [
-              'Display name: ${profile.displayName}',
-              'Status message: ${profile.statusMessage}'
-            ]
-          ));
+            client.getProfile('Ue67f41a618a419cdf156d066c4f0b6d4')
+            .then((profile) => {
+              console.log(profile.displayName);
+              console.log(profile.userId);
+              console.log(profile.pictureUrl);
+              console.log(profile.statusMessage);
+            })
+            .catch((err) => {
+              // error handling
+            });
+
             break;
         case 'abc' : 
             var reply = { type: 'text', text: "ABC adalah sebuah keyword yang valid" };
@@ -479,6 +494,7 @@ function handleFeedback(replyToken) {
 // ============================================= Start Server =============================================
 app.listen(app.get('port'), function() {
     console.log('Bang Teti is listening on port', app.get('port'));
+    top10job.start();
 });
 
 
