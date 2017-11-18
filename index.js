@@ -8,7 +8,7 @@ const line = require('@line/bot-sdk');
 const middleware = require('@line/bot-sdk').middleware;
 const app = express();
 var crawler = require('./newsCrawler');
-const baseURL = process.env.BASE_URL;
+const baseURL = 'quiet-sands-32630.herokuapp.com';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
@@ -396,7 +396,6 @@ function handleError(replyToken) {
 function handleFeedback(replyToken) {
     console.log("\tBang Teti asks for feedback.");
     const targetId = 'Uacbfb10288b2b165c88b8eec87767973';
-    console.log(baseURL);
     const reply = {
       "type": "imagemap",
       "baseUrl": baseURL+"/static/emoji",
