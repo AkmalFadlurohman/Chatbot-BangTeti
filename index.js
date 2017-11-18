@@ -41,17 +41,11 @@ function saveDatabase() {
     console.log('Succes saving data.');
 }
 
-function addUserToDatabase(userID) {
-    var users = database.users;
-    var found = false;
-    users.forEach(function(user) {
-        if (user.userId == userID) {
-            found == true;
-        }
-    });
-    if (!found) {
+function addUserToDatabase(userId) {
+    var user = database.users.userId;
+    if (user == undefined) {
         database.users.push({
-            "userId": userID,
+            "userId": userId,
             "state": "all"
         })
     }
@@ -219,7 +213,6 @@ function handleCommand(command, replyToken, source) {
             .catch((err) => {
                 console.log("\tTerjadi kesalahan " + err)
             });;
-            handleAfterFeedback(source);
             break;
         case 'terhibur deh :d':
             var reply = { type: 'text', text: "Berita abang memang menarik :D\nTerimakasih feedbacknya!" };
@@ -304,34 +297,24 @@ function handleHelp(replyToken, source) {
 
 
 function handleTop10(replyToken) {
-
-    crawler.crawlTop10(function(news) { 
-    const reply;
-    const messageIntro = {
-        "type": "text",
-        "text": "Ini dia berita Top 10"
-    };
+    crawler.crawlTop10(console.log,function(top10) {
     var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
-      var newsCarousel = JSON.parse(msg);
-      for (var i=1;i<10;i++) {
-        newsCarousel['template']['columns'].push(new newsItem(news[i].title,news[i].link,news[i].img));
-      }
-      console.log(JSON.stringify(newsCarousel));
-      reply = newsCarousel;
-      client.replyMessage(replyToken, [messageIntro, reply])
-        .then(() => {
-           console.log('Top10 sent with token ' + replyToken);
-        })
-        .catch((err) => {
-           console.log('Top10 error: ' + err);
-        })
-      });
+    var newsCarousel = JSON.parse(msg);
+    for (var i=0;i<10;i++) {
+      newsCarousel['template']['columns'].push(new newsItem(top10[i].title,top10[i].link,top10[i].img));
+    }
+    console.log(JSON.stringify(newsCarousel,null,2));
+    client.replyMessage(replyToken, newsCarousel)
+    .then(() => console.log("\tSending reply " + replyToken))
+    .catch((err) => {console.log("\tTerjadi kesalahan " + err)})
+    });
 }
 
 
+
 function handleSearch(command, replyToken) {
-    var keyword = command.substring(4).trim();
-	crawler.searchNews("all",keyword,function(news) {
+   var keyword = command.substring(4).trim();
+	 crawler.searchNews("all",keyword,function(news) {
 		var reply;
 		if (news.length > 0) {
 			var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
@@ -466,9 +449,7 @@ function handleFeedback(replyToken) {
 
 function handleAfterFeedback(source) {
     var richMenuId = client.getRichMenuIdOfUser(source.userId);
-    console.log(richMenuId);
     client.deleteRichMenu(richMenuId);
-    console.log("deleted");
 }
 
 // ============================================= Start Server =============================================
