@@ -432,7 +432,10 @@ function handleSearch(command, replyToken,source) {
 			var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
 			var newsCarousel = JSON.parse(msg);
 			for (var i=0;i<news.length;i++) {
-				newsCarousel['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
+				newsCarousel['template']['columns'].push(new newsItem(news[i].title,news[i].link,news[i].img));
+				if (i === 10) {
+					break;
+				}
 			}
 			console.log(JSON.stringify(newsCarousel));
 			reply = newsCarousel;
