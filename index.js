@@ -155,7 +155,7 @@ function handleSearch(command, replyToken) {
 
     var reply = { 
         type: 'text', 
-        text: 'Hasil pencarian :' + keyword};
+        text: 'Hasil pencarian : "' + keyword + '"'};
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
