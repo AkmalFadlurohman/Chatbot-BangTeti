@@ -449,7 +449,7 @@ function handleFeedback(replyToken) {
     const reply = {
       "type": "imagemap",
       "baseUrl": baseURL+"/static/emoji",
-      "altText": "this is an imagemap",
+      "altText": "Bang Teti minta feedback.",
       "baseSize": {
           "height": 709,
           "width": 1040
@@ -457,21 +457,80 @@ function handleFeedback(replyToken) {
       "actions": [
           {
               "type": "message",
-              "text": "thanks",
-              "label": "test",
+              "text": "Yay! Seneng banget!",
               "area": {
                   "x": 0,
-                  "y": 208,
+                  "y": 100,
                   "width": 200,
                   "height": 200
               }
           },
           {
               "type": "message",
-              "text": "hello",
+              "text": "Terhibur deh :D",
               "area": {
                   "x": 260,
-                  "y": 208,
+                  "y": 100,
+                  "width": 200,
+                  "height": 200
+              }
+          },
+          {
+              "type": "message",
+              "text": "Wow, sangat menginspirasi!",
+              "area": {
+                  "x": 520,
+                  "y": 100,
+                  "width": 200,
+                  "height": 200
+              }
+          },
+          {
+              "type": "message",
+              "text": "Bangga banget!",
+              "area": {
+                  "x": 780,
+                  "y": 100,
+                  "width": 200,
+                  "height": 200
+              }
+          },
+          {
+              "type": "message",
+              "text": "Astaga, seriusan?",
+              "area": {
+                  "x": 0,
+                  "y": 410,
+                  "width": 200,
+                  "height": 200
+              }
+          },
+          {
+              "type": "message",
+              "text": "Aku sedih :(",
+              "area": {
+                  "x": 260,
+                  "y": 410,
+                  "width": 200,
+                  "height": 200
+              }
+          },
+          {
+              "type": "message",
+              "text": "Duh, merinding, serem..",
+              "area": {
+                  "x": 520,
+                  "y": 410,
+                  "width": 200,
+                  "height": 200
+              }
+          },
+          {
+              "type": "message",
+              "text": "Ih ngeselin!",
+              "area": {
+                  "x": 780,
+                  "y": 410,
                   "width": 200,
                   "height": 200
               }
