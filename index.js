@@ -394,12 +394,13 @@ function handleSearch(command, replyToken) {
 		//var reply = {type: 'text',text: 'Hasil pencarian : "' + keyword + '" Judul: '+news[0].title+' Link: '+news[0].link+' Img: '+news[0].img};
 		var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
 		var newsCarousel = JSON.parse(msg);
-		for (var i=1;i<news.length;i++) {
-			newsCarousel['template']['columns'].push(new newsItem(news[i].title,news[i].link,news[i].img));
+		newsCarousel['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
+		/*for (var i=1;i<news.length;i++) {
 			//newsItems.push(new newsItem(news[i].title,news[i].link,news[i].img));
-		}
-		var reply = JSON.stringify(newsCarousel,null,2);
-		client.replyMessage(replyToken, reply)
+		}*/
+		//var reply = JSON.stringify(newsCarousel,null,2);
+		console.log(JSON.stringify(newsCarousel));
+		client.replyMessage(replyToken, newsCarousel)
 		.then(() => console.log("\tSending reply " + replyToken))
 		.catch((err) => {console.log("\tTerjadi kesalahan " + err)})
     });
