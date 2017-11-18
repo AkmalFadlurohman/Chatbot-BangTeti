@@ -248,34 +248,25 @@ function handleHelp(replyToken, source) {
 
 
 function handleTop10(replyToken) {
-    const targetId = 'Ue67f41a618a419cdf156d066c4f0b6d4';
 
+    crawler.crawlTop10(function(news) { 
+    var reply;
+    var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
+      var newsCarousel = JSON.parse(msg);
+      for (var i=1;i<10;i++) {
+        newsCarousel['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
+      }
+      console.log(JSON.stringify(newsCarousel));
+      reply = newsCarousel;
+    })
     const messageIntro = {
         "type": "text",
         "text": "Ini dia berita Top 10"
     };
 
-    var keyword = command.substring(4).trim();
-    crawler.searchNews("all",keyword,function(news) {
-      var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
-      var message = JSON.parse(msg);
-      for (var i=1;i<10;i++) {
-        message['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
-      }
-      console.log(JSON.stringify(message));
-    });
-
-    client.replyMessage(replyToken, [messageIntro, message])
+    client.replyMessage(replyToken, [messageIntro, reply])
         .then(() => {
             console.log('Top10 sent with token ' + replyToken);
-        })
-        .catch((err) => {
-            console.log('Top10 error: ' + err);
-        });
-
-    client.pushMessage(targetId, [messageIntro, message])
-        .then(() => {
-            console.log('Top10 sent to ' + targetId);
         })
         .catch((err) => {
             console.log('Top10 error: ' + err);

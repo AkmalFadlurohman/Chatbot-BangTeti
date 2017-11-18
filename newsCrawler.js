@@ -35,6 +35,28 @@ function xmlToJson(url,callback) {
 		});
 	});
 }
+function crawlTop10(callback,output) {
+	xmlToJson('http://sindikasi.okezone.com/index.php/rss/0/RSS2.0',function(err, result) {
+		var news = new Array();
+		if (err) {
+			callback(err)
+		}
+		for(var i = 0; i < 10; i++) {
+			var title = result.rss.channel.item[i].title;
+			var link = result.rss.channel.item[i].link;
+			//var dom = new JSDOM(result.rss.channel.item[i].image,{ includeNodeLocations: true });
+			//var img = dom.window.document.querySelector("img");
+			var src = result.rss.channel.item[i].image.url;
+			/*if (img == null) {
+			  	src = "none";
+			} else {
+			  	src = img.getAttribute('src');
+			}*/
+			news.push({"title" : title,"link" : link,"img" : src});
+		}
+		return output(news);
+	});
+}
 
 function crawlNews(url,keyword,callback,output) {
 	xmlToJson(url,function(err, result) {
@@ -95,6 +117,7 @@ function searchNews(topic,keyword,callback) {
 	}
 }
 module.exports.searchNews = searchNews;
+module.exports.crawlTop10 = crawlTop10;
 var keyword = "novanto";
 searchNews("all",keyword,function(news) {
 	//var newsItems  = new Array();
