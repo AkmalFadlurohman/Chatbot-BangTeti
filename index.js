@@ -453,7 +453,7 @@ function handleSearch(command, replyToken,source) {
 function handleError(replyToken) {
     console.log("\tBang Teti bingung!");
 
-    var reply = { type: 'text', text: "Bang Teto bingung!" };
+    var reply = { type: 'text', text: "Bang Teti bingung!" };
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
