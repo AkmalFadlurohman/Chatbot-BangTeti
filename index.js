@@ -83,7 +83,7 @@ function getCurrentFilter(userID) {
 
 // ============================================= Preparing CRON Job ===========================================
 var top10job = new CronJob({
-    cronTime: '*/5 * * * *',
+    cronTime: '30 6 * * *',
     onTick: function() {
       pushBreakingNews();
     },
