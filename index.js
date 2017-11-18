@@ -7,6 +7,7 @@ const https = require('https');
 const line = require('@line/bot-sdk');
 const middleware = require('@line/bot-sdk').middleware;
 const app = express();
+const baseURL = process.env.BASE_URL;
 var crawler = require('./newsCrawler');
 
 app.use(bodyParser.json());
