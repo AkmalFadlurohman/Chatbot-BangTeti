@@ -20,7 +20,7 @@ var database;
 
 function newsItem(title,link,img) {
 	this.thumbnailImageUrl = img;
-	this.text = title;
+	this.text = title.substring(0,40);
 	this.actions = new Array();
 	this.actions.push({"type" : "uri","label" : "Selengkapnya","uri" : link});
 	this.actions.push({"type" : "message","label" : "Beri feedback","text" : "feedback"});
@@ -61,6 +61,7 @@ app.post('/', function(request, response) {
     events.forEach(function(event) {
         var replyToken = event.replyToken;
         var type = event.type;
+        var source = event.source;
         
         switch (type) {
             case 'message' :
@@ -73,7 +74,7 @@ app.post('/', function(request, response) {
                 }
                 break;
             case 'follow' :
-                handleFollow(replyToken);
+                handleFollow(replyToken, source);
                 break;
             default :
                 handleError(replyToken);
@@ -89,43 +90,55 @@ app.get('/breakingnews', function(request, response) {
 });
 
 
-app.get('/static/emoji/:resolution', function (req, res) {
+app.get('/static/emoji-cropped/:resolution', function (req, res) {
     var resolution = req.params.resolution;
     switch (resolution) {
         case '200':
-            res.sendFile(__dirname + '/static/emoji/200.png');
+            res.sendFile(__dirname + '/static/emoji-cropped/200.png');
             break;
         case '300':
-            res.sendFile(__dirname + '/static/emoji/300.png');
+            res.sendFile(__dirname + '/static/emoji-cropped/300.png');
             break;
         case '460':
-            res.sendFile(__dirname + '/static/emoji/460.png');
+            res.sendFile(__dirname + '/static/emoji-cropped/460.png');
             break;
         case '700':
-            res.sendFile(__dirname + '/static/emoji/700.png');
+            res.sendFile(__dirname + '/static/emoji-cropped/700.png');
             break;
         case '1040': 
-            res.sendFile(__dirname + '/static/emoji/1040.png');
+            res.sendFile(__dirname + '/static/emoji-cropped/1040.png');
             break;
         default:
-            res.sendFile(__dirname + '/static/emoji.jpg');
+            res.sendFile(__dirname + '/static/emoji-cropped.png');
     }
 });
 
 
 // ============================================= Handler Function =============================================
 
-function handleFollow(replyToken) {
+function handleFollow(replyToken, source) {
     console.log("\tGive introduction with token " + replyToken);
-    var message = {
+    
+    client.getProfile(source.userId)
+    .then((profile) => {
+      console.log(profile.displayName);
+      console.log(profile.userId);
+      var message = {
         type: 'text',
-        text: 'Hai perkenalkan, saya Bang Teti. Saya akan melaporkan berita yang dapat dipercaya!'
+        text: 'Hai '+profile.displayName+' perkenalkan, saya Bang Teti. Saya akan melaporkan berita yang dapat dipercaya!'
     };
-    client.replyMessage(replyToken, message)
-        .then(() => console.log("\tSending reply " + replyToken))
-        .catch((err) => {
-            console.log("\tTerjadi kesalahan " + err)
-        });
+    
+      client.replyMessage(replyToken, message)
+          .then(() => console.log("\tSending reply " + replyToken))
+          .catch((err) => {
+              console.log("\tTerjadi kesalahan " + err)
+          });
+    })
+
+    .catch((err) => {
+      console.log("\tTerjadi kesalahan profile" + err)
+    });
+    
 }
 
 function handleCommand(command, replyToken) {
@@ -140,19 +153,7 @@ function handleCommand(command, replyToken) {
     }
 
     switch (command.toLowerCase()) {
-        case 'profile' :
-            client.getProfile('<userId>')
-            .then((profile) => {
-              console.log(profile.displayName);
-              console.log(profile.userId);
-              console.log(profile.pictureUrl);
-              console.log(profile.statusMessage);
-            })
-            .catch((err) => {
-              // error handling
-            });
 
-            break;
         case 'abc' : 
             var reply = { type: 'text', text: "ABC adalah sebuah keyword yang valid" };
             client.replyMessage(replyToken, reply)
@@ -450,30 +451,89 @@ function handleFeedback(replyToken) {
     console.log("\tBang Teti asks for feedback.");
     const reply = {
       "type": "imagemap",
-      "baseUrl": baseURL+"/static/emoji",
-      "altText": "this is an imagemap",
+      "baseUrl": baseURL+"/static/emoji-cropped",
+      "altText": "Bang Teti minta feedback.",
       "baseSize": {
-          "height": 1040,
+          "height": 709,
           "width": 1040
       },
       "actions": [
           {
               "type": "message",
-              "text": "thanks",
-              "label": "test",
+              "text": "Yay! Seneng banget!",
               "area": {
                   "x": 0,
-                  "y": 208,
+                  "y": 100,
                   "width": 200,
                   "height": 200
               }
           },
           {
               "type": "message",
-              "text": "hello",
+              "text": "Terhibur deh :D",
               "area": {
                   "x": 260,
-                  "y": 208,
+                  "y": 100,
+                  "width": 200,
+                  "height": 200
+              }
+          },
+          {
+              "type": "message",
+              "text": "Wow, sangat menginspirasi!",
+              "area": {
+                  "x": 520,
+                  "y": 100,
+                  "width": 200,
+                  "height": 200
+              }
+          },
+          {
+              "type": "message",
+              "text": "Bangga banget!",
+              "area": {
+                  "x": 780,
+                  "y": 100,
+                  "width": 200,
+                  "height": 200
+              }
+          },
+          {
+              "type": "message",
+              "text": "Astaga, seriusan?",
+              "area": {
+                  "x": 0,
+                  "y": 410,
+                  "width": 200,
+                  "height": 200
+              }
+          },
+          {
+              "type": "message",
+              "text": "Aku sedih :(",
+              "area": {
+                  "x": 260,
+                  "y": 410,
+                  "width": 200,
+                  "height": 200
+              }
+          },
+          {
+              "type": "message",
+              "text": "Duh, merinding, serem..",
+              "area": {
+                  "x": 520,
+                  "y": 410,
+                  "width": 200,
+                  "height": 200
+              }
+          },
+          {
+              "type": "message",
+              "text": "Ih ngeselin!",
+              "area": {
+                  "x": 780,
+                  "y": 410,
                   "width": 200,
                   "height": 200
               }
