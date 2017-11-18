@@ -12,10 +12,12 @@ var crawler = require('./newsCrawler');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', (process.env.PORT || 5000));
+app.set('base', ;
 
 const config = {
     channelAccessToken: '5T0Ter+WeMhWyPhCkh9DULTAkq1MyKNLaSZscQBQ2tRJSUfj9+JHlI+M2BmyNvWBSGHB6qTAbeMMkuPzf2T2x7bE+ROvxr6prGZu5awO6dB5a1V/BM7J20GG9pLX92kwGuiRDTWM2wwTTHYkzGtZvgdB04t89/1O/w1cDnyilFU=',
     channelSecret: '3d4009bee32c80a68b725e3cbb45d13c',
+
 }
 const client = new line.Client(config);
 line.middleware(config);
@@ -146,43 +148,7 @@ function handleCommand(command, replyToken) {
             break;
         case 'feedback':
             // handleFeedback(replyToken);
-            {
-                const buttonsImageURL = '${baseURL}/static/buttons/1040.jpg';
-                console.log("\tBang Teti asks for feedback.");
-                const reply = {
-                  "type": "template",
-                  "altText": "this is a buttons template",
-                  "template": {
-                      "type": "buttons",
-                      "thumbnailImageUrl": buttonsImageURL,
-                      "title": "Menu",
-                      "text": "Please select",
-                      "actions": [
-                          {
-                            "type": "postback",
-                            "label": "Buy",
-                            "data": "action=buy&itemid=123"
-                          },
-                          {
-                            "type": "postback",
-                            "label": "Add to cart",
-                            "data": "action=add&itemid=123"
-                          },
-                          {
-                            "type": "uri",
-                            "label": "View detail",
-                            "uri": "http://example.com/page/123"
-                          }
-                      ]
-                  }
-                };
-                client.replyMessage(replyToken, reply)
-                .then(() => console.log("\tSending reply " + replyToken))
-                .catch((err) => {
-                    console.log("\tTerjadi kesalahan " + err)
-                });;
-                break;
-            }
+            break;
         default :
             var reply = { type: 'text', text: 'Ehhmm, Bang Teti bingung nih, "'+command+'" maksudnya apa ya?' };
             client.replyMessage(replyToken, reply)
@@ -281,7 +247,6 @@ function handleError(replyToken) {
 }
 
 function handleFeedback(replyToken) {
-    const buttonsImageURL = `${baseURL}/static/buttons/1040.jpg/700`;
     console.log("\tBang Teti asks for feedback.");
     const reply = {
       "type": "template",
@@ -310,11 +275,45 @@ function handleFeedback(replyToken) {
           ]
       }
     };
-    client.replyMessage(replyToken, reply)
-    .then(() => console.log("\tSending reply " + replyToken))
-    .catch((err) => {
-        console.log("\tTerjadi kesalahan " + err)
-    });;
+
+
+
+    const targetId = 'U064ad36afebade93b31fee05090207b0';
+    const reply = {
+        "type": "template",
+        "altText": "Feedback button sent.",
+        "template": {
+          "type": "buttons",
+          "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
+          "title": "Menu",
+          "text": "Please select",
+          "actions": [
+              {
+                "type": "postback",
+                "label": "Buy",
+                "data": "action=buy&itemid=111"
+              },
+              {
+                "type": "postback",
+                "label": "Add to cart",
+                "data": "action=add&itemid=11"
+              },
+              {
+                "type": "uri",
+                "label": "View detail",
+                "uri": "http://example.com/page/111"
+              }
+          ]
+      }
+    };
+
+    client.pushMessage(replyToken, reply)
+        .then(() => {
+            console.log('Feedback sent to ' + replyToken);
+        })
+        .catch((err) => {
+            console.log('Feedback error: ' + err);
+        });
 }
 
 // Start server
@@ -328,7 +327,7 @@ app.listen(app.get('port'), function() {
 
 function pushBreakingNews() {
     const targetId = 'U064ad36afebade93b31fee05090207b0';
-    const judul = 'Setya Novanto Menabrak Tiang Listrik'.substring(0,40);
+    const judul = 'Setya Novanto Menabrak Tiang Listrik'
     const message = {
         "type": "template",
         "altText": judul,
@@ -336,19 +335,24 @@ function pushBreakingNews() {
             "type": "carousel",
             "columns": [
                 {
-                  "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/16/9304f5ed-f4fb-4c75-b657-ef146cc77c1c.jpeg?w=780&q=90",
-                  "title": "Jokowi Minta Novanto Ikuti Proses Hukum, KSP: Itu Peringatan Keras".substring(0,40),
-                  "text": "Jakarta - Presiden Joko Widodo meminta Setya Novanto mengikuti proses hukum di Komisi Pemberantasan Korupsi (KPK). Permintaan ini dinilai sebagai peringatan keras untuk Novanto agar tak lari dari kasus dugaan korupsi proyek e-KTP.".substring(0,60),
+                  "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
+                  "title": "this is menu",
+                  "text": "description",
                   "actions": [
                       {
                           "type": "postback",
-                          "label": "Selengkapnya",
+                          "label": "Buy",
                           "data": "action=buy&itemid=111"
                       },
                       {
                           "type": "postback",
-                          "label": "Beri Feedback",
+                          "label": "Add to cart",
                           "data": "action=add&itemid=111"
+                      },
+                      {
+                          "type": "uri",
+                          "label": "View detail",
+                          "uri": "http://example.com/page/111"
                       }
                   ]
                 },
@@ -359,13 +363,18 @@ function pushBreakingNews() {
                   "actions": [
                       {
                           "type": "postback",
-                          "label": "Selengkapnya",
+                          "label": "Buy",
                           "data": "action=buy&itemid=222"
                       },
                       {
                           "type": "postback",
-                          "label": "Beri Feedback",
+                          "label": "Add to cart",
                           "data": "action=add&itemid=222"
+                      },
+                      {
+                          "type": "uri",
+                          "label": "View detail",
+                          "uri": "http://example.com/page/222"
                       }
                   ]
                 }
