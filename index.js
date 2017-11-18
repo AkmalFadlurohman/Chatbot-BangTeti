@@ -336,7 +336,7 @@ function handleTop10(replyToken) {
 function handleSearch(command, replyToken) {
     var keyword = command.substring(4).trim();
 	crawler.searchNews("all",keyword,function(news) {
-		var reply = {type: 'text',text: 'Hasil pencarian : "' + keyword + '"'+news[0]};
+		var reply = {type: 'text',text: 'Hasil pencarian : "' + keyword + '" Judul: '+news[0].title+' Link: '+news[0].link+' Img: '+news[0].img};
 		client.replyMessage(replyToken, reply)
 		.then(() => console.log("\tSending reply " + replyToken))
 		.catch((err) => {console.log("\tTerjadi kesalahan " + err)})
