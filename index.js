@@ -144,6 +144,9 @@ function handleCommand(command, replyToken) {
         case 'bantuan':
             handleHelp(replyToken);
             break;
+        case 'feedback':
+            handleFeedback(replyToken);
+            break;
         default :
             var reply = { type: 'text', text: 'Ehhmm, Bang Teti bingung nih, "'+command+'" maksudnya apa ya?' };
             client.replyMessage(replyToken, reply)
@@ -166,7 +169,7 @@ function handleHelp(replyToken) {
     });;
 }
 
-function handleTop10(replyToken) {
+/*function handleTop10(replyToken) {
     var reply = { 
         type: 'text', 
         text: 'Pagi, ini nih 10 berita terheboh yang kamu harus tau:' };
@@ -175,35 +178,34 @@ function handleTop10(replyToken) {
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
-}
+}*/
 
-/*function handleTop10(replyToken) {
+function handleTop10(replyToken) {
+    const baseURL = process.env.BASE_URL;
+    const buttonsImageURL = `${baseURL}/static/buttons/1040.jpg`;
     var reply = { 
         type: 'template',
-        altText: 'Image carousel alt text',
+        altText: 'Carousel alt text',
         template: {
-          type: 'image_carousel',
+          type: 'carousel',
           columns: [
             {
-              imageUrl: buttonsImageURL,
-              action: { label: 'Go to LINE', type: 'uri', uri: 'https://line.me' }
+              thumbnailImageUrl: buttonsImageURL,
+              title: 'hoge',
+              text: 'fuga',
+              actions: [
+                { label: 'Go to line.me', type: 'uri', uri: 'https://line.me' },
+                { label: 'Say hello1', type: 'postback', data: 'hello こんにちは' }
+              ]
             },
             {
-              imageUrl: buttonsImageURL,
-              action: { label: 'Say hello1', type: 'postback', data: 'hello こんにちは' }
-            },
-            {
-              imageUrl: buttonsImageURL,
-              action: { label: 'Say message', type: 'message', text: 'Rice=米' }
-            },
-            {
-              imageUrl: buttonsImageURL,
-              action: {
-                label: 'datetime',
-                type: 'datetimepicker',
-                data: 'DATETIME',
-                mode: 'datetime'
-              }
+              thumbnailImageUrl: buttonsImageURL,
+              title: 'hoge',
+              text: 'fuga',
+              actions: [
+                { label: '言 hello2', type: 'postback', data: 'hello こんにちは', text: 'hello こんにちは' },
+                { label: 'Say message', type: 'message', text: 'Rice=米' }
+              ]
             }
           ]
         }
@@ -213,7 +215,7 @@ function handleTop10(replyToken) {
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
-}*/
+}
 
 
 function handleSearch(command, replyToken) {
@@ -238,6 +240,39 @@ function handleError(replyToken) {
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
+}
+
+function handleFeedback(replyToken) {
+    const buttonsImageURL = `${baseURL}/static/buttons/1040.jpg`;
+    console.log("\tBang Teti asks for feedback.");
+    const reply = {
+      "type": "template",
+      "altText": "this is a buttons template",
+      "template": {
+          "type": "buttons",
+          "thumbnailImageUrl": buttonsImageURL,
+          "title": "Menu",
+          "text": "Please select",
+          "actions": [
+              {
+                "type": "postback",
+                "label": "Buy",
+                "data": "action=buy&itemid=123"
+              },
+              {
+                "type": "postback",
+                "label": "Add to cart",
+                "data": "action=add&itemid=123"
+              },
+              {
+                "type": "uri",
+                "label": "View detail",
+                "uri": "http://example.com/page/123"
+              }
+          ]
+      }
+    };
+    handleError(replyToken);
 }
 
 // Start server
