@@ -368,9 +368,10 @@ function handleError(replyToken) {
 function handleFeedback(replyToken) {
     console.log("\tBang Teti asks for feedback.");
     const targetId = 'Uacbfb10288b2b165c88b8eec87767973';
+    console.log(baseURL);
     const reply = {
       "type": "imagemap",
-      "baseUrl": "https://raw.githubusercontent.com/fadhilimamk/bangteti/master/emoji/1040",
+      "baseUrl": baseURL+"/static/emoji",
       "altText": "this is an imagemap",
       "baseSize": {
           "height": 1040,
