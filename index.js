@@ -41,11 +41,17 @@ function saveDatabase() {
     console.log('Succes saving data.');
 }
 
-function addUserToDatabase(userId) {
-    var user = database.users.userId;
-    if (user == undefined) {
+function addUserToDatabase(userID) {
+    var users = database.users;
+    var found = false;
+    users.forEach(function(user) {
+        if (user.userId == userID) {
+            found == true;
+        }
+    });
+    if (!found) {
         database.users.push({
-            "userId": userId,
+            "userId": userID,
             "state": "all"
         })
     }
