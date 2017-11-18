@@ -8,9 +8,10 @@ const line = require('@line/bot-sdk');
 const middleware = require('@line/bot-sdk').middleware;
 const app = express();
 var crawler = require('./newsCrawler');
-
+const baseURL = process.env.BASE_URL;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/static', express.static('static'));
 app.set('port', (process.env.PORT || 5000));
 
 const config = {
@@ -392,7 +393,7 @@ function handleFeedback(replyToken) {
     const targetId = 'Uacbfb10288b2b165c88b8eec87767973';
     const reply = {
       "type": "imagemap",
-      "baseUrl": "https://example.com/bot/images/rm001",
+      "baseUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/72/apple/114/smiling-face-with-open-mouth-and-tightly-closed-eyes_1f606.png",
       "altText": "this is an imagemap",
       "baseSize": {
           "height": 1040,
@@ -444,100 +445,89 @@ function pushBreakingNews() {
     const targetId = ['U064ad36afebade93b31fee05090207b0', 'Uacbfb10288b2b165c88b8eec87767973', 'Ue67f41a618a419cdf156d066c4f0b6d4'];
     const judul = 'Setya Novanto Menabrak Tiang Listrik';
 
-    const actionsTemplate = [
-        {
-            "type": "postback",
-            "label": "Selengkapnya",
-            "data": ""
-        },
-        {
-            "type": "postback",
-            "label": "Beri Feedback",
-            "data": ""
-        }
-    ];
-
     const messageIntro = {
         "type": "text",
         "text": "Breaking News!\n \""+judul+"\". Baca info selengkapnya dari Bang Teti!",
     };
+
     const messageCarousell = {
         "type": "template",
-        "altText": "Breaking News!\n \""+judul+"\". Baca info selengkapnya dari Bang Teti!",
+        "altText": "Ini Bang Teti kabarin berita tentang \""+judul+"\"!",
         "template": {
             "type": "carousel",
             "columns": [
                 {
                   "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/17/8eb03aef-1891-4be9-81f5-4a8584cebd6d_169.jpg?w=780&q=90",
-                  "title": "Pengacara: Kaki Novanto Keram, Mata Nggak Bisa Dibuka, Dada Sesak".substring(0,40),   
-                  "text": "Jakarta - Ketua DPR Setya Novanto hingga saat ini masih berada di dalam Rumah Sakit Cipto Mangunkusumo (RSCM) Kencana. Pengacaranya, Fredrich Yunadi, sebelumnya menyebut kondisi kesehatan kliennya masih mengkhawatirkan.".substring(0,60),
-                  "actions": actionsTemplate
-                },
-                {
-                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                  "title": "this is menu",
-                  "text": "description",
-                  "actions": "actionsTemplate"
-                }
-            ]
-        }
-    };
-
-    const template = {
-        "type": "template",
-        "altText": "Breaking News!\n \""+judul+"\". Baca info selengkapnya dari Bang Teti!",
-        "template": {
-            "type": "carousel",
-            "columns": [
-                {
-                  "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
-                  "title": "this is menu",
-                  "text": "description",
+                  "text": "Jakarta - Ketua DPR Setya Novanto hingga saat ini masih berada di dalam Rumah Sakit Cipto Mangunkusumo (RSCM) Kencana. Pengacaranya, Fredrich Yunadi, sebelumnya menyebut kondisi kesehatan kliennya masih mengkhawatirkan.",
                   "actions": [
                       {
-                          "type": "postback",
-                          "label": "Buy",
-                          "data": "action=buy&itemid=111"
-                      },
-                      {
-                          "type": "postback",
-                          "label": "Add to cart",
-                          "data": "action=add&itemid=111"
-                      },
-                      {
                           "type": "uri",
-                          "label": "View detail",
-                          "uri": "http://example.com/page/111"
+                          "label": "Selengkapnya",
+                          "uri": "https://news.detik.com/berita/d-3731740/pengacara-kaki-novanto-keram-mata-nggak-bisa-dibuka-dada-sesak"
+                      },
+                      {
+                          "type": "postback",
+                          "label": "Beri Feedback",
+                          "data": "action=feedback&newsid=111"
                       }
                   ]
                 },
                 {
-                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                  "title": "this is menu",
-                  "text": "description",
-                  "actions": [
-                      {
-                          "type": "postback",
-                          "label": "Buy",
-                          "data": "action=buy&itemid=222"
-                      },
-                      {
-                          "type": "postback",
-                          "label": "Add to cart",
-                          "data": "action=add&itemid=222"
-                      },
-                      {
-                          "type": "uri",
-                          "label": "View detail",
-                          "uri": "http://example.com/page/222"
-                      }
-                  ]
-                }
+                    "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/18/53226336-9412-41e3-8472-b435cdcd0347_169.jpg?w=780&q=90",
+                    "title": "Karangan Bunga Bernada Satire Dikirim untuk Setya Novanto".substring(0,40),   
+                    "text": "Jakarta - Ada kiriman bunga yang dikirimkan untuk Ketua DPR Setya Novanto yang sedang dirawat di RSCM Kencana, Jakarta Pusat. Salah satunya bernada satire.".substring(0,60),
+                    "actions": [
+                        {
+                            "type": "uri",
+                            "label": "Selengkapnya",
+                            "uri": "https://news.detik.com/berita/d-3732326/karangan-bunga-bernada-satire-dikirim-untuk-setya-novanto"
+                        },
+                        {
+                            "type": "postback",
+                            "label": "Beri Feedback",
+                            "data": "action=feedback&newsid=111"
+                        }
+                    ]
+                },
+                {
+                    "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/17/8eb03aef-1891-4be9-81f5-4a8584cebd6d_169.jpg?w=780&q=90",
+                    "title": "Pengacara: Kaki Novanto Keram, Mata Nggak Bisa Dibuka, Dada Sesak".substring(0,40),   
+                    "text": "Jakarta - Ketua DPR Setya Novanto hingga saat ini masih berada di dalam Rumah Sakit Cipto Mangunkusumo (RSCM) Kencana. Pengacaranya, Fredrich Yunadi, sebelumnya menyebut kondisi kesehatan kliennya masih mengkhawatirkan.".substring(0,60),
+                    "actions": [
+                        {
+                            "type": "uri",
+                            "label": "Selengkapnya",
+                            "uri": "https://news.detik.com/berita/d-3731740/pengacara-kaki-novanto-keram-mata-nggak-bisa-dibuka-dada-sesak"
+                        },
+                        {
+                            "type": "postback",
+                            "label": "Beri Feedback",
+                            "data": "action=feedback&newsid=111"
+                        }
+                    ]
+                  },
+                  {
+                    "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/17/8eb03aef-1891-4be9-81f5-4a8584cebd6d_169.jpg?w=780&q=90",
+                    "title": "Pengacara: Kaki Novanto Keram, Mata Nggak Bisa Dibuka, Dada Sesak".substring(0,40),   
+                    "text": "Jakarta - Ketua DPR Setya Novanto hingga saat ini masih berada di dalam Rumah Sakit Cipto Mangunkusumo (RSCM) Kencana. Pengacaranya, Fredrich Yunadi, sebelumnya menyebut kondisi kesehatan kliennya masih mengkhawatirkan.".substring(0,60),
+                    "actions": [
+                        {
+                            "type": "uri",
+                            "label": "Selengkapnya",
+                            "uri": "https://news.detik.com/berita/d-3731740/pengacara-kaki-novanto-keram-mata-nggak-bisa-dibuka-dada-sesak"
+                        },
+                        {
+                            "type": "postback",
+                            "label": "Beri Feedback",
+                            "data": "action=feedback&newsid=111"
+                        }
+                    ]
+                  }                                  
             ]
         }
       };
 
-    client.multicast(targetId, [messageIntro, template])
+    client.multicast(targetId, [messageIntro, messageCarousell])
         .then(() => {
             console.log('Breaking News sent');
         })
