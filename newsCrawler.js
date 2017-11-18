@@ -83,50 +83,38 @@ function crawlNews(url,keyword,callback,output) {
 	});
 }
 var all = "http://sindikasi.okezone.com/index.php/rss/1/RSS2.0";
-var politic = "http://rss.viva.co.id/get/politik";
-var technology = "http://rss.viva.co.id/get/teknologi";
-var sport = "http://rss.viva.co.id/get/sport";
-var economy = "http://rss.viva.co.id/get/bisnis"
+var technology = "http://sindikasi.okezone.com/index.php/rss/16/RSS2.0";
+var sport = "http://sindikasi.okezone.com/index.php/rss/2/RSS2.0";
+var economy = "http://sindikasi.okezone.com/index.php/rss/11/RSS2.0"
+var health = "http://sindikasi.okezone.com/index.php/rss/12/RSS2.0"
+var entertainment = "http://sindikasi.okezone.com/index.php/rss/13/RSS2.0"
 function searchNews(topic,keyword,callback) {
 	
 	if (topic === "all") {
 		crawlNews(all,keyword,console.log,function(news) {
-			//console.log(news);
 			callback(news);
 		});
 	} else if (topic === "olahraga") {
 		crawlNews(sport,keyword,console.log,function(news) {
-			//console.log(news);
-			callback(news);
-		});
-	} else if (topic === "politik",console.log) {
-		crawlNews(politic,keyword,console.log,function(news) {
-			//console.log(news);
 			callback(news);
 		});
 	} else if (topic === "teknologi") {
 		crawlNews(technology,keyword,console.log,function(news) {
-			//console.log(news);
 			callback(news);
 		});
 	} else if (topic === "ekonomi") {
 		crawlNews(economy,keyword,console.log,function(news) {
-			//console.log(news);
+			callback(news);
+		});
+	} else if (topic === "hiburan") {
+		crawlNews(economy,keyword,console.log,function(news) {
+			callback(news);
+		});
+	} else if (topic === "kesehatan") {
+		crawlNews(economy,keyword,console.log,function(news) {
 			callback(news);
 		});
 	}
 }
 module.exports.searchNews = searchNews;
 module.exports.crawlTop10 = crawlTop10;
-var keyword = "novanto";
-searchNews("all",keyword,function(news) {
-	//var newsItems  = new Array();
-	var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
-	var newsCarousel = JSON.parse(msg);
-	newsCarousel['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
-	var reply = JSON.stringify(newsCarousel,null,2);
-	console.log(reply);
-})/*for (var i=1;i<news.length;i++) {
-		//newsItems.push(new newsItem(news[i].title,news[i].link,news[i].img));
-	}
-	});*/

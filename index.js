@@ -16,10 +16,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
 app.use('/data', express.static('data'));
 app.set('port', (process.env.PORT || 5000));
-
+var searchState = "all";
 function newsItem(title,link,img) {
 	this.thumbnailImageUrl = img;
-	this.text = title.substring(0,40);
+	this.text = title.trim().substring(0,40);
 	this.actions = new Array();
 	this.actions.push({"type" : "uri","label" : "Selengkapnya","uri" : link});
 	this.actions.push({"type" : "message","label" : "Beri feedback","text" : "feedback"});
@@ -155,6 +155,8 @@ app.get('/static/emoji-cropped/:resolution', function (req, res) {
 function handleFollow(replyToken, source) {
     console.log("\tGive introduction with token " + replyToken);
     
+    addUserToDatabase(source.userId);
+    
     client.getProfile(source.userId)
     .then((profile) => {
       console.log(profile.displayName);
@@ -224,6 +226,62 @@ function handleCommand(command, replyToken, source) {
         case 'feedback':
             handleFeedback(replyToken);
             break;
+		case 'all':
+			searchState = "all";
+			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+command};
+			client.replyMessage(replyToken, reply)
+			.then(() => console.log("\tSending reply " + replyToken))
+			.catch((err) => {
+				   console.log("\tTerjadi kesalahan " + err)
+			});;
+		case 'politik':
+			searchState = "politik";
+			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+command};
+			client.replyMessage(replyToken, reply)
+			.then(() => console.log("\tSending reply " + replyToken))
+			.catch((err) => {
+				   console.log("\tTerjadi kesalahan " + err)
+			});;
+		case 'hiburan':
+			searchState = "hiburan";
+			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+searchState};
+			client.replyMessage(replyToken, reply)
+			.then(() => console.log("\tSending reply " + replyToken))
+			.catch((err) => {
+				console.log("\tTerjadi kesalahan " + err)
+			});;
+		case 'kesehatan':
+			searchState = "kesehatan";
+			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+searchState};
+			client.replyMessage(replyToken, reply)
+			.then(() => console.log("\tSending reply " + replyToken))
+			.catch((err) => {
+				console.log("\tTerjadi kesalahan " + err)
+			});;
+		case 'teknologi':
+			searchState = "teknologi";
+			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+searchState};
+			client.replyMessage(replyToken, reply)
+			.then(() => console.log("\tSending reply " + replyToken))
+			.catch((err) => {
+				console.log("\tTerjadi kesalahan " + err)
+			});;
+		case 'olahraga':
+			searchState = "olahraga";
+			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+searchState};
+			client.replyMessage(replyToken, reply)
+			.then(() => console.log("\tSending reply " + replyToken))
+			.catch((err) => {
+				console.log("\tTerjadi kesalahan " + err)
+			});;
+		case 'ekonomi':
+			searchState = "ekonomi";
+			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+searchState};
+			client.replyMessage(replyToken, reply)
+			.then(() => console.log("\tSending reply " + replyToken))
+			.catch((err) => {
+				console.log("\tTerjadi kesalahan " + err)
+			});;
         case 'yay! seneng banget!':
             var reply = { type: 'text', text: "Wah saya ikut senang :)\nTerimakasih feedbacknya!" };
             client.replyMessage(replyToken, reply)
@@ -302,52 +360,56 @@ function handleCommand(command, replyToken, source) {
 
 function handleHelp(replyToken, source) {
     addUserToDatabase(source.userId);
-    var reply = { 
-        type: 'text', 
-        text: 'Hai gan, kamu perlu bantuan? \nTenang aja, apapun kesulitannya Bang Teti bakal bantu kok. \n\n- Kalo kamu mau nyari berita ketik aja "Cari <sesuatu>", ntar Bang Teti bakal nyariin berita buat kamu. \n- Nah kalo kamu mau nyari berita yang lagi viral kamu bisa ketik "top10" \n\nGampang kan! Kalo masih bingung panggil Abang lagi aja, ntar bakal dibantu kok \uDBC0\uDC84' };
-    client.replyMessage(replyToken, reply)
-    .then(() => console.log("\tSending reply " + replyToken))
-    .catch((err) => {
-        console.log("\tTerjadi kesalahan " + err)
-    });;
+    
+    client.getProfile(source.userId)
+    .then((profile) => {
+        var reply = { 
+            type: 'text', 
+            text: 'Hai '+profile.displayName+', kamu perlu bantuan? Tenang aja, apapun kesulitannya Bang Teti bakal bantu kok. \n\n- Kalo kamu mau nyari berita ketik aja "Cari <sesuatu>", ntar Bang Teti bakal nyariin berita buat kamu. \n- Nah kalo kamu mau nyari berita yang lagi viral kamu bisa ketik "top10" \n\nGampang kan! Kalo masih bingung panggil Abang lagi aja, ntar bakal dibantu kok \uDBC0\uDC84'
+        };
+        
+        client.replyMessage(replyToken, reply)
+            .then(() => console.log("\tSending reply " + replyToken))
+            .catch((err) => {
+                console.log("\tTerjadi kesalahan " + err)
+            }
+        );
+    }).catch((err) => {
+        console.log("\tTerjadi kesalahan profile" + err)
+    });
+
 }
 
 
 
 function handleTop10(replyToken) {
-
-    crawler.crawlTop10(function(news) { 
-    const reply;
-    const messageIntro = {
-        "type": "text",
-        "text": "Ini dia berita Top 10"
-    };
-    var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
-      var newsCarousel = JSON.parse(msg);
-      for (var i=1;i<10;i++) {
-        newsCarousel['template']['columns'].push(new newsItem(news[i].title,news[i].link,news[i].img));
-      }
-      console.log(JSON.stringify(newsCarousel));
-      reply = newsCarousel;
-      client.replyMessage(replyToken, [messageIntro, reply])
-        .then(() => {
-           console.log('Top10 sent with token ' + replyToken);
-        })
-        .catch((err) => {
-           console.log('Top10 error: ' + err);
-        })
-      });
+    crawler.crawlTop10(console.log,function(top10) {
+    var messageIntro = { 
+      "type": "text",
+      "text": "Ini dia berita top10"
+    }
+    var msg = '{"type": "template","altText": "Bang Teti ngirimin berita top10 nih","template": {"type": "carousel","columns": []}}';
+    var newsCarousel = JSON.parse(msg);
+    for (var i=0;i<10;i++) {
+      newsCarousel['template']['columns'].push(new newsItem(top10[i].title,top10[i].link,top10[i].img));
+    }
+    console.log(JSON.stringify(newsCarousel,null,2));
+    client.replyMessage(replyToken, [messageIntro, newsCarousel])
+    .then(() => console.log("\tSending reply " + replyToken))
+    .catch((err) => {console.log("\tTerjadi kesalahan " + err)})
+    });
 }
+
 
 
 function handleSearch(command, replyToken) {
     var keyword = command.substring(4).trim();
-	crawler.searchNews("all",keyword,function(news) {
+	crawler.searchNews(searchState,keyword,function(news) {
 		var reply;
 		if (news.length > 0) {
 			var msg = '{"type": "template","altText": "Hasil pencarian","template": {"type": "carousel","columns": []}}';
 			var newsCarousel = JSON.parse(msg);
-			for (var i=1;i<news.length;i++) {
+			for (var i=0;i<news.length;i++) {
 				newsCarousel['template']['columns'].push(new newsItem(news[0].title,news[0].link,news[0].img));
 			}
 			console.log(JSON.stringify(newsCarousel));
@@ -364,7 +426,7 @@ function handleSearch(command, replyToken) {
 function handleError(replyToken) {
     console.log("\tBang Teti bingung!");
 
-    const reply = { type: 'text', text: "Bang Teto bingung!" };
+    var reply = { type: 'text', text: "Bang Teto bingung!" };
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
@@ -374,7 +436,7 @@ function handleError(replyToken) {
 
 function handleFeedback(replyToken) {
     console.log("\tBang Teti asks for feedback.");
-    const reply = {
+    var reply = {
       "type": "imagemap",
       "baseUrl": baseURL+"/static/emoji-cropped",
       "altText": "Bang Teti minta feedback.",
@@ -474,6 +536,7 @@ function handleFeedback(replyToken) {
             console.log('Feedback error: ' + err);
         });
 }
+
 // ============================================= Start Server =============================================
 app.listen(app.get('port'), function() {
     console.log('Bang Teti is listening on port', app.get('port'));
