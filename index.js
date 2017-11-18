@@ -188,7 +188,7 @@ function handleTop10(replyToken) {
                       {
                           "type": "postback",
                           "label": "Selengkapnya",
-                          "data": "action=buy&itemid=111"
+                          "data": "https://news.detik.com/msite/berita/d-3732342/jokowi-minta-novanto-ikuti-proses-hukum-ksp-itu-peringatan-keras"
                       },
                       {
                           "type": "postback",
