@@ -207,7 +207,7 @@ function handleHelp(replyToken) {
 
 
 function handleTop10(replyToken) {
-    const targetId = 'U064ad36afebade93b31fee05090207b0';
+    const targetId = 'Ue67f41a618a419cdf156d066c4f0b6d4';
     const judul = 'Setya Novanto Menabrak Tiang Listrik'.substring(0,40);
     const message = {
         "type": "template",
