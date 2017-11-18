@@ -371,7 +371,7 @@ function handleFeedback(replyToken) {
     console.log(baseURL);
     const reply = {
       "type": "imagemap",
-      "baseUrl": baseURL+"/static/emoji",
+      "baseUrl": "https://quiet-sands-32630.herokuapp.com/static/emoji",
       "altText": "this is an imagemap",
       "baseSize": {
           "height": 1040,
