@@ -253,7 +253,7 @@ function handleTop10(replyToken) {
     .catch((err) => {
         console.log("\tTerjadi kesalahan " + err)
     });;
-}*/
+}
 
 
 function handleSearch(command, replyToken) {
