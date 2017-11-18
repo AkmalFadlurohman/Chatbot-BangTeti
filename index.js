@@ -171,54 +171,61 @@ function handleHelp(replyToken) {
     });;
 }
 
-function handleTop10(replyToken) {
-    var reply = { 
-        type: 'text', 
-        text: 'Pagi, ini nih 10 berita terheboh yang kamu harus tau:' };
-    client.replyMessage(replyToken, reply)
-    .then(() => console.log("\tSending reply " + replyToken))
-    .catch((err) => {
-        console.log("\tTerjadi kesalahan " + err)
-    });;
-}
 
 function handleTop10(replyToken) {
-    const buttonsImageURL = '${baseURL}/static/buttons/1040.jpg';
-    var reply = { 
-        type: 'template',
-        altText: 'Image carousel alt text',
-        template: {
-          type: 'image_carousel',
-          columns: [
-            {
-              imageUrl: buttonsImageURL,
-              action: { label: 'Go to LINE', type: 'uri', uri: 'https://line.me' }
-            },
-            {
-              imageUrl: buttonsImageURL,
-              action: { label: 'Say hello1', type: 'postback', data: 'hello こんにちは' }
-            },
-            {
-              imageUrl: buttonsImageURL,
-              action: { label: 'Say message', type: 'message', text: 'Rice=米' }
-            },
-            {
-              imageUrl: buttonsImageURL,
-              action: {
-                label: 'datetime',
-                type: 'datetimepicker',
-                data: 'DATETIME',
-                mode: 'datetime'
-              }
-            }
-          ]
+    const targetId = 'Ue67f41a618a419cdf156d066c4f0b6d4';
+    const judul = 'Setya Novanto Menabrak Tiang Listrik'.substring(0,40);
+    const message = {
+        "type": "template",
+        "altText": 'Inilah top10',
+        "template": {
+            "type": "carousel",
+            "columns": [
+                {
+                  "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/16/9304f5ed-f4fb-4c75-b657-ef146cc77c1c.jpeg?w=780&q=90",
+                  "title": "Jokowi Minta Novanto Ikuti Proses Hukum, KSP: Itu Peringatan Keras".substring(0,40),
+                  "text": "Jakarta - Presiden Joko Widodo meminta Setya Novanto mengikuti proses hukum di Komisi Pemberantasan Korupsi (KPK). Permintaan ini dinilai sebagai peringatan keras untuk Novanto agar tak lari dari kasus dugaan korupsi proyek e-KTP.".substring(0,60),
+                  "actions": [
+                      {
+                          "type": "postback",
+                          "label": "Selengkapnya",
+                          "data": "action=buy&itemid=111"
+                      },
+                      {
+                          "type": "postback",
+                          "label": "Beri Feedback",
+                          "data": "action=add&itemid=111"
+                      }
+                  ]
+                },
+                {
+                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
+                  "title": "this is menu",
+                  "text": "description",
+                  "actions": [
+                      {
+                          "type": "postback",
+                          "label": "Selengkapnya",
+                          "data": "action=buy&itemid=222"
+                      },
+                      {
+                          "type": "postback",
+                          "label": "Beri Feedback",
+                          "data": "action=add&itemid=222"
+                      }
+                  ]
+                }
+            ]
         }
     };
-    client.replyMessage(replyToken, reply)
-    .then(() => console.log("\tSending reply " + replyToken))
-    .catch((err) => {
-        console.log("\tTerjadi kesalahan " + err)
-    });;
+
+    client.pushMessage(targetId, message)
+        .then(() => {
+            console.log('Top10 sent to ' + targetId);
+        })
+        .catch((err) => {
+            console.log('Top10 error: ' + err);
+        });
 }
 
 
