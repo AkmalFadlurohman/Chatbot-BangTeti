@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
 app.use('/data', express.static('data'));
 app.set('port', (process.env.PORT || 5000));
+
 var searchState = "all";
 function newsItem(title,link,img) {
 	this.thumbnailImageUrl = img;
@@ -208,7 +209,7 @@ function handleCommand(command, replyToken, source) {
         case 'feedback':
             handleFeedback(replyToken);
             break;
-		case 'all':
+		case 'semua':
 			searchState = "all";
 			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+command};
 			client.replyMessage(replyToken, reply)
@@ -216,6 +217,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				   console.log("\tTerjadi kesalahan " + err)
 			});;
+			break;
 		case 'politik':
 			searchState = "politik";
 			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+command};
@@ -224,6 +226,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				   console.log("\tTerjadi kesalahan " + err)
 			});;
+			break;
 		case 'hiburan':
 			searchState = "hiburan";
 			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+searchState};
@@ -232,6 +235,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
+			break;
 		case 'kesehatan':
 			searchState = "kesehatan";
 			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+searchState};
@@ -240,6 +244,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
+			break;
 		case 'teknologi':
 			searchState = "teknologi";
 			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+searchState};
@@ -248,6 +253,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
+			break;
 		case 'olahraga':
 			searchState = "olahraga";
 			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+searchState};
@@ -256,6 +262,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
+			break;
 		case 'ekonomi':
 			searchState = "ekonomi";
 			var reply = { type: 'text', text: 'Lingkup pencarian saat ini berada pada kategori '+searchState};
@@ -264,6 +271,7 @@ function handleCommand(command, replyToken, source) {
 			.catch((err) => {
 				console.log("\tTerjadi kesalahan " + err)
 			});;
+			break;
         case 'yay! seneng banget!':
             var reply = { type: 'text', text: "Wah saya ikut senang :)\nTerimakasih feedbacknya!" };
             client.replyMessage(replyToken, reply)
@@ -336,6 +344,7 @@ function handleCommand(command, replyToken, source) {
             .catch((err) => {
                 console.log("\tTerjadi kesalahan " + err)
             });;
+			break;
     }
 
 }
