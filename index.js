@@ -614,7 +614,7 @@ function pushBreakingNews() {
         }
       };
 
-    client.multicast(targetId, messageIntro)
+    client.multicast(targetId, [messageIntro, messageCarousell])
         .then(() => {
             console.log('Breaking News sent');
         })
