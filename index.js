@@ -66,7 +66,7 @@ app.get('/breakingnews', function(request, response) {
 
 
 app.get('/static/emoji/:resolution', function (req, res) {
-    var resolution = request.params.resolution;
+    var resolution = req.params.resolution;
     switch (resolution) {
         default:
             res.sendFile(__dirname + '/static/emoji.jpg');
