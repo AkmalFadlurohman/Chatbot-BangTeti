@@ -454,7 +454,7 @@ function handleSearch(command, replyToken,source) {
 function handleError(replyToken) {
     console.log("\tBang Teti bingung!");
 
-    var reply = { type: 'text', text: "Bang Teti bingung!" };
+    var reply = { type: 'text', text: "Bang Teto bingung!" };
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
@@ -608,9 +608,9 @@ function pushBreakingNews() {
                           "uri": "https://news.detik.com/berita/d-3731740/pengacara-kaki-novanto-keram-mata-nggak-bisa-dibuka-dada-sesak"
                       },
                       {
-                          "type": "postback",
+                          "type": "message",
                           "label": "Beri Feedback",
-                          "data": "action=feedback&newsid=111"
+                          "text": "feedback"
                       }
                   ]
                 }                                
