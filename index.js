@@ -589,7 +589,7 @@ function pushBreakingNews() {
 
     const messageIntro = {
         "type": "text",
-        "text": "Breaking News!\n \""+judul+"\". Baca info selengkapnya dari Bang Teti!",
+        "text": "Breaking News!\n \""+judul+"\". Baca info selengkapnya dari Bang Teti!\n\n Sumber: https://news.detik.com",
     };
 
     const messageCarousell = {
