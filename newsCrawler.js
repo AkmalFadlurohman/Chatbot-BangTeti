@@ -35,28 +35,6 @@ function xmlToJson(url,callback) {
 		});
 	});
 }
-function crawlTop10(callback,output) {
-	xmlToJson('http://sindikasi.okezone.com/index.php/rss/0/RSS2.0',function(err, result) {
-		var news = new Array();
-		if (err) {
-			callback(err)
-		}
-		for(var i = 0; i < 10; i++) {
-			var title = result.rss.channel.item[i].title;
-			var link = result.rss.channel.item[i].link;
-			//var dom = new JSDOM(result.rss.channel.item[i].image,{ includeNodeLocations: true });
-			//var img = dom.window.document.querySelector("img");
-			var src = result.rss.channel.item[i].image.url;
-			/*if (img == null) {
-			  	src = "none";
-			} else {
-			  	src = img.getAttribute('src');
-			}*/
-			news.push({"title" : title,"link" : link,"img" : src});
-		}
-		return output(news);
-	});
-}
 
 function crawlNews(url,keyword,callback,output) {
 	xmlToJson(url,function(err, result) {
@@ -67,14 +45,7 @@ function crawlNews(url,keyword,callback,output) {
 		for(var i = 0; i < result.rss.channel.item.length; i++) {
 			var title = result.rss.channel.item[i].title;
 			var link = result.rss.channel.item[i].link;
-			//var dom = new JSDOM(result.rss.channel.item[i].image,{ includeNodeLocations: true });
-			//var img = dom.window.document.querySelector("img");
 			var src = result.rss.channel.item[i].image.url;
-			/*if (img == null) {
-			  	src = "none";
-			} else {
-			  	src = img.getAttribute('src');
-			}*/
 			if (kmp(toLowerCase(title),keyword) != -1) {
 				news.push({"title" : title,"link" : link,"img" : src});
 			}
@@ -88,6 +59,21 @@ var sport = "http://sindikasi.okezone.com/index.php/rss/2/RSS2.0";
 var economy = "http://sindikasi.okezone.com/index.php/rss/11/RSS2.0"
 var health = "http://sindikasi.okezone.com/index.php/rss/12/RSS2.0"
 var entertainment = "http://sindikasi.okezone.com/index.php/rss/13/RSS2.0"
+function crawlTop10(url,callback,output) {
+	xmlToJson(url,function(err, result) {
+		var news = new Array();
+		if (err) {
+			callback(err)
+		}
+		for(var i = 0; i <=1; i++) {
+			var title = result.rss.channel.item[i].title;
+			var link = result.rss.channel.item[i].link;
+			var src = result.rss.channel.item[i].image.url;
+			news.push({"title" : title,"link" : link,"img" : src});
+		}
+		return output(news);
+	});
+}
 function searchNews(topic,keyword,callback) {
 	
 	if (topic === "semua") {
@@ -116,5 +102,27 @@ function searchNews(topic,keyword,callback) {
 		});
 	}
 }
+function getTop10(callback) {
+	crawlTop10(technology,console.log,function(topics1) {
+		crawlTop10(sport,console.log,function(topics2) {
+			topics1.push(topics2[0]);
+			topics1.push(topics2[1]);
+			crawlTop10(economy,console.log,function(topics3) {
+			   	topics1.push(topics3[0]);
+			   	topics1.push(topics3[1]);
+			   	crawlTop10(health,console.log,function(topics4) {
+				   	topics1.push(topics4[0]);
+				   	topics1.push(topics4[1]);
+				   	crawlTop10(entertainment,console.log,function(topics5) {
+						topics1.push(topics5[0]);
+						topics1.push(topics5[1]);
+						callback(topics1);
+					});
+				});
+			});
+		});
+	});
+	return callback;
+}
 module.exports.searchNews = searchNews;
-module.exports.crawlTop10 = crawlTop10;
+module.exports.getTop10 = getTop10;

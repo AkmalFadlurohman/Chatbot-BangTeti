@@ -22,7 +22,7 @@ function newsItem(title,link,img) {
 	this.text = title.trim().substring(0,60);
 	this.actions = new Array();
 	this.actions.push({"type" : "uri","label" : "Selengkapnya","uri" : link});
-	this.actions.push({"type" : "message","label" : "Beri feedback","text" : "feedback"});
+	this.actions.push({"type" : "message","label" : "Beri feedback","text" : "Mau kasih feedback nih bang."});
 }
 
 const config = {
@@ -236,7 +236,7 @@ function handleCommand(command, replyToken, source) {
         case 'bantuan':
             handleHelp(replyToken, source);
             break;
-        case 'feedback':
+        case 'mau kasih feedback nih bang.':
             handleFeedback(replyToken);
             break;
 		case 'semua':
@@ -373,7 +373,7 @@ function handleCommand(command, replyToken, source) {
             handleAfterFeedback(source);
             break;
         default :
-            var reply = { type: 'text', text: 'Ehhmm, Bang Teti bingung nih, "'+command+'" maksudnya apa ya?' };
+            var reply = { type: 'text', text: 'Ehhmm, Bang Teti bingung nih, "'+command+'" maksudnya apa ya ? Jika butuh bantuan panggil aja "Bang"' };
             client.replyMessage(replyToken, reply)
             .then(() => console.log("\tSending reply " + replyToken))
             .catch((err) => {
@@ -408,20 +408,20 @@ function handleHelp(replyToken, source) {
 
 
 function handleTop10(replyToken) {
-    crawler.crawlTop10(console.log,function(top10) {
-    var messageIntro = { 
-      "type": "text",
-      "text": "Ini dia berita top10"
-    }
-    var msg = '{"type": "template","altText": "Bang Teti ngirimin berita top10 nih","template": {"type": "carousel","columns": []}}';
-    var newsCarousel = JSON.parse(msg);
-    for (var i=0;i<10;i++) {
-      newsCarousel['template']['columns'].push(new newsItem(top10[i].title,top10[i].link,top10[i].img));
-    }
-    console.log(JSON.stringify(newsCarousel,null,2));
-    client.replyMessage(replyToken, [messageIntro, newsCarousel])
-    .then(() => console.log("\tSending reply " + replyToken))
-    .catch((err) => {console.log("\tTerjadi kesalahan " + err)})
+    crawler.getTop10(function(top10) {
+		var messageIntro = {
+		  "type": "text",
+		  "text": "Ini dia berita top10"
+		}
+		var msg = '{"type": "template","altText": "Bang Teti ngirimin berita top10 nih","template": {"type": "carousel","columns": []}}';
+		var newsCarousel = JSON.parse(msg);
+		for (var i=0;i<10;i++) {
+		  newsCarousel['template']['columns'].push(new newsItem(top10[i].title,top10[i].link,top10[i].img));
+		}
+		console.log(JSON.stringify(newsCarousel,null,2));
+		client.replyMessage(replyToken, [messageIntro, newsCarousel])
+		.then(() => console.log("\tSending reply " + replyToken))
+		.catch((err) => {console.log("\tTerjadi kesalahan " + err)})
     });
 }
 
@@ -455,7 +455,7 @@ function handleSearch(command, replyToken,source) {
 function handleError(replyToken) {
     console.log("\tBang Teti bingung!");
 
-    var reply = { type: 'text', text: "Bang Teto bingung!" };
+    var reply = { type: 'text', text: "Bang Teti bingung! Jika butuh bantuan panggil aja \"Bang\"" };
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
@@ -468,7 +468,7 @@ function handleFeedback(replyToken) {
     var reply = {
       "type": "imagemap",
       "baseUrl": baseURL+"/static/emoji-new",
-      "altText": "Bang Teti minta feedback.",
+      "altText": "Bang Teti minta feedback dong.",
       "baseSize": {
           "height": 579,
           "width": 1040
@@ -611,7 +611,7 @@ function pushBreakingNews() {
                       {
                           "type": "message",
                           "label": "Beri Feedback",
-                          "text": "feedback"
+                          "text": "Mau kasih feedback nih bang."
                       }
                   ]
                 }                                
