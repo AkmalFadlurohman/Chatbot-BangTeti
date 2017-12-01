@@ -215,7 +215,7 @@ function handleCommand(command, replyToken, source) {
       			handleSearch(command, replyToken,source);
       			break;
         case 'image' :
-            var reply = { type: 'image', originalContentUrl: "https://img.okezone.com/content/2017/10/03/33/1787616/pasrah-jeremy-teti-mengaku-kesulitan-mencari-jodoh-C1LQd3TusT.jpg" , previewImageUrl : "https://ruclip.com/chimg/e4/UCvYygswZM7vKjdMA90d0YIg.jpg"};
+            var reply = { type: 'image', originalContentUrl: "http://style.tribunnews.com/2017/11/20/setya-novanto-masuk-penjara-kpk-perlawanan-belum-selesai-inilah-jurus-jurus-serangan-balik" , previewImageUrl : "https://ruclip.com/chimg/e4/UCvYygswZM7vKjdMA90d0YIg.jpg"};
             client.replyMessage(replyToken, reply)
             .then(() => console.log("\tSending reply " + replyToken))
             .catch((err) => {
