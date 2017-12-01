@@ -469,7 +469,7 @@ function handleFeedback(replyToken) {
       "baseUrl": baseURL+"/static/emoji-new",
       "altText": "Bang Teti minta feedback.",
       "baseSize": {
-          "height": 709,
+          "height": 579,
           "width": 1040
       },
       "actions": [
