@@ -222,7 +222,7 @@ function handleCommand(command, replyToken, source) {
                 console.log("\tTerjadi kesalahan " + err)
             });;
             break;
-        case 'breakingnews':baseURL+"/static/breakingnewsdummy/breakingnews1.png
+        case 'breakingnews':
              var reply = { type: 'image', originalContentUrl: "http://style.tribunnews.com/2017/11/20/setya-novanto-masuk-penjara-kpk-perlawanan-belum-selesai-inilah-jurus-jurus-serangan-balik" , previewImageUrl : baseURL+"/static/breakingnewsdummy/breakingnews1.png"};
             client.replyMessage(replyToken, reply)
             .then(() => console.log("\tSending reply " + replyToken))
