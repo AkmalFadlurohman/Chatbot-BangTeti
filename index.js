@@ -454,7 +454,7 @@ function handleSearch(command, replyToken,source) {
 function handleError(replyToken) {
     console.log("\tBang Teti bingung!");
 
-    var reply = { type: 'text', text: "Bang Teti bingung! Jika butuh bantuan panggil aja ""/Bang""/" };
+    var reply = { type: 'text', text: "Bang Teti bingung! Jika butuh bantuan panggil aja \"Bang\"" };
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
