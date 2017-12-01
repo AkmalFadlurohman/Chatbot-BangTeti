@@ -137,26 +137,26 @@ app.get('/breakingnews', function(request, response) {
 });
 
 
-app.get('/static/emoji-cropped/:resolution', function (req, res) {
+app.get('/static/emoji-new/:resolution', function (req, res) {
     var resolution = req.params.resolution;
     switch (resolution) {
         case '200':
-            res.sendFile(__dirname + '/static/emoji-cropped/200.png');
+            res.sendFile(__dirname + '/static/emoji-new/200.png');
             break;
         case '300':
-            res.sendFile(__dirname + '/static/emoji-cropped/300.png');
+            res.sendFile(__dirname + '/static/emoji-new/300.png');
             break;
         case '460':
-            res.sendFile(__dirname + '/static/emoji-cropped/460.png');
+            res.sendFile(__dirname + '/static/emoji-new/460.png');
             break;
         case '700':
-            res.sendFile(__dirname + '/static/emoji-cropped/700.png');
+            res.sendFile(__dirname + '/static/emoji-new/700.png');
             break;
         case '1040': 
-            res.sendFile(__dirname + '/static/emoji-cropped/1040.png');
+            res.sendFile(__dirname + '/static/emoji-new/1040.png');
             break;
         default:
-            res.sendFile(__dirname + '/static/emoji-cropped.png');
+            res.sendFile(__dirname + '/static/emoji-new.png');
     }
 });
 
@@ -466,10 +466,10 @@ function handleFeedback(replyToken) {
     console.log("\tBang Teti asks for feedback.");
     var reply = {
       "type": "imagemap",
-      "baseUrl": baseURL+"/static/emoji-cropped",
+      "baseUrl": baseURL+"/static/emoji-new",
       "altText": "Bang Teti minta feedback.",
       "baseSize": {
-          "height": 709,
+          "height": 579,
           "width": 1040
       },
       "actions": [
@@ -518,7 +518,7 @@ function handleFeedback(replyToken) {
               "text": "Astaga, seriusan?",
               "area": {
                   "x": 0,
-                  "y": 410,
+                  "y": 330,
                   "width": 200,
                   "height": 200
               }
@@ -528,7 +528,7 @@ function handleFeedback(replyToken) {
               "text": "Aku sedih :(",
               "area": {
                   "x": 260,
-                  "y": 410,
+                  "y": 330,
                   "width": 200,
                   "height": 200
               }
@@ -538,7 +538,7 @@ function handleFeedback(replyToken) {
               "text": "Duh, merinding, serem..",
               "area": {
                   "x": 520,
-                  "y": 410,
+                  "y": 330,
                   "width": 200,
                   "height": 200
               }
@@ -548,7 +548,7 @@ function handleFeedback(replyToken) {
               "text": "Ih ngeselin!",
               "area": {
                   "x": 780,
-                  "y": 410,
+                  "y": 330,
                   "width": 200,
                   "height": 200
               }
@@ -589,7 +589,7 @@ function pushBreakingNews() {
 
     const messageIntro = {
         "type": "text",
-        "text": "Breaking News!\n \""+judul+"\". Baca info selengkapnya dari Bang Teti!",
+        "text": "Breaking News!\n \""+judul+"\". Baca info selengkapnya dari Bang Teti!\n\n Sumber: https://news.detik.com",
     };
 
     const messageCarousell = {
@@ -600,7 +600,7 @@ function pushBreakingNews() {
             "columns": [
                 {
                   "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/17/8eb03aef-1891-4be9-81f5-4a8584cebd6d_169.jpg?w=780&q=90",
-                  "text": "Jakarta - Ketua DPR Setya Novanto hingga saat ini masih berada di dalam Rumah Sakit Cipto Mangunkusumo (RSCM) Kencana. Pengacaranya, Fredrich Yunadi, sebelumnya menyebut kondisi kesehatan kliennya masih mengkhawatirkan.".trim().substring(0,60),
+                  "text": "Jakarta - Ketua DPR Setya Novanto hingga saat ini masih berada di dalam Rumah Sakit Cipto Mangunkusumo (RSCM) Kencana. Pengacaranya, Fredrich Yunadi, sebelumnya menyebut kondisi kesehatan kliennya masih mengkhawatirkan.".trim().substring(0,57)+"...",
                   "actions": [
                       {
                           "type": "uri",
