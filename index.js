@@ -137,26 +137,26 @@ app.get('/breakingnews', function(request, response) {
 });
 
 
-app.get('/static/emoji-cropped/:resolution', function (req, res) {
+app.get('/static/emoji-new/:resolution', function (req, res) {
     var resolution = req.params.resolution;
     switch (resolution) {
         case '200':
-            res.sendFile(__dirname + '/static/emoji-cropped/200.png');
+            res.sendFile(__dirname + '/static/emoji-new/200.png');
             break;
         case '300':
-            res.sendFile(__dirname + '/static/emoji-cropped/300.png');
+            res.sendFile(__dirname + '/static/emoji-new/300.png');
             break;
         case '460':
-            res.sendFile(__dirname + '/static/emoji-cropped/460.png');
+            res.sendFile(__dirname + '/static/emoji-new/460.png');
             break;
         case '700':
-            res.sendFile(__dirname + '/static/emoji-cropped/700.png');
+            res.sendFile(__dirname + '/static/emoji-new/700.png');
             break;
         case '1040': 
-            res.sendFile(__dirname + '/static/emoji-cropped/1040.png');
+            res.sendFile(__dirname + '/static/emoji-new/1040.png');
             break;
         default:
-            res.sendFile(__dirname + '/static/emoji-cropped.png');
+            res.sendFile(__dirname + '/static/emoji-new.png');
     }
 });
 
