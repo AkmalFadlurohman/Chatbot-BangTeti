@@ -223,7 +223,7 @@ function handleCommand(command, replyToken, source) {
             });;
             break;
         case 'breakingnews':
-             var reply = { type: 'image', originalContentUrl: "http://style.tribunnews.com/2017/11/20/setya-novanto-masuk-penjara-kpk-perlawanan-belum-selesai-inilah-jurus-jurus-serangan-balik" , previewImageUrl : "/static/breakingnewsdummy/breakingnews1.png"};
+             var reply = { type: 'image', originalContentUrl: "/static/breakingnewsdummy/breakingnews1.png" , previewImageUrl : "/static/breakingnewsdummy/breakingnews1.png"};
             client.replyMessage(replyToken, reply)
             .then(() => console.log("\tSending reply " + replyToken))
             .catch((err) => {
