@@ -518,7 +518,7 @@ function handleFeedback(replyToken) {
               "text": "Astaga, seriusan?",
               "area": {
                   "x": 0,
-                  "y": 410,
+                  "y": 330,
                   "width": 200,
                   "height": 200
               }
@@ -528,7 +528,7 @@ function handleFeedback(replyToken) {
               "text": "Aku sedih :(",
               "area": {
                   "x": 260,
-                  "y": 410,
+                  "y": 330,
                   "width": 200,
                   "height": 200
               }
@@ -538,7 +538,7 @@ function handleFeedback(replyToken) {
               "text": "Duh, merinding, serem..",
               "area": {
                   "x": 520,
-                  "y": 410,
+                  "y": 330,
                   "width": 200,
                   "height": 200
               }
@@ -548,7 +548,7 @@ function handleFeedback(replyToken) {
               "text": "Ih ngeselin!",
               "area": {
                   "x": 780,
-                  "y": 410,
+                  "y": 330,
                   "width": 200,
                   "height": 200
               }
