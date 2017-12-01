@@ -223,7 +223,7 @@ function handleCommand(command, replyToken, source) {
             });;
             break;
         case 'breakingnews':
-             var reply = { type: 'image', originalContentUrl: "http://style.tribunnews.com/2017/11/20/setya-novanto-masuk-penjara-kpk-perlawanan-belum-selesai-inilah-jurus-jurus-serangan-balik" , previewImageUrl : baseURL+"/static/breakingnewsdummy/breakingnews1.png"};
+            var reply = { type: 'image', originalContentUrl: "http://style.tribunnews.com/2017/11/20/setya-novanto-masuk-penjara-kpk-perlawanan-belum-selesai-inilah-jurus-jurus-serangan-balik" , previewImageUrl : baseURL+"/static/breakingnewsdummy/breakingnews1.png"};
             client.replyMessage(replyToken, reply)
             .then(() => console.log("\tSending reply " + replyToken))
             .catch((err) => {
@@ -592,40 +592,19 @@ function pushBreakingNews() {
         return;
     }
 
-    const judul = 'Setya Novanto Menabrak Tiang Listrik';
+    const judul = 'Setya Novanto Masuk Penjara KPK';
 
     const messageIntro = {
         "type": "text",
         "text": "Breaking News!\n \""+judul+"\". Baca info selengkapnya dari Bang Teti!\n\n Sumber: https://news.detik.com",
     };
 
-    const messageCarousell = {
-        "type": "template",
-        "altText": "Ini Bang Teti kabarin berita tentang \""+judul+"\"!",
-        "template": {
-            "type": "carousel",
-            "columns": [
-                {
-                  "thumbnailImageUrl": "https://akcdn.detik.net.id/community/media/visual/2017/11/17/8eb03aef-1891-4be9-81f5-4a8584cebd6d_169.jpg?w=780&q=90",
-                  "text": "Jakarta - Ketua DPR Setya Novanto hingga saat ini masih berada di dalam Rumah Sakit Cipto Mangunkusumo (RSCM) Kencana. Pengacaranya, Fredrich Yunadi, sebelumnya menyebut kondisi kesehatan kliennya masih mengkhawatirkan.".trim().substring(0,57)+"...",
-                  "actions": [
-                      {
-                          "type": "uri",
-                          "label": "Selengkapnya",
-                          "uri": "https://news.detik.com/berita/d-3731740/pengacara-kaki-novanto-keram-mata-nggak-bisa-dibuka-dada-sesak"
-                      },
-                      {
-                          "type": "message",
-                          "label": "Beri Feedback",
-                          "text": "Mau kasih feedback nih bang."
-                      }
-                  ]
-                }                                
-            ]
-        }
-      };
+    const reply = { 
+        "type": 'image', 
+        "originalContentUrl": baseURL+"/static/breakingnewsdummy/breakingnews1.png" ,
+        "previewImageUrl" : baseURL+"/static/breakingnewsdummy/breakingnews1.png"};
 
-    client.multicast(targetId, [messageIntro, messageCarousell])
+    client.multicast(targetId, [messageIntro, reply])
         .then(() => {
             console.log('Breaking News sent');
         })
