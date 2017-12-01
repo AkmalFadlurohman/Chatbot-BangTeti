@@ -466,7 +466,7 @@ function handleFeedback(replyToken) {
     console.log("\tBang Teti asks for feedback.");
     var reply = {
       "type": "imagemap",
-      "baseUrl": baseURL+"/static/emoji-new",
+      "baseUrl": baseURL+"/static/emoji-cropped",
       "altText": "Bang Teti minta feedback.",
       "baseSize": {
           "height": 709,
