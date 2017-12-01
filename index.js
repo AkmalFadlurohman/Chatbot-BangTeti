@@ -371,7 +371,7 @@ function handleCommand(command, replyToken, source) {
             handleAfterFeedback(source);
             break;
         default :
-            var reply = { type: 'text', text: 'Ehhmm, Bang Teti bingung nih, "'+command+'" maksudnya apa ya?' };
+            var reply = { type: 'text', text: 'Ehhmm, Bang Teti bingung nih, "'+command+'" maksudnya apa ya?. Jika butuh bantuan panggil aja "Bang"' };
             client.replyMessage(replyToken, reply)
             .then(() => console.log("\tSending reply " + replyToken))
             .catch((err) => {
