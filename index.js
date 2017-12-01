@@ -223,7 +223,12 @@ function handleCommand(command, replyToken, source) {
             });;
             break;
         case 'breakingnews':
-            handleBreaking(replyToken);
+             var reply = { type: 'image', originalContentUrl: "http://style.tribunnews.com/2017/11/20/setya-novanto-masuk-penjara-kpk-perlawanan-belum-selesai-inilah-jurus-jurus-serangan-balik" , previewImageUrl : "/static/breakingnewsdummy/breakingnews1.png"};
+            client.replyMessage(replyToken, reply)
+            .then(() => console.log("\tSending reply " + replyToken))
+            .catch((err) => {
+                console.log("\tTerjadi kesalahan " + err)
+            });;
             break;
         case 'top10':
         case 'top 10':
@@ -407,14 +412,6 @@ function handleHelp(replyToken, source) {
 
 }
 
-function handleBreaking(replyToken) {
-    var reply = { type: 'image', originalContentUrl: "http://style.tribunnews.com/2017/11/20/setya-novanto-masuk-penjara-kpk-perlawanan-belum-selesai-inilah-jurus-jurus-serangan-balik" , previewImageUrl : "/static/breakingnewsdummy/breakingnews1.png"};
-            client.replyMessage(replyToken, reply)
-            .then(() => console.log("\tSending reply " + replyToken))
-            .catch((err) => {
-                console.log("\tTerjadi kesalahan " + err)
-            });;
-}
 
 function handleTop10(replyToken) {
     crawler.getTop10(function(top10) {
