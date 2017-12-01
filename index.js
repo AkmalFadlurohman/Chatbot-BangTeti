@@ -222,6 +222,8 @@ function handleCommand(command, replyToken, source) {
                 console.log("\tTerjadi kesalahan " + err)
             });;
             break;
+        case 'breakingnews':
+            handleBreaking(replyToken);
         case 'top10':
         case 'top 10':
         case 'top-10':
@@ -403,7 +405,6 @@ function handleHelp(replyToken, source) {
     });
 
 }
-
 
 
 function handleTop10(replyToken) {
