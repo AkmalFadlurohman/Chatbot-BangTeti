@@ -22,7 +22,7 @@ function newsItem(title,link,img) {
 	this.text = title.trim().substring(0,60);
 	this.actions = new Array();
 	this.actions.push({"type" : "uri","label" : "Selengkapnya","uri" : link});
-	this.actions.push({"type" : "message","label" : "Beri feedback","text" : "feedback"});
+	this.actions.push({"type" : "message","label" : "Beri feedback","text" : "Mau kasih feedback nih bang."});
 }
 
 const config = {
@@ -234,7 +234,7 @@ function handleCommand(command, replyToken, source) {
         case 'bantuan':
             handleHelp(replyToken, source);
             break;
-        case 'feedback':
+        case 'mau kasih feedback nih bang.':
             handleFeedback(replyToken);
             break;
 		case 'semua':
@@ -454,7 +454,7 @@ function handleSearch(command, replyToken,source) {
 function handleError(replyToken) {
     console.log("\tBang Teti bingung!");
 
-    var reply = { type: 'text', text: "Bang Teto bingung!" };
+    var reply = { type: 'text', text: "Bang Teti bingung! Jika butuh bantuan panggil aja ""/Bang""/" };
     client.replyMessage(replyToken, reply)
     .then(() => console.log("\tSending reply " + replyToken))
     .catch((err) => {
@@ -467,7 +467,7 @@ function handleFeedback(replyToken) {
     var reply = {
       "type": "imagemap",
       "baseUrl": baseURL+"/static/emoji-new",
-      "altText": "Bang Teti minta feedback.",
+      "altText": "Bang Teti minta feedback dong.",
       "baseSize": {
           "height": 579,
           "width": 1040
@@ -610,7 +610,7 @@ function pushBreakingNews() {
                       {
                           "type": "message",
                           "label": "Beri Feedback",
-                          "text": "feedback"
+                          "text": "Mau kasih feedback nih bang."
                       }
                   ]
                 }                                
