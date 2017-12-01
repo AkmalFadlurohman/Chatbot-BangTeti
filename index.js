@@ -612,3 +612,38 @@ function pushBreakingNews() {
             console.log('Breaking News error: ' + err);
         });
 }
+
+app.get('/top10', function(request, response) {
+    pushTop10();
+    response.send("Pushing top10 to all saved user");
+});
+
+function pushTop10() {
+    var targetId = [];
+    database.users.forEach(function(user) {
+        targetId.push(user.userId);
+    });
+    console.log("sending to " + JSON.stringify(targetId));
+
+    if (targetId.length == 0) {
+        console.log("Bang Teti have no friend :(");
+        return;
+    }
+
+    crawler.getTop10(function(top10) {
+        var messageIntro = {
+          "type": "text",
+          "text": "Ini dia berita top10"
+        }
+        var msg = '{"type": "template","altText": "Bang Teti ngirimin berita top10 nih","template": {"type": "carousel","columns": []}}';
+        var newsCarousel = JSON.parse(msg);
+        for (var i=0;i<10;i++) {
+          newsCarousel['template']['columns'].push(new newsItem(top10[i].title,top10[i].link,top10[i].img));
+        }
+        console.log(JSON.stringify(newsCarousel,null,2));
+        client.multicast(targetId, [messageIntro, newsCarousel])
+        .then(() => console.log("\tSending reply " + replyToken))
+        .catch((err) => {console.log("\tTerjadi kesalahan " + err)})
+    });
+
+}
